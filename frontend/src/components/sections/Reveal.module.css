@@ -1,0 +1,129 @@
+.title {
+  font-size: var(--t-h1);
+  margin-bottom: 1.4rem;
+}
+.lead {
+  max-width: 46ch;
+  margin-bottom: 3.5rem;
+}
+
+.headline {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+.chartCol {
+  min-width: 0;
+}
+.read {
+  align-self: center;
+}
+.figlabel {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--t-label);
+  color: var(--c-accent);
+  margin-bottom: 1rem;
+}
+.readp {
+  font-size: var(--t-small);
+  color: var(--c-ink);
+  line-height: 1.55;
+  margin-bottom: 0.9rem;
+  max-width: 38ch;
+}
+
+/* findings as a narrative sequence - each figure gets a titled moment, not a grid dump.
+   SVGs export on the site base, so they blend (no white plate). */
+.figFlow {
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+  border-top: 1px solid var(--c-hairline);
+  padding-top: 3.5rem;
+}
+.figKicker {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--t-label);
+  color: var(--c-accent);
+  margin-bottom: 0.7rem;
+}
+.figLine {
+  font-size: 1.05rem;
+  color: var(--c-ink);
+  line-height: 1.55;
+  max-width: 62ch;
+  margin-bottom: 1.6rem;
+}
+.figFrame {
+  margin: 0;
+  max-width: 920px;
+}
+.figFrame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.cap {
+  font-size: var(--t-small);
+  color: var(--c-muted);
+  line-height: 1.5;
+  margin-top: 0.9rem;
+  max-width: 52ch;
+}
+.beatlabel {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--t-label);
+  color: var(--c-accent);
+  margin-bottom: 1rem;
+}
+.dissoc {
+  border-top: 1px solid var(--c-hairline);
+  padding-top: 3rem;
+  margin-bottom: 4.5rem;
+}
+.dissocLead {
+  font-size: 1.05rem;
+  color: var(--c-ink);
+  line-height: 1.6;
+  max-width: 64ch;
+  margin-bottom: 2rem;
+}
+.dissocLead em {
+  font-style: italic;
+}
+.dissocChartWrap {
+  max-width: 620px;
+}
+.finePrint {
+  border-top: 1px solid var(--c-hairline);
+  padding-top: 3rem;
+  margin-top: 4.5rem;
+}
+.fpList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.fpList li {
+  font-size: var(--t-small);
+  color: var(--c-muted);
+  line-height: 1.55;
+}
+.fpList strong {
+  color: var(--c-ink);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+@media (max-width: 820px) {
+  .headline,
+  .fpList {
+    grid-template-columns: 1fr;
+  }
+}

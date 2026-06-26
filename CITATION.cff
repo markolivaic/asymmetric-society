@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Asymmetric Society"
+abstract: >-
+  Simulation framework for studying capability heterogeneity, strategic
+  exploitation, and welfare inequality in LLM agent populations.
+authors:
+  - family-names: "Livaić"
+    given-names: "Francesco Marko"
+license: MIT
+repository-code: "https://github.com/markolivaic/asymmetric-society"
+date-released: "2026-06-26"
+keywords:
+  - large language models
+  - multi-agent systems
+  - game theory
+  - welfare inequality
+  - strategic deception

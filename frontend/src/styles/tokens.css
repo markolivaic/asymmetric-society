@@ -1,0 +1,55 @@
+/* ZAV-35 design tokens - locked in the Frontend Build Spec (Confluence 16220162).
+   Site chrome vs data palette are kept separate: data colours appear ONLY in charts. */
+:root {
+  /* --- chrome (light) --- */
+  --c-base: #f4f2ee;       /* warm off-white page */
+  --c-surface: #eceae4;    /* cards, chart panels */
+  --c-ink: #1a1a18;        /* primary text */
+  --c-muted: #6b6862;      /* secondary / subline */
+  --c-hairline: #d9d5cc;   /* rules, borders, dotted grid */
+  --c-accent: #bd7b2c;     /* camel - links, CTA, hover, focus */
+  --c-accent-deep: #955e1f;
+  --c-theater-bg: #0e0e10; /* Act 3 only */
+  --c-theater-ink: #e8e6e1;
+
+  /* --- locked data palette (charts only) --- */
+  --d-strong: #0072b2;
+  --d-weak: #d55e00;
+  --d-haiku: #0072b2;
+  --d-gpt: #009e73;
+  --d-gemini: #56b4e9;
+  --d-llama: #d55e00;
+  --d-coop: #009e73;
+  --d-info: #56b4e9;
+  --d-neutral: #bbbbbb;
+  --d-threat: #e69f00;
+  --d-deceptive: #d55e00;
+
+  /* --- type scale --- */
+  --t-display: clamp(2.9rem, 6.2vw, 5.5rem);
+  --t-h1: clamp(2rem, 3.4vw, 3rem);
+  --t-h2: 1.7rem;
+  --t-body: 1.125rem;
+  --t-small: 0.95rem;
+  --t-label: 0.74rem;
+
+  /* --- fonts: Direction A (Editorial-Technical) by default --- */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --display-weight: 460;
+  --display-spacing: -0.015em;
+
+  /* --- motion --- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --maxw: 1180px;
+}
+
+/* Direction B (Pure Technical) - Geist family */
+:root.font-b {
+  --font-display: "Geist Variable", system-ui, sans-serif;
+  --font-body: "Geist Variable", system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --display-weight: 600;
+  --display-spacing: -0.03em;
+}

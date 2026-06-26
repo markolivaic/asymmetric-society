@@ -1,0 +1,38 @@
+.line {
+  font-size: var(--t-h1);
+  border-top: 1px solid var(--c-hairline);
+  padding-top: 3rem;
+  margin-bottom: 3.5rem;
+  max-width: 20ch;
+}
+.meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: var(--t-label);
+  color: var(--c-accent);
+  margin-bottom: 0.8rem;
+}
+.val {
+  font-size: var(--t-small);
+  color: var(--c-muted);
+  line-height: 1.7;
+}
+.val a {
+  color: var(--c-ink);
+  border-bottom: 1px solid var(--c-hairline);
+  transition: border-color 0.18s var(--ease);
+}
+.val a:hover {
+  border-color: var(--c-accent);
+}
+@media (max-width: 820px) {
+  .meta {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

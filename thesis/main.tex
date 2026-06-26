@@ -1,0 +1,180 @@
+% Asymmetric Society - bachelor thesis (ZAV-36)
+% English body, Croatian front-matter labels (TVZ). IEEE numeric citations.
+% Title page: TVZ naslovnica (Croatian), included as the first page (see \begin{titlepage} below).
+% Build: tectonic (XeTeX). Native Croatian diacritics; biber bundled.
+\documentclass[11pt,a4paper,oneside]{report}
+
+% --- fonts (XeTeX via tectonic): fontspec defaults to bundled Latin Modern,
+%     which has full Croatian glyph coverage and reads UTF-8 natively. ---
+\usepackage{fontspec}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\linespread{1.13}
+
+% --- graphics / tables / code ---
+\usepackage{graphicx}
+\graphicspath{{../figures/}}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{placeins}  % \FloatBarrier: keep each section's floats within it
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+% --- bibliography: classic bibtex + IEEEtran.bst (IEEE numeric). Robust in tectonic
+%     (bundled bibtex, no biber/version coupling); same IEEE numeric result. ---
+
+% --- links last ---
+\usepackage[hidelinks]{hyperref}
+
+% --- Furniture labels: English throughout (class defaults), except References and the
+%     mandatory Croatian Sažetak page. The TVZ template has the final word at submission. ---
+\renewcommand{\bibname}{References}
+\renewcommand{\lstlistlistingname}{List of Listings}
+
+% --- code listing style (self-contained; no shell-escape) ---
+\definecolor{codebg}{HTML}{F4F2EE}
+\definecolor{codekw}{HTML}{0072B2}
+\definecolor{codecmt}{HTML}{6B6862}
+\definecolor{codestr}{HTML}{009E73}
+\lstdefinestyle{thesis}{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{codecmt}\itshape,
+  stringstyle=\color{codestr},
+  numberstyle=\tiny\color{codecmt}, numbers=left, numbersep=8pt,
+  breaklines=true, frame=single, rulecolor=\color{codecmt},
+  showstringspaces=false, captionpos=b, language=Python, tabsize=4,
+}
+\lstset{style=thesis}
+\AtBeginDocument{\counterwithin{lstlisting}{chapter}} % number listings per chapter (Listing 4.1), matching tables
+
+% source line for captions (Autor for ours, [n] for borrowed)
+\newcommand{\source}[1]{\par\smallskip{\footnotesize\textit{Source: #1}\par}}
+
+\begin{document}
+
+% ================= NASLOVNICA (TVZ) =================
+\begin{titlepage}
+    \centering
+
+    % --- Zaglavlje: ustanova i studij ---
+    {\large Tehničko veleučilište u Zagrebu\par}
+    \vspace{0.4em}
+    {\large Stručni prijediplomski studij Računarstvo\par}
+
+    \vfill
+
+    % --- Naslov rada ---
+    {\LARGE\bfseries Asimetrično društvo: heterogenost sposobnosti\\[0.3em]
+    među LLM agentima u iteriranim ekonomskim igrama\par}
+
+    \vspace{1.0em}
+
+    % --- Podnaslov ---
+    {\large Završni rad\par}
+
+    \vfill
+
+    % --- Mentor i student (poravnato desno) ---
+    \begin{flushright}
+        \large
+        \textbf{Ime i prezime mentora:}\\
+        dr.\ sc.\ Aleksandar Stojanović\\[1.2em]
+        \textbf{Ime i prezime studenta:}\\
+        Francesco Marko Livaić\\
+    \end{flushright}
+
+    \vfill
+
+    % --- Mjesto i datum ---
+    {\large Zagreb, lipanj 2026.\par}
+
+\end{titlepage}
+
+% ================= FRONT MATTER =================
+\pagenumbering{roman}
+
+\chapter*{Sažetak}
+
+Veliki jezični modeli različite sposobnosti sve se češće postavljaju zajedno, uz pretpostavku da
+je jači agent u prednosti. Ova teza tu pretpostavku ispituje stavljajući tri jaka modela
+(Claude Haiku~4.5, GPT-5-mini, Gemini~2.5 Flash) i jedan slab lokalni model (Llama~3.2 3B) u
+ponovljene ekonomske igre, četveroigračku igru javnog dobra i dvoigračku igru povjerenja, kroz
+matricu od šesnaest ćelija različitih sastava populacije, mjereći nejednakost, iskorištavanje i
+obmanu kroz 320 unaprijed registriranih igara. Glavni nalaz obrće pretpostavku. Bez komunikacije
+jaki modeli ostvaruju premiju sposobnosti; s komunikacijom se premija invertira i jaki modeli
+zarađuju manje, a taj pomak model miješanih efekata smješta u grupnu igru i pokazuju ga sva tri
+jaka modela pojedinačno. Poluga nije razmjena poruka: u ovom dizajnu poruka se bilježi, ali se
+nikada ne dostavlja, pa je uvjet javno obavezivanje bez recepcije, a ponašanje mijenja okvir
+traženja da se agent javno obveže, a ne išta što bi drugi agent pročitao. Učinak pripada grupnoj
+igri i nestaje u dvoigračkoj razmjeni. Drugi, metodološki doprinos tiče se obmane: globalna
+divergencija između izrečene i otkrivene politike agenta ocjenjuje najdosljednije suradnike kao
+najmanje poštene, što je artefakt koncentracije ponašanja, dok istodobna mjera iznenađenja
+(\textit{surprisal}) po potezu ispravno razdvaja razine. Fiksirani u smjeru prije nego što su
+podaci postojali, rezultati upozoravaju da sposobnost ne mora donijeti prednost, da traženje od
+agenata da se obvežu može staviti sposobne u nepovoljan položaj te da mjerenje obmane zahtijeva
+pravu divergenciju.
+
+\vspace{1em}\noindent\textbf{Ključne riječi:} višeagentni sustavi velikih jezičnih modela;
+asimetrija sposobnosti; igra javnog dobra; igra povjerenja; suradnja; mjerenje obmane; javno
+obavezivanje; unaprijed registrirana studija
+
+\chapter*{Abstract}
+
+Large language models of different capability are increasingly deployed together, on the
+assumption that the stronger agent holds the advantage. This thesis tests that assumption by
+placing three strong models (Claude Haiku~4.5, GPT-5-mini, Gemini~2.5 Flash) and one weak local
+model (Llama~3.2 3B) in repeated economic games, a four-player Public Goods Game and a two-player
+Trust Game, across a sixteen-cell matrix of population compositions, and measuring inequality,
+exploitation, and deception over 320 pre-registered games. The central finding reverses the
+assumption. Without communication the strong models earn a capability premium; with it, the
+premium inverts and the strong models earn less, a swing a mixed-effects model localizes to the
+group game and that all three strong models show individually. The lever is not an exchange of
+messages: in this design a message is logged but never delivered, so the condition is public
+commitment without reception, and what moves behavior is the framing of being asked to pledge, not
+anything read by another agent. The effect belongs to the group game and fades in the two-player
+exchange. A second, methodological contribution concerns deception: a global divergence between an
+agent's stated and revealed policy scores the steadiest cooperators as the least honest, an
+artefact of behavioral concentration, while a contemporaneous, action-by-action surprisal
+separates the tiers correctly. Fixed in direction before the data existed, the results caution
+that capability need not buy advantage, that asking agents to commit can disadvantage the capable,
+and that measuring deception requires the right divergence.
+
+\vspace{1em}\noindent\textbf{Keywords:} multi-agent LLM systems; capability asymmetry; public
+goods game; trust game; cooperation; deception measurement; public commitment; pre-registered
+study
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter*{List of Symbols and Abbreviations}
+\begin{description}
+  \item[LLM] Large Language Model
+  \item[PGG] Public Goods Game
+  \item[KL] Kullback--Leibler divergence
+  \item[AUC] Area Under the ROC Curve
+  \item[CI] Confidence Interval
+  \item[OSF] Open Science Framework
+\end{description}
+
+% ================= BODY =================
+\clearpage
+\pagenumbering{arabic}
+
+\input{chapters/01-introduction}
+\input{chapters/02-background}
+\input{chapters/03-methodology}
+\input{chapters/04-implementation}
+\input{chapters/05-results}
+\input{chapters/06-discussion}
+\input{chapters/07-conclusion}
+
+% ================= BIBLIOGRAPHY =================
+\addcontentsline{toc}{chapter}{References}
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

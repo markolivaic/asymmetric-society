@@ -1,0 +1,372 @@
+\chapter{Results}
+\label{ch:results}
+
+% ---------------------------------------------------------------------------
+% HYPOTHESIS NUMBERING follows the LOCKED OSF pre-registration (osf.io/rnqgs,
+% registered 2026-06-18; verified against the OSF API on 2026-06-26):
+%   H1 = welfare inequality (Gini/Atkinson)
+%   H2 = direction of the capability premium (negative; strong may earn less)
+%   H3 = communication worsens the strong tier's premium (the lever)
+%   H4 = deception (contemporaneous surprisal vs global policy-KL)
+%   H5 = cross-game generalization (directional consistency across PGG and Trust)
+% Tier inference is a SECONDARY measured variable (OSF sec.4), NOT a hypothesis.
+% Presentation order is by importance (headline first), but every section carries
+% its TRUE OSF Hx. Use the same numbering in the Discussion and in Introduction 1.2.
+% ---------------------------------------------------------------------------
+
+\section{Production run and data quality}
+\label{sec:res-dataquality}
+
+The production run executed the full matrix: sixteen cells, each replicated over
+twenty seeds, for 320 games (Table~\ref{tab:corpus}). All 320 finished; none was left
+partial. The Public Goods cells supplied 200 four-player games and the Trust cells 120
+two-player games, 1,040 agent-records and 12,800 single-round decisions in all.
+
+\begin{table}[t]
+\centering
+\caption{The production corpus. Each cell is one composition under one communication
+condition, replicated over twenty seeds.}
+\label{tab:corpus}
+\begin{tabular}{lccccc}
+\toprule
+Game & Compositions & Cells & Games & Players/game & Agent-rows \\
+\midrule
+Public Goods & 5 & 10 & 200 & 4 & 800 \\
+Trust        & 3 &  6 & 120 & 2 & 240 \\
+\midrule
+Total        & 8 & 16 & 320 & -- & 1,040 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The decisions came back clean. Of the 12,800, 12,683 (99.1\%) succeeded on the first
+attempt; 117 needed at least one retry, all but six of them for a transient API error
+rather than a parse failure, and every one resolved within the three-retry budget, so the
+safe default of Section~\ref{sec:protocols} was never used: not one decision in the corpus
+is a fallback. The genuine parse-failure rate, six in 12,800, sits far below the
+fifteen-percent rate at which the project would have moved from prompt-level JSON to
+constrained decoding. The run and its paid scoring together cost 5.62 euros, recorded
+in the run's own log and well under the eighty-five-euro tripwire
+(Section~\ref{sec:repro}).
+
+\section{H2 and H3: Communication inverts the capability premium}
+\label{sec:res-premium}
+
+Consider one game. In a Public Goods cell with a single strong agent among three weak
+ones, communication on, the strong agent (Gemini~2.5 Flash) contributes its full
+endowment of twenty tokens in every one of the ten rounds, and says so, round after
+round: \emph{``Hey everyone, let's all contribute 20 tokens to maximize the collective
+gain''} in the first, \emph{``I've been contributing 20 every round, hoping for more
+cooperation''} by the fifth. The three weak agents (Llama~3.2 3B) contribute between
+five and eighteen and pocket the difference. The strong agent ends the game with 217
+tokens; the weak agents end with 332, 303, and 273. The most capable player in the room
+cooperated the hardest and finished last.
+
+That game is the whole result in miniature, and it holds across the corpus. The
+capability premium, the strong tier's mean payoff minus the weak tier's, is positive in
+every mixed Public Goods cell when communication is off and negative in every one when
+it is on (Table~\ref{tab:premium}). Each off-to-on pair crosses zero, and the confidence
+interval on every on-value excludes it.
+
+\begin{table}[t]
+\centering
+\caption{Capability premium (strong minus weak mean cumulative payoff) in the
+mixed-tier Public Goods cells, with 95\% bootstrap confidence intervals over the twenty
+games per cell. Positive without communication, negative with it.}
+\label{tab:premium}
+\small
+\begin{tabular}{lcc}
+\toprule
+Composition & Communication off & Communication on \\
+\midrule
+Balanced mix (2 strong, 2 weak) & $+24.2\ [+18.8, +29.6]$ & $-25.9\ [-35.1, -16.8]$ \\
+Lone strong (1 strong, 3 weak) & $+24.1\ [+17.3, +31.6]$ & $-30.7\ [-39.3, -22.8]$ \\
+Lone weak (3 strong, 1 weak) & $+17.4\ [+6.7, +28.4]$ & $-35.3\ [-41.8, -28.6]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The inversion is not one model's quirk. Figure~\ref{fig:premium} splits the premium by
+which strong model faced the weak Llamas in the same games. With communication off all
+three earn more than Llama as point estimates, by $+14.6$ (Claude Haiku~4.5), $+30.0$
+(GPT-5-mini), and $+7.9$ (Gemini~2.5 Flash) tokens, though Gemini's interval just reaches
+zero; with communication on all three earn less, by $-23.4$, $-15.5$, and $-48.3$, every
+interval clear of zero. Three independent frontier models, ahead or level without
+communication and behind with it.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.85\textwidth]{f1_premium_by_communication.pdf}
+\caption{The capability premium (strong minus weak cumulative payoff) for each strong
+model against the weak Llama agents in the same mixed Public Goods games, with
+communication off (solid) and on (hatched). Bars are means over games with 95\%
+bootstrap confidence intervals. Every model crosses from a positive premium to a
+negative one.}
+\label{fig:premium}
+\end{figure}
+
+A mixed-effects regression of payoff on tier, communication, and game, fit over the
+mixed-tier games with a per-game random intercept, locates where the flip lives. (The
+pre-registered model also specified a per-agent intercept, Section~\ref{sec:prereg};
+with one end-of-game payoff per agent that intercept is not identifiable, so the model
+fit here keeps only the per-game term, a disclosed departure from the plan.) The
+three-way strong $\times$ communication $\times$ game interaction is $-37.7$
+($p = 0.0001$): the communication-driven swing in the strong premium is specific to the
+Public Goods Game, not shared with Trust, where the same communication term does not
+reach significance ($p = 0.18$). That cross-game split is taken up in
+Section~\ref{sec:res-dissociation}.
+
+This gives the two hypotheses each a verdict. \textbf{H2}, that the capability premium
+can run negative, holds: under communication the premium is negative in every mixed
+Public Goods cell, with intervals that exclude zero, and each strong model individually
+earns less than the weak one. \textbf{H3}, that communication is the lever, holds in the
+Public Goods Game: switching it on moves the premium by roughly fifty tokens, from about
+$+24$ to about $-30$, and the interaction term ties that swing to this game
+($p = 0.0001$).
+
+What communication does \emph{not} do is let the agents talk to one another. As
+Section~\ref{sec:communication} sets out, a message is produced and logged but never
+delivered; the only thing the condition adds to a round is the request to make a public
+pledge, on top of the past contributions both conditions already show. The transcript
+bears this out. The strong agent's appeals track what the others \emph{did}, never what
+they said: \emph{``it seems some of us are contributing less''} follows the falling
+contributions it can see, and no agent in the game ever answers another's words, because
+no agent ever receives them. The inversion is real, but its lever is the framing of
+being asked to commit in public, not an exchange of cheap talk. What that framing does
+to a capable agent, and why the weak agents are untouched by it, is the subject of the
+discussion (Chapter~\ref{ch:discussion}).
+
+\section{H5: A game-dependent dissociation}
+\label{sec:res-dissociation}
+
+The headline lived in the Public Goods Game. H5 asks whether it travels: do the same
+effects hold in the Trust Game, or reverse between the two? Figure~\ref{fig:dissociation}
+sets the capability premium for both games side by side, communication off and on.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{f7_dissociation_by_game.pdf}
+\caption{Capability premium (strong minus weak cumulative payoff) by game and
+communication condition, point estimate with 95\% bootstrap confidence interval. The
+Public Goods premium crosses from clearly positive to clearly negative; the Trust
+premium stays near zero with intervals that barely separate from it.}
+\label{fig:dissociation}
+\end{figure}
+
+The two games do not tell the same story. In the Public Goods Game the premium is
+clearly positive without communication ($+21.9$, $[+17.1, +26.7]$) and clearly negative
+with it ($-30.6$, $[-35.4, -25.8]$), the inversion of Section~\ref{sec:res-premium}. In
+the Trust Game it sits near zero and stays uncertain: $-3.5$ ($[-22.5, +17.0]$) without
+communication, $-15.9$ ($[-31.7, -0.9]$) with it. The off interval spans zero and the on
+interval only just clears it.
+
+H5's pre-registered falsification criterion is a sign reversal between the games: the
+prediction would be refuted if the premium ran one way in one game and the opposite way
+in the other. It does not. Under communication both premiums are negative, so H5 is not
+falsified by its own test. But the predicted directional consistency is not confirmed
+either. The Public Goods premium swings some fifty tokens across the communication
+switch; the Trust premium barely moves and never separates cleanly from zero. The effect
+keeps its sign where it can be measured, but its force belongs to the group game, not the
+dyad.
+
+This is a game-dependent dissociation, a sharper result than a flat failure to
+replicate. Whatever communication does to a capable agent, it does in a four-player
+public good, where one cooperator's contribution is visible to three others and
+free-riding on it pays. The two-player Trust Game has no crowd to free-ride in, and there
+the capability gap leaves almost no mark on payoffs. Why the group setting and not the
+dyad is the question the discussion takes up (Chapter~\ref{ch:discussion}).
+
+\section{H1: Welfare inequality (modest)}
+\label{sec:res-inequality}
+
+The substantive inequality in these games is the capability premium of
+Section~\ref{sec:res-premium}, a tier-sized gap between who earns and who does not. The
+welfare inequality H1 predicts, the spread of the payoff distribution as a whole, is
+real but small, and small for a reason: most games are decided among agents who finish
+close together, with the tier gap riding on top. Figure~\ref{fig:inequality} reads the
+Gini coefficient of each game's final payoffs by composition.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{f2_inequality_by_composition.pdf}
+\caption{Gini coefficient of final payoffs by composition and game, communication off
+(solid) and on (hatched), mean over twenty games with 95\% bootstrap confidence
+intervals. Mixed-tier compositions are shaded. Inequality is modestly higher in the
+mixed and asymmetric populations.}
+\label{fig:inequality}
+\end{figure}
+
+Two things hold at once. Mixed-tier populations are more unequal than homogeneous ones,
+as predicted: in the Public Goods Game the mean Gini is $0.036$ across the mixed
+compositions against $0.026$ across the homogeneous ones. And the gap is slight. A Gini
+of $0.04$ describes a nearly flat distribution; with four players the index can climb to
+$0.75$ before one agent holds the whole pie, so the inequality these games generate is a
+faint version of what the coefficient can register.
+
+The ordering survives the choice of index. The pre-registered Atkinson index, read at
+all three inequality-aversion settings ($\varepsilon \in \{0.5, 1.0, 2.0\}$), agrees with
+the Gini on the comparison that matters: mixed populations come out more unequal than
+homogeneous ones at every setting. H1 holds in direction and stays small. Capability
+asymmetry does widen the payoff distribution, but the welfare cost of that widening is
+modest beside the tier-level redistribution the premium already described.
+
+\section{H4: Deception, surprisal separates the tiers and policy-KL inverts}
+\label{sec:res-deception}
+
+Deception was pre-registered as exploratory, and it is the one finding two measures can
+be made to agree on while a third, the control, runs the other way by design.
+Figure~\ref{fig:deception} shows the two numeric signals over the 519 scored agent-games.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.92\textwidth]{f3_deception_surprisal_vs_kl.pdf}
+\caption{Deception by tier over the scored agent-games. Left: contemporaneous surprisal
+(lower means actions match words); the strong tier sits below the weak, and each strong
+model below the weak mean. Right: the global policy-KL negative control, which runs the
+opposite way. Bars are means with 95\% bootstrap confidence intervals.}
+\label{fig:deception}
+\end{figure}
+
+By the contemporaneous surprisal, the validated signal, the weak tier is the deceptive
+one. Surprisal, the negative log probability an agent's own stated policy gave to the
+action it then took, averages $0.92$ ($[0.86, 0.97]$) for the strong tier and $1.29$
+($[1.26, 1.32]$) for the weak, a separation of $-0.37$ ($[-0.43, -0.31]$) whose interval
+clears zero. It holds across the strong models, each below the weak average: $0.79$ for
+Claude Haiku~4.5, $0.92$ for Gemini~2.5 Flash, $1.05$ for GPT-5-mini. The weak agents'
+actions land where their own words gave least weight; the strong agents mostly do what
+they said they would.
+
+The global policy-KL, kept as a negative control, points the other way: $0.77$ ($[0.72,
+0.83]$) for the strong tier against $0.56$ ($[0.54, 0.58]$) for the weak, the strong
+scoring as \emph{more} deceptive. This is the artefact Section~\ref{subsec:deception}
+anticipated. Policy-KL rewards a concentrated action distribution, and the strong agents,
+who cooperate steadily, hold the most concentrated distributions of all, so the measure
+reads their consistency as divergence. That the control inverts exactly where the
+surprisal separates is what marks the contemporaneous signal, and not any
+stated-versus-revealed gap, as the one that tracks deception.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.95\textwidth]{f4_message_classes_by_tier.pdf}
+\caption{Message classes by tier (communication on), assigned by a classifier that reads
+the message and never the action. Of 3{,}200 messages per tier, the strong agents speak
+almost entirely in cooperative promises; the weak tier carries the informational,
+threat, and deceptive-claim mass.}
+\label{fig:message-classes}
+\end{figure}
+
+The blind message classifier, which reads a message and never the action behind it,
+reaches the same tier from the text alone. Of the 3,200 strong messages it labelled,
+2,844 (89\%) are cooperative promises and not one is a deceptive claim; among the 3,200
+weak messages the cooperative-promise share falls to 38\%, and the weak tier holds every
+one of the 65 deceptive-claim labels and 49 of the 56 threats. So two independent
+measures agree that the weak agents are the ones whose words and deeds diverge, a
+behavioral surprisal validated against human labels and a text-only classifier blind to
+behavior. The negative control running the other way is the point, not a contradiction:
+it shows that the agreement between the first two is signal, not something any
+stated-versus-revealed comparison would have produced.
+
+\section{Behavioral tier inference (secondary outcome)}
+\label{sec:res-tier}
+
+Capability tier is not one of the five hypotheses; it is a secondary, descriptive
+question the pre-registration asked beside them. Can an observer recover an agent's tier
+from how it played, with no access to its name? A logistic regression on five behavioral
+features of a Public Goods agent, the mean and the variance of its contribution, the
+trend across rounds, the end-game drop, and a reciprocity term, answers yes, though not
+perfectly. Figure~\ref{fig:tier} reports it under five-fold cross-validation.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.92\textwidth]{f6_tier_inference_roc.pdf}
+\caption{Tier inference from behavior on the 800 Public Goods agents, evenly split
+between tiers. Left: the cross-validated ROC curve against the chance diagonal. Right:
+the confusion matrix at a probability threshold of one half. The classifier separates
+the tiers well but not perfectly.}
+\label{fig:tier}
+\end{figure}
+
+Across the 800 Public Goods agents, four hundred to a tier, the classifier reaches an
+area under the ROC curve of $0.973$ and a balanced accuracy of $0.92$ against a chance
+baseline of $0.50$. The errors are near-symmetric: of four hundred strong agents it
+labels 366 correctly, and of four hundred weak agents 370. The feature that carries the
+most weight is the variance of contribution (coefficient $-3.49$): a steady hand marks
+the strong tier and an erratic one the weak, the same consistency the premium and
+deception results turned on, read here as a fingerprint.
+
+A high score that is not a ceiling is the honest outcome rather than a disappointing
+one. A perfect separator would mean the three strong models share a signature so rigid
+that the classifier is naming the model, not the capability; the agents it misses are
+the games where a strong agent played like a weak one or the reverse, the variation a
+capability difference should still leave room for.
+
+\section{Interaction networks (secondary)}
+\label{sec:res-networks}
+
+The last secondary outcome reads the games as networks rather than as payoff
+distributions. Two graphs were built, and they differ in how much weight they can carry.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\textwidth]{f5_trust_token_transfer.pdf}
+\caption{Token flow in the forty strong-weak Trust games. Left: the aggregate
+strong-to-weak and weak-to-strong totals, with the net. Right: the per-game net flow.
+The tier-assortativity printed below belongs to a separate behavioral-similarity graph,
+not this transfer graph, and is shown caveated.}
+\label{fig:network}
+\end{figure}
+
+The first is a genuine interaction graph: in the strong-weak Trust games, who sent
+tokens to whom. Across the forty such games the flow is nearly balanced, $3{,}354$
+tokens from strong to weak against $3{,}235$ the other way, a net of $119$ toward the
+weak. It is a small asymmetry in the same direction as the Trust premium, and as modest
+as that premium was. The second graph is built not from transfers but from behavioral
+similarity, linking agents that played alike. On it the strong tier is mildly more
+central (eigenvector centrality $0.035$ against the weak tier's $0$), and same-tier
+agents cluster, a tier-assortativity of $0.847$.
+
+That second number wants reading with care, and the figure says so. The similarity graph
+is built from the very features the tier classifier of Section~\ref{sec:res-tier} uses,
+so its assortativity is not independent evidence of clustering; it largely restates, in
+the language of a graph, that the tiers behave differently. The transfer graph is the one
+that records an interaction the agents actually had.
+
+\section{Findings against hypotheses}
+\label{sec:res-summary}
+
+Table~\ref{tab:findings} sets each registered prediction against what the data showed,
+one row per hypothesis, so the pre-registration and the outcome read side by side. The
+two findings that carry the thesis are H2 and H3, the negative premium and the
+communication framing that produces it; H1, H4, and H5 place that result, and the two
+secondary outcomes describe the agents it is about. Why the premium inverts, and why only
+in the group game, is the work of the next chapter.
+
+\begin{table}[h!]
+\centering
+\small
+\caption{Each pre-registered prediction (osf.io/rnqgs) against the production outcome.
+H2 and H3 carry separate verdicts though they share Section~\ref{sec:res-premium}.}
+\label{tab:findings}
+\begin{tabular}{@{}l p{5.2cm} p{8.4cm}@{}}
+\toprule
+ & Registered prediction & Outcome \\
+\midrule
+H1 & Mixed-tier populations are more unequal than homogeneous ones &
+  Supported, modest. PGG Gini $0.036$ vs $0.026$; Atkinson agrees at every $\varepsilon$. \\
+H2 & The strong tier need not out-earn the weak, and may earn less &
+  Supported. Under communication the premium is negative in every mixed PGG cell. \\
+H3 & Communication worsens the strong tier's premium &
+  Supported in the Public Goods Game ($+24 \to -30$; interaction $p = 0.0001$); absent in Trust. \\
+H4 & Surprisal tracks deception better than the global policy-KL &
+  Supported, exploratory. Surprisal separates the tiers; policy-KL inverts as the negative control. \\
+H5 & The effects hold across the two games without reversing &
+  Not falsified (no sign reversal), but consistency not confirmed: a game-dependent dissociation. \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Secondary outcomes (descriptive, not hypotheses)}} \\
+Tier & Tier is recoverable from behavior alone &
+  ROC AUC $0.97$, balanced accuracy $0.92$ ($n = 800$ PGG agents). \\
+Network & Interaction structure differs by tier &
+  Net Trust flow $119$ tokens toward the weak; similarity clustering not independent of the row above. \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,41 @@
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.zero {
+  stroke: var(--c-ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+.zerolbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  fill: var(--c-muted);
+  letter-spacing: 0.04em;
+}
+.tick {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  fill: var(--c-muted);
+}
+.rowlbl {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  fill: var(--c-ink);
+}
+.whisker {
+  stroke: var(--c-ink);
+  stroke-width: 1.4;
+  opacity: 0.55;
+}
+.cap {
+  stroke: var(--c-ink);
+  stroke-width: 1.4;
+  opacity: 0.55;
+}
+.val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  fill: var(--c-ink);
+}

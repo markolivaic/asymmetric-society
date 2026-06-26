@@ -1,0 +1,19 @@
+{
+  "name": "trust-fixed-strong-vs-weak",
+  "seed": 12345,
+  "rounds": 10,
+  "game": {
+    "name": "trust_game",
+    "params": {
+      "endowment": 10,
+      "multiplier": 3,
+      "rounds": 10,
+      "roles": "fixed",
+      "communication": false
+    }
+  },
+  "agents": [
+    {"backend": "anthropic", "model_name": "claude-haiku-4-5-20251001", "capability_tier": "strong", "temperature": 0.7, "agent_id": "50000001"},
+    {"backend": "ollama", "model_name": "llama3.2:3b", "capability_tier": "weak", "temperature": 0.7, "agent_id": "10000001"}
+  ]
+}

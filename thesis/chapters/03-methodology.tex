@@ -1,0 +1,630 @@
+\chapter{Methodology}
+\label{ch:methodology}
+
+\section{Overview of the research design}
+\label{sec:overview}
+
+This thesis asks a simple question. When capable and limited language models share an
+economy, who ends up better off, and does the ability to talk change the answer? To study
+it, we place large language model (LLM) agents of two capability tiers into iterated,
+mixed-motive economic games and treat their behavior as the measured outcome: what they
+contribute, what they say, and what they keep. Capability is the variable we manipulate;
+everything else is what we measure.
+
+The design is factorial and fully pre-registered. We cross three factors: the composition
+of the population (how many strong and weak agents meet in a game), the game itself (a
+four-player Public Goods Game and a two-player Trust Game), and communication (whether
+agents may post a public message before they act). These factors produce sixteen
+experimental cells, each replicated over twenty random seeds, for a corpus of 320 games.
+The strong tier is not one model but three independently developed frontier models, Claude
+Haiku~4.5, GPT-5-mini, and Gemini~2.5~Flash, rotated through the strong slots so that no
+result rests on the quirks of a single lab. The weak tier is a small model run locally,
+Llama~3.2~3B.
+
+Two choices carry most of the methodological weight. First, every agent runs at identical
+inference settings, so a behavioral gap between tiers reflects capability and not a
+difference in sampling temperature or decoding. Second, the study was registered on the
+Open Science Framework before the first production game ran: the hypotheses, the planned
+sample, the analysis, and the criteria that would falsify each claim. That pre-registration
+is the backbone of the work. It commits us in advance to bounded predictions, including the
+ones that later proved modest or null, and it is what lets the results chapter report a
+sharp effect in one game and its near-absence in another without either looking like a
+story chosen after the fact.
+
+From each game we take four families of measurement. Welfare, the payoffs agents
+accumulate, gives the inequality indices and the capability premium. Messages, the text
+agents exchange, feed a message classifier and a contemporaneous-surprisal measure of
+deception. Revealed actions feed a classifier that tries to recover an agent's tier from
+behavior alone. Transfers between agents, in the games that have them, form an
+interaction network. The rest of the
+chapter specifies each in turn: the experimental factors, the capability tiers and their
+rotation, the game protocols, the inference settings, the metrics, the sample and budget,
+the pre-registration and analysis plan, and the integrity safeguards and limitations of
+the design.
+
+\section{Experimental factors: composition, game, communication}
+\label{sec:factors}
+
+Three factors define the experiment. A single game is one combination of a population
+composition, a game type, and a communication condition. Crossing the three produces the
+sixteen cells in Table~\ref{tab:matrix}, each replicated over twenty seeds.
+
+\textbf{Composition} sets how many strong and weak agents share a game. The homogeneous
+compositions set a baseline for what each tier does among its own kind: all-strong and
+all-weak in the Public Goods Game, strong-strong and weak-weak in Trust. The symmetric
+mixes (two strong and two weak, or one of each in Trust) put the tiers on equal numerical
+footing. The asymmetric compositions push the extremes: \emph{lone-elite} drops a single
+strong agent into a group of weak ones, and \emph{lone-vulnerable} does the reverse, a
+single weak agent among the strong. These two ask whether a lone capable agent can dominate
+a weak crowd, and whether a lone weak agent is exploited by the capable ones.
+
+\textbf{Game} is either the Public Goods Game, played by four agents, or the Trust Game,
+played by two. The choice is deliberate. The Public Goods Game is an $n$-player contribution
+to a shared pool, where the temptation is to free-ride on everyone else; the Trust Game is
+a two-player exchange that turns on whether one agent will repay another's trust. Running
+both lets us ask not just whether capability matters, but whether an effect belongs to
+group dynamics or to one-on-one trust, a distinction that turns out to matter
+(Chapter~\ref{ch:results}). Both games run for ten rounds.
+
+\textbf{Communication} is either off or on. When it is on, each agent may write one
+short public message before choosing its action that round, framed to it as visible to
+the others. The message is cheap talk: non-binding and costless. In this build it is
+produced and logged but not delivered to the other agents (Section~\ref{sec:communication}),
+so the condition is a public commitment without reception rather than an exchange. It is
+the single lever the headline result turns on, and switching it is how the study isolates
+the effect of asking an agent to commit in public.
+
+\begin{table}[t]
+\centering
+\caption{The sixteen-cell experimental matrix. Each population composition is played in one
+of the two games under both communication conditions, with twenty seeded replications per
+cell, for 320 games in total.}
+\label{tab:matrix}
+\begin{tabular}{llccc}
+\toprule
+Game & Composition & Strong\,:\,Weak & Comm.\ off & Comm.\ on \\
+\midrule
+\multirow{5}{*}{Public Goods ($n=4$)}
+  & all-strong      & 4\,:\,0 & 20 & 20 \\
+  & all-weak        & 0\,:\,4 & 20 & 20 \\
+  & mixed           & 2\,:\,2 & 20 & 20 \\
+  & lone-elite      & 1\,:\,3 & 20 & 20 \\
+  & lone-vulnerable & 3\,:\,1 & 20 & 20 \\
+\midrule
+\multirow{3}{*}{Trust ($n=2$)}
+  & strong-strong   & 2\,:\,0 & 20 & 20 \\
+  & strong-weak     & 1\,:\,1 & 20 & 20 \\
+  & weak-weak       & 0\,:\,2 & 20 & 20 \\
+\midrule
+\multicolumn{3}{l}{\textbf{Total}} & \multicolumn{2}{c}{\textbf{320} games} \\
+\bottomrule
+\end{tabular}
+\source{Author}
+\end{table}
+
+\section{Capability tiers and model rotation}
+\label{sec:tiers}
+
+The two tiers are defined by capability, not by vendor. The weak tier is a single small
+model, Llama~3.2~3B (\texttt{llama3.2:3b}), run locally through Ollama at 4-bit
+quantization on a 4\,GB consumer GPU. The hardware set this choice: such a card runs a 3B
+model at usable speed and nothing much larger, which is a fair picture of the weak agent a
+budget-constrained deployment would actually field. The strong tier is three frontier
+models from three different labs: Claude Haiku~4.5 (\texttt{claude-haiku-4-5-20251001}),
+GPT-5-mini (\texttt{gpt-5-mini}), and Gemini~2.5~Flash (\texttt{gemini-2.5-flash}).
+
+The strong tier is three models rather than one because of a flaw in the pilot. An early
+pilot used Haiku alone as the strong agent and produced clean results, but a result from a
+single model is a result about that model. Anything the pilot credited to ``the strong
+tier'' could equally have been a quirk of Haiku's training, its refusal style, or its
+preferred output format. This is pseudoreplication: many games, but one underlying strong
+agent beneath all of them.
+
+Production removes that confound by rotating the three strong models through the strong
+slots, game by game, so the strong positions across the corpus are shared among
+independently built systems. The rotation is balanced. Haiku fills 178 strong slots, Gemini
+174, and GPT-5-mini 168, of 520 strong positions in total. Because the three models come
+from different labs trained on different data, an effect that holds in all three is
+hard to pin on any single model. When the results chapter reports that
+communication flips the capability premium, the claim rests on three models moving the same
+way, not on one model moving while two are assumed to follow.
+
+Rotation also surfaces something a single-model design would hide: the strong tier is not
+monolithic. The three models do not play alike. GPT-5-mini, for one, contributes less than
+Haiku or Gemini in the same opening rounds. Treating the tier as a rotation rather than a
+single model keeps that spread visible, and keeps the strong-tier claims honest about their
+own internal variation.
+
+\section{Game protocols and parameters}
+\label{sec:protocols}
+
+Both games run for ten rounds, and in both, holding back is privately tempting while
+contributing is collectively better. The parameters are collected in
+Table~\ref{tab:params}.
+
+\begin{table}[t]
+\centering
+\caption{Game parameters. Both games are iterated for ten rounds; the per-round structure
+is what differs.}
+\label{tab:params}
+\begin{tabular}{lll}
+\toprule
+Parameter & Public Goods Game & Trust Game \\
+\midrule
+Players & 4 & 2 (investor, trustee) \\
+Rounds & 10 & 10 \\
+Endowment / round & 20 tokens & 10 tokens (investor) \\
+Multiplier & 1.6, on the pooled total & 3, on the amount sent \\
+Action & contribute $c \in [0, 20]$ & send $x \in [0, 10]$; return $y \in [0, 3x]$ \\
+Roles & symmetric & investor / trustee, alternating \\
+Communication & off or on (cheap talk) & off or on (cheap talk) \\
+\bottomrule
+\end{tabular}
+\source{Author}
+\end{table}
+
+In the \textbf{Public Goods Game}, four agents play together. Each round, every agent
+receives an endowment of twenty tokens and chooses how much of it to contribute to a common
+pool, keeping the rest. The pool is multiplied by 1.6 and split equally among all four, so
+an agent's payoff for the round is the tokens it kept plus its quarter-share of the
+multiplied pool, where the sum runs over all four players including agent~$i$ itself:
+\[
+  \pi_i = (20 - c_i) + \frac{1.6 \sum_{j} c_j}{4}.
+\]
+Because the multiplier divided by the group size is below one ($1.6/4 = 0.4$), each token an
+agent contributes returns less than a token to itself, yet every contribution grows the
+pool for the group. That gap is the temptation to free-ride.
+
+In the \textbf{Trust Game}, two agents play, one as investor and one as trustee. The
+investor receives ten tokens and sends some amount $x$ to the trustee. The amount triples in
+transit, so the trustee receives $3x$ and returns some amount $y$. The investor ends the
+round with $10 - x + y$ and the trustee with $3x - y$. Sending is a risk for the investor
+and repaying is a cost to the trustee, so trust pays off only when the trustee chooses to
+honor it. Roles alternate each round, so over ten rounds each agent plays investor five
+times and trustee five times.
+
+Each round, an agent sees the anonymized history of play so far and returns its action as a
+structured (JSON) object: a contribution in the Public Goods Game, or an amount to send or
+return in the Trust Game. When communication is on, the object also carries one short public
+message, which the prompt frames as visible to the others, though the runner logs it
+without delivering it (Section~\ref{sec:communication}). Agent identifiers are
+anonymous eight-character strings, and the order in which agents appear in a prompt is
+randomized every round, so no agent can be followed across games by name or treated as
+higher-status because of where it sits in the list. If a response fails to parse, the agent
+is re-prompted; after repeated failures it falls back to a default of contributing, sending,
+or returning nothing.
+
+\section{Inference settings (uniform, to isolate capability)}
+\label{sec:inference}
+
+The study compares capability, so the inference settings must not become a second, hidden
+variable. If one model sampled at a different temperature, or was allowed a longer private
+reasoning budget, a behavioral difference could reflect that setting rather than the model.
+Every agent therefore runs at the same settings, and where one model forced a choice, the
+others were brought into line with it rather than the reverse.
+
+Temperature is fixed at 1 for every agent. This was not the original default; it was forced
+by GPT-5-mini, which accepts only temperature 1 and returns an error at lower values. Rather
+than leave GPT-5-mini at 1 while the others sampled lower, which would be a configuration
+confound, all agents were set to temperature 1, so that an observed gap reflects capability
+and not a difference in sampling. The choice is recorded in the pre-registration.
+
+Two of the strong models can spend tokens on a private reasoning pass before they answer,
+and both were configured not to. GPT-5-mini runs at reasoning effort \texttt{minimal}, and
+Gemini at a thinking budget of zero. There were two reasons. The practical one: at its
+default effort GPT-5-mini spent roughly nine hundred reasoning tokens before producing any
+output, overran the 512-token response budget, and returned nothing, which failed to parse
+on every call of an early smoke test. The principled one: a hidden chain of reasoning would
+make the comparison unfair, because the other models answer directly. Holding all of them
+to a single visible response keeps the comparison about the answer each model gives, not
+about how much private computation it was granted. The weak model, served locally through
+Ollama, has no such setting; it is steered toward valid output by requesting JSON at the
+prompt level and re-prompting on a malformed response, up to three attempts before the
+default action is used.
+
+One substitution is worth recording. The intended Gemini checkpoint
+(\texttt{gemini-3.5-flash}) was unavailable at launch, returning capacity errors on most
+calls, while \texttt{gemini-2.5-flash} served reliably throughout the dry run. Production
+therefore used \texttt{gemini-2.5-flash}, a substitution declared in advance in the
+pre-registration, with the rule that if it too became unavailable mid-run the current Gemini
+Flash endpoint would be used and its exact string logged. Because each game is isolated,
+only the affected Gemini games would have needed re-running; none did.
+
+\section{Metrics}
+\label{sec:metrics}
+
+\subsection{Welfare inequality (Gini, Atkinson) and the capability premium}
+\label{subsec:inequality}
+
+Inequality and the capability premium both read off a single quantity: what each
+agent walks away with. Writing $\pi_{i,t}$ for the payoff of agent~$i$ in
+round~$t$ (Section~\ref{sec:protocols}, with the round index now made explicit),
+an agent's cumulative payoff over a game is
+\[
+  \Pi_i = \sum_{t=1}^{10} \pi_{i,t}.
+\]
+Within one game this gives a short welfare vector, one entry per agent: four
+entries in the Public Goods Game, two in the Trust Game. Every measure in this
+subsection is computed on that vector, per game, and only then averaged across
+the twenty seeded games of a cell, one of the sixteen conditions of
+Table~\ref{tab:matrix}. Keeping the unit of analysis at the whole
+game, rather than pooling every agent from every game into one distribution, is
+what makes the confidence intervals defined below interpretable.
+
+To measure how unevenly a game's winnings are spread we use the Gini
+coefficient. On a welfare vector of $n$ agents with mean cumulative payoff
+$\bar{\Pi}$ it is
+\[
+  G = \frac{\sum_{i}\sum_{j} |\Pi_i - \Pi_j|}{2\,n^2\,\bar{\Pi}},
+\]
+the average absolute gap between every pair of agents, scaled to lie in $[0,1]$.
+A value of zero means every agent ended with the same amount; the index rises
+toward $(n-1)/n$ as one agent captures the entire pie. We use the population form,
+dividing by $n^2$ with no small-sample correction: with only four or two agents
+in a game any correction would be a judgment call, and the per-game value is
+averaged across the cell's twenty seeded games before we read anything into it.
+That ceiling, $(n-1)/n$, is $0.75$ in the four-agent Public Goods Game and $0.5$
+in the two-agent Trust Game, so Gini magnitudes are read within a game type,
+never compared across the two.
+
+Alongside the Gini we compute the Atkinson index at three inequality-aversion
+settings, $\varepsilon \in \{0.5, 1, 2\}$,
+\[
+  A_\varepsilon = 1 - \frac{1}{\bar{\Pi}}
+  \left( \frac{1}{n}\sum_{i} \Pi_i^{\,1-\varepsilon} \right)^{1/(1-\varepsilon)},
+\]
+with the $\varepsilon = 1$ case taking the limit form, where the bracket becomes
+the geometric mean $\exp\big(n^{-1}\sum_i \ln \Pi_i\big)$. A higher $\varepsilon$
+weights the bottom of the distribution more heavily, so the three settings
+together test whether an inequality ordering survives being re-weighted toward the
+worst-off. The Atkinson index was pre-registered alongside the Gini as a primary
+inequality measure; Chapter~\ref{ch:results} reports it as a robustness check on
+the Gini ranking.
+
+In the two-player Trust Game the inequality indices collapse to a single unsigned
+gap between two agents, so there the comparison leans instead on the
+\emph{capability premium}, the difference in mean cumulative payoff between the two
+tiers within a game:
+\[
+  \Delta = \bar{\Pi}_{\mathrm{strong}} - \bar{\Pi}_{\mathrm{weak}}.
+\]
+Unlike the Gini, it keeps the sign of that gap, which separates exploiter from
+exploited. The premium is the main mixed-tier measure in both games, defined
+wherever both tiers are present; the homogeneous baselines have no premium to
+report. A positive $\Delta$ means the strong agents out-earned the weak ones, a
+negative $\Delta$ that the weak agents did better. The negative case is the
+inversion that Chapter~\ref{ch:results} examines. We report $\Delta$ in raw tokens
+rather than as a normalized fraction. Within a game type the endowment is fixed,
+so a token is a token and the differences compare cleanly; normalizing would only
+matter for setting the two game types on a common scale, which we instead avoid by
+never averaging a premium across game types.
+
+A cell holds twenty seeded games, so each Gini and each premium is a mean over
+twenty per-game values. We attach a 95\% confidence interval to that mean with a
+percentile bootstrap of ten thousand resamples. The resampling unit is the game:
+we draw games with replacement from the cell and recompute the mean, so the
+interval reflects how far the statistic travels from one seed to the next, not
+the spread among agents inside a single game. The bootstrap seed is fixed, so the
+intervals are reproducible from the configuration alone. These are the intervals
+drawn as whiskers on the inequality and premium figures in
+Chapter~\ref{ch:results}.
+
+\subsection{Deception signals: contemporaneous surprisal vs.\ global policy-KL}
+\label{subsec:deception}
+
+Deception here is a gap between words and deeds: an agent that promises to
+cooperate and then free-rides. Putting a number on
+that gap is harder than it sounds, because the obvious measure can track the
+wrong thing. We measure it with a contemporaneous surprisal signal, a global
+policy divergence kept as a control, and a blind text classifier as an
+independent check. Both numeric measures were tested against human labels fixed
+before any data existed, under a threshold set in advance; reporting the one that
+failed beside the one we kept is the comparison this thesis treats as a result in
+its own right.
+
+The primary signal is \emph{contemporaneous surprisal}. In a communication round
+agent~$i$ first sends a message, then chooses an action~$a_{i,t}$. A separate
+scoring model (Claude Haiku~4.5) reads that message and infers the distribution
+$q_{i,t}$ over the action the message implies, the agent's \emph{stated policy}
+for the round. Surprisal is the negative log probability that this stated policy
+assigned to the action actually taken,
+\[
+  s_{i,t} = -\ln q_{i,t}(a_{i,t}),
+\]
+averaged over the agent's message-bearing rounds. It is small when the action
+lands where the words said it would, and large when the agent did something its
+own message gave little weight to, the mark of saying one thing and doing
+another. The actions live on a discrete grid (steps of five tokens in the Public
+Goods Game, two in the Trust Game), and the stated distribution is given a small
+floor so the logarithm stays finite. The measure is \emph{contemporaneous}
+because each message is scored against the same round's action, not against the
+agent's behavior pooled over the whole game.
+
+That pooling is what the second measure does, and the reason we keep it only as a
+control. \emph{Global policy-KL} compares the agent's revealed action
+distribution over the entire game, $p_i$, against the same per-round stated
+policies, through $D_{\mathrm{KL}}(p_i \,\|\, q_{i,t})$ averaged over the message
+rounds. The trouble is that this rewards a peaked action distribution with a high
+score: an agent that reliably plays the same cooperative action has a sharp
+$p_i$, and against the spread-out distribution a hedged message implies, that
+sharpness reads as large divergence. The most consistent cooperators therefore
+score as the most deceptive, which is backwards. Global policy-KL measures how
+concentrated a policy is, not whether words match deeds, so we register it as a
+\emph{negative control}: it shows that not just any divergence between stated and
+revealed behavior captures deception, only the contemporaneous, action-by-action
+kind.
+
+Keeping a measure we expect to fail is deliberate, and it follows from how the
+study was pre-registered. Global policy-KL was the original confirmatory
+deception metric, with a falsifiable validation threshold, a Spearman correlation
+of at least $0.40$ against human labels, frozen before any validation. In a pilot
+we hand-labeled one hundred messages blind, on a fixed zero-to-three deception
+rubric, and correlated the human scores against both measures. Global policy-KL
+showed no association ($\rho \approx 0$) and failed; contemporaneous surprisal
+correlated with the human labels weakly but significantly ($\rho \approx 0.22$,
+$p \approx 0.03$), yet still below the frozen $0.40$ bar.
+Because surprisal cleared significance but not the confirmatory threshold, we
+registered it as \emph{exploratory} rather than claim more than the validation
+supported, and demoted policy-KL to the negative control described above. The
+single human rater was the metric's author, mitigated by blind, single-pass
+labeling against the fixed rubric and recorded as a limit rather than hidden.
+Reporting the threshold that even surprisal fell short of, rather than quietly
+dropping it, is part of that disclosure.
+
+A third signal corroborates the first without sharing its machinery. A blind
+message classifier reads each message and labels it, but never sees the action
+behind it, so it cannot inherit any error from the action-based surprisal. Its
+category for misleading statements gives an independent, text-only count of
+deceptive messages by tier. The full label scheme and its distribution belong to
+the message-classification metric (Section~\ref{subsec:classification}); here it
+matters only as a third, methodologically independent check, so the deception
+finding can rest on agreement between measures rather than on any one of them.
+The production values for all three, and the transcripts behind them, are
+reported in Chapter~\ref{ch:results}.
+
+\subsection{Message classification}
+\label{subsec:classification}
+
+Where the deception signals of Section~\ref{subsec:deception} ask whether a
+message was honest, this metric asks what kind of message it was. A classifier
+(Claude Haiku~4.5, at temperature zero for stable labels) reads each message
+together with its game context, never the action behind it, and sorts it into
+one of five communicative types:
+\begin{description}
+  \item[cooperative-promise:] a first-person commitment to act pro-socially;
+  \item[threat:] a warning of punishment contingent on what others do;
+  \item[informational:] strategy or facts about the game, with no promise or
+    threat;
+  \item[deceptive-claim:] a statement about one's own intentions or the game that
+    reads as misleading or manipulative;
+  \item[neutral:] greeting or filler with no strategic import.
+\end{description}
+The output is a distribution over these five types for each tier, a picture of how
+the strong and weak agents talk.
+
+Because the classifier reads only the words, it shares no input with the
+action-based surprisal of Section~\ref{subsec:deception}, so where the two agree
+the corroboration is independent. What it adds is a division of labor: a message's
+class is a claim about its surface form, not about whether the agent later honored
+it, and whether a stated intention was a lie stays the surprisal's job, not the
+classifier's.
+
+Two limits come with reading talk this way. The five classes are fixed in advance
+from standard cheap-talk categories rather than discovered in the
+data, which keeps the distribution interpretable and lets it stand as a
+pre-registered descriptive outcome, but means a message that fits none of them is
+recorded as
+neutral by default. And the labels come from a single model with no second rater,
+and were never scored against human coding of the real messages, so unlike the
+deception signal they carry no validated accuracy of their own. We therefore read
+the class distribution as a descriptive instrument whose weight comes from
+agreeing with the action-based measures, not from a per-message accuracy we never
+established. The per-tier distribution is reported in Chapter~\ref{ch:results}.
+
+\subsection{Behavioral tier inference}
+\label{subsec:tier}
+
+Where the message classifier of Section~\ref{subsec:classification} reads only an
+agent's words, this metric reads only its play: it asks whether an agent's
+capability tier can be recovered from how it acts, with the messages set aside. We
+fit a logistic-regression classifier on per-agent behavioral features from the
+Public Goods Game and read its predicted probability
+$P(\mathrm{strong}\mid\mathrm{behavior})$ that an agent is strong. The target is
+each agent's assigned capability tier, strong or weak, known by construction
+rather than read off any outcome. The pre-registration lists this metric as a
+secondary outcome under the name Bayesian tier inference; the label reflects the
+posterior-style reading of the predicted probability rather than a model with
+priors, and the implementation is the logistic regression described
+here. It is scored by balanced accuracy and the area under the ROC curve, both
+with a chance baseline of $0.5$ rather than the majority class.
+
+The features are five summaries of an agent's contributions across the ten
+rounds, all drawn from behavior and none from payoff, so that tier cannot leak in
+through the outcome the classifier is meant to predict:
+\begin{description}
+  \item[mean contribution:] the average amount the agent puts into the pool;
+  \item[contribution volatility:] the standard deviation of that amount across
+    rounds, steady versus erratic play;
+  \item[trend:] the slope of contribution against round number, drift up or down
+    over the game;
+  \item[end-game drop:] how far the final-round move falls below the agent's
+    earlier average, the last-round defection spike;
+  \item[reciprocity:] the correlation between the agent's move and what others
+    contributed the round before.
+\end{description}
+
+Each agent supplies one feature row, so the sample is small and a single
+train-test split would be noisy. We evaluate instead by stratified $k$-fold
+cross-validation: the classifier is trained on a subset of agents and scored on
+the held-out remainder, the folds rotate so every agent is scored once, and the
+feature standardization is fit inside each fold so no test agent shapes its own
+scaling. Balanced accuracy and the area under the ROC curve are averaged across
+the folds; a score near that baseline would mean behavior carries no tier signal
+at all.
+
+That score carries two caveats. First, the evaluation is run on the
+diverse strong tier by design. In the pilot the strong tier was a single model, so
+a classifier could separate the tiers by fingerprinting that one model, and
+accuracy was inflated. Running it on three rotated strong models changes the
+question from telling one model from another to telling the strong tier from the
+weak one, where a less-than-perfect score is the honest outcome: a classifier that
+still reached ceiling would more likely have found a model signature than a tier. Second, the behavioral features here overlap
+with those behind the interaction network of Section~\ref{subsec:network}, so the
+two are not independent confirmations of tier separability; they are two views of
+the same behavioral gap. The ROC curve and the production scores are reported in
+Chapter~\ref{ch:results}.
+
+\subsection{Interaction-network structure}
+\label{subsec:network}
+
+Where the tier classifier of Section~\ref{subsec:tier} turns each agent's play
+into a feature vector, this last metric turns the agents into a graph and asks
+about structure. The two games give two different graphs, and only one is a
+genuine interaction. The Trust Game has literal transfers, an investor sending
+tokens and a trustee returning them, so its graph is a directed
+\emph{token-transfer network}: the nodes are agents and the edges carry the tokens
+that actually moved between them. The Public Goods Game has no such transfers,
+since contributions go into a shared pool rather than from one agent to another.
+There we build a \emph{behavioral-similarity graph} instead, linking agents whose
+contribution patterns resemble each other, and the pre-registration labels it as
+similarity rather than interaction to keep the difference explicit.
+
+On each graph we compute standard structural measures: centrality (degree,
+betweenness, and eigenvector) for an agent's structural position, and tier
+assortativity for whether agents of the same tier attach to one another. On the Trust transfers the reading that
+matters is the asymmetry, which way the tokens net out between the strong and weak
+tiers; on the similarity graph, assortativity measures how sharply the two tiers
+pull apart.
+
+We treat the network analysis as secondary. The Public Goods similarity graph is
+not an interaction graph: an
+edge means two agents played alike, not that anything passed between them, so it
+cannot be read as who exploited whom, and only the Trust transfers carry that
+meaning. The same graph is built from the behavioral features of the tier
+classifier of Section~\ref{subsec:tier}, so the tier separation it shows, the
+assortativity included, is that classifier's signal through a different lens, not
+an independent confirmation. The graphs are also small and often fragmented: a
+Trust game is two nodes and a Public Goods game four, and the sparsified
+similarity graph breaks into disconnected pieces at scale, where eigenvector
+centrality becomes ill-defined across the components and unreliable. We therefore
+read the similarity graph through its tier assortativity rather than through
+centrality, and the Trust graph through its transfer asymmetry, which needs no
+centrality at all. The token-transfer figure and the tier assortativity are
+reported in Chapter~\ref{ch:results}.
+
+\section{Sample, seeds and budget}
+\label{sec:sample}
+
+The corpus is 320 games: the sixteen cells of Table~\ref{tab:matrix}, each run over
+twenty random seeds. A third game, multi-issue negotiation, was planned and then
+dropped after a feasibility probe found that the weak model could not reliably
+value the offers, so the corpus spans the two games of
+Section~\ref{sec:protocols} rather than three. Within a cell the twenty seeds are
+paired across communication: a seed fixes the agents and their random draws, and
+the communication flag is the only thing that changes between its on and off
+games. That pairing makes the communication contrast, which the headline result
+turns on, a within-seed comparison rather than a between-seed one. Because each game is fixed entirely by its configuration and one integer seed, the run
+reproduces exactly, down to the anonymous agent identifiers and the shuffled agent
+order in each prompt, so that neither an agent's name nor its position carries its
+tier.
+
+A hard cap governed the spending. A single tracker keeps the cumulative API cost
+in the database and checks it before every paid call, raising an error that aborts
+before any call would carry the total past 100 euros; the limit is never raised in
+code, and reading the running total from the database means the cap holds across a
+restart. It was never close. The 320 games cost 1.17 euros, and the paid
+deception-scoring and message-classification passes brought the project to 5.62
+euros in total, well under both the projection and the cap.
+
+\section{Pre-registration and analysis plan}
+\label{sec:prereg}
+
+Everything in this chapter was fixed in advance. Before the first production game
+ran, the design, the hypotheses, the analysis, and the criteria that would
+falsify each claim were written up and registered on the Open Science Framework,
+timestamped and locked against later editing (osf.io/rnqgs, 18~June 2026). Locking
+does one narrow thing: a prediction registered before the data
+exists and confirmed afterward is a confirmation, while the same prediction told
+after the fact is only a story.
+
+Five hypotheses were registered, in the numbering the results chapter keeps:
+\begin{description}
+  \item[H1] mixed-capability populations show higher welfare inequality than
+    homogeneous ones;
+  \item[H2] the strong tier does not systematically out-earn the weak tier, and
+    may earn less, a negative capability premium;
+  \item[H3] communication worsens the strong tier's position, a more negative
+    premium with it than without;
+  \item[H4] contemporaneous surprisal tracks human-judged deception better than
+    the global policy-KL divergence, registered as exploratory;
+  \item[H5] the direction of these effects holds across the two games rather than
+    reversing between them.
+\end{description}
+Of the five hypotheses, H4 is registered as exploratory and the other four as
+confirmatory predictions; the tier inference, message classification, and network
+structure of Section~\ref{sec:metrics} are secondary, descriptive outcomes.
+
+The analysis was pre-specified as well. The primary model is a mixed-effects
+regression of payoff on composition, game, and communication, with random
+intercepts for agent and for game to absorb the repeated agents and repeated
+games. Inequality is read through the indices of
+Section~\ref{subsec:inequality} with bootstrap confidence intervals, and
+comparisons across the cell matrix are corrected for multiplicity by the
+Benjamini--Hochberg procedure. The deception test is the one place the plan set a
+hard bar: the contemporaneous surprisal had to reach a Spearman correlation of
+$0.40$ with the human labels to count as confirmatory, a threshold fixed before
+the pilot and held when the pilot fell below it, which is why surprisal is
+reported as exploratory and policy-KL as a negative control
+(Section~\ref{subsec:deception}). A tier-level
+effect is trusted only when it holds across the three distinct strong models
+rather than within one, which is what the rotation of Section~\ref{sec:tiers} was
+built to allow.
+
+\section{Integrity and design limitations}
+\label{sec:integrity}
+
+The pre-registration also recorded what the design cannot show, before the data
+could tempt anyone to forget. The deception metric was validated by a single human
+rater, who is also its author; a blind, frozen rubric and single-pass coding guard
+against the obvious bias, but there is no second rater and so no inter-rater
+reliability. The study is pilot-scale. The strong tier is three specific models,
+so a claim about strong models in general is only ever a claim about these three.
+And the deception finding is exploratory by registration, not confirmatory
+(Section~\ref{subsec:deception}).
+
+One limit was not in the pre-registration and is worth stating plainly. The model
+that scores deception and classifies messages, Claude Haiku~4.5, is also one of
+the three strong players, and it scores the games it played in along with the
+others, so a reader could fairly call the arrangement circular, a competitor
+judging the contest. But the surprisal and the policy-KL control are computed from
+the same Haiku-inferred stated policy and differ only in what they compare it
+against, the one a single round's action, the other the whole game's. A bias in
+how the model infers that policy would land on both measures alike, so it cannot
+be why the contemporaneous signal tracks deception and the global one does not;
+that difference is built into their baselines, not into the reading. The blind
+classifier of Section~\ref{subsec:classification} adds a check from outside that
+machinery, never seeing the action behind a message, so it corroborates the
+surprisal from text alone. The finding rests on that agreement, not on a single
+read (Section~\ref{subsec:deception}).
+
+A larger qualification concerns the communication condition, where the prompt and
+the runner part ways. With communication on, each agent is asked to write a public
+message and told the others will see it, but the runner never delivers it: an agent
+sees the others' past actions, not their messages (Section~\ref{sec:communication}).
+The condition is therefore public commitment without reception, and whatever it
+changes in behavior it changes through the framing of being asked to pledge, not
+through any exchange of cheap talk; the results and discussion read the effect on
+that understanding. The messages keep their value for the deception measures, which
+compare an agent's own words with its own deeds and so do not depend on another
+player reading them.
+
+Other bounds are argued where the metrics are defined and only gathered here.
+Inequality indices on a two-player Trust game are coarse, so there the capability
+premium carries the comparison (Section~\ref{subsec:inequality}). The network
+analysis is secondary: its Public Goods graph is behavioral similarity rather than
+interaction, and its tier signal is not independent of the behavioral classifier
+(Sections~\ref{subsec:network} and~\ref{subsec:tier}). The message classifier's
+five labels were never checked against human coding, so they are read as
+description rather than measurement (Section~\ref{subsec:classification}). All of
+these limits are recorded, in the pre-registration or here, not left for the
+reader to find.

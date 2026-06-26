@@ -1,0 +1,21 @@
+{
+  "name": "all-weak-pgg",
+  "seed": 12345,
+  "rounds": 10,
+  "game": {
+    "name": "public_goods",
+    "params": {
+      "n": 4,
+      "endowment": 20,
+      "multiplier": 1.6,
+      "rounds": 10,
+      "communication": false
+    }
+  },
+  "agents": [
+    {"backend": "ollama", "model_name": "llama3.2:3b", "capability_tier": "weak", "temperature": 0.7, "agent_id": "aa000001"},
+    {"backend": "ollama", "model_name": "llama3.2:3b", "capability_tier": "weak", "temperature": 0.7, "agent_id": "aa000002"},
+    {"backend": "ollama", "model_name": "llama3.2:3b", "capability_tier": "weak", "temperature": 0.7, "agent_id": "aa000003"},
+    {"backend": "ollama", "model_name": "llama3.2:3b", "capability_tier": "weak", "temperature": 0.7, "agent_id": "aa000004"}
+  ]
+}

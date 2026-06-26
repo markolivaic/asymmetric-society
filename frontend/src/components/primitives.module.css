@@ -1,0 +1,43 @@
+.band {
+  padding: clamp(4.5rem, 10vh, 9rem) clamp(1.25rem, 4vw, 3rem);
+}
+/* dark Theater: rebind muted/hairline so utilities adapt on dark */
+.dark {
+  background: var(--c-theater-bg);
+  color: var(--c-theater-ink);
+  --c-muted: #9b988f;
+  --c-hairline: #2c2c30;
+}
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: var(--t-label);
+  color: var(--c-muted);
+  margin-bottom: 1.6rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+.statN {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-spacing);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  line-height: 1;
+}
+.statL {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--t-label);
+  color: var(--c-muted);
+  margin-top: 0.4rem;
+}

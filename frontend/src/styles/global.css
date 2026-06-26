@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+body {
+  background: var(--c-base);
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  font-feature-settings: "ss01";
+}
+a {
+  color: var(--c-accent);
+  text-decoration: none;
+}
+::selection {
+  background: var(--c-accent);
+  color: var(--c-base);
+}
+
+/* shared typographic utilities (layout lives in component CSS modules) */
+.display {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-spacing);
+  line-height: 1.04;
+}
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "zero" 1;
+}
+.lead {
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  line-height: 1.5;
+  color: var(--c-muted);
+}

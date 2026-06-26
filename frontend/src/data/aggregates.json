@@ -1,0 +1,512 @@
+{
+  "meta": {
+    "n_games": 320,
+    "spend_eur": 5.62,
+    "cells": 16
+  },
+  "premium_by_model_comm": {
+    "haiku": {
+      "off": {
+        "mean": 14.59,
+        "lo": 7.285,
+        "hi": 22.5
+      },
+      "on": {
+        "mean": -23.368,
+        "lo": -29.528,
+        "hi": -17.615
+      }
+    },
+    "gpt5mini": {
+      "off": {
+        "mean": 29.996,
+        "lo": 24.277,
+        "hi": 36.086
+      },
+      "on": {
+        "mean": -15.493,
+        "lo": -21.119,
+        "hi": -9.43
+      }
+    },
+    "gemini": {
+      "off": {
+        "mean": 7.904,
+        "lo": -1.819,
+        "hi": 16.795
+      },
+      "on": {
+        "mean": -48.273,
+        "lo": -56.759,
+        "hi": -39.72
+      }
+    }
+  },
+  "premium_by_game": {
+    "public_goods": {
+      "off": {
+        "mean": 21.883,
+        "lo": 17.103,
+        "hi": 26.747
+      },
+      "on": {
+        "mean": -30.639,
+        "lo": -35.383,
+        "hi": -25.781
+      }
+    },
+    "trust_game": {
+      "off": {
+        "mean": -3.5,
+        "lo": -22.502,
+        "hi": 17.0
+      },
+      "on": {
+        "mean": -15.9,
+        "lo": -31.7,
+        "hi": -0.9
+      }
+    }
+  },
+  "gini": [
+    {
+      "game": "public_goods",
+      "comp": "all_strong",
+      "comm": false,
+      "mean": 0.017,
+      "lo": 0.01,
+      "hi": 0.025
+    },
+    {
+      "game": "public_goods",
+      "comp": "all_strong",
+      "comm": true,
+      "mean": 0.029,
+      "lo": 0.022,
+      "hi": 0.036
+    },
+    {
+      "game": "public_goods",
+      "comp": "all_weak",
+      "comm": false,
+      "mean": 0.031,
+      "lo": 0.026,
+      "hi": 0.037
+    },
+    {
+      "game": "public_goods",
+      "comp": "all_weak",
+      "comm": true,
+      "mean": 0.028,
+      "lo": 0.024,
+      "hi": 0.031
+    },
+    {
+      "game": "public_goods",
+      "comp": "lone_elite",
+      "comm": false,
+      "mean": 0.034,
+      "lo": 0.029,
+      "hi": 0.04
+    },
+    {
+      "game": "public_goods",
+      "comp": "lone_elite",
+      "comm": true,
+      "mean": 0.038,
+      "lo": 0.032,
+      "hi": 0.045
+    },
+    {
+      "game": "public_goods",
+      "comp": "lone_vulnerable",
+      "comm": false,
+      "mean": 0.028,
+      "lo": 0.022,
+      "hi": 0.035
+    },
+    {
+      "game": "public_goods",
+      "comp": "lone_vulnerable",
+      "comm": true,
+      "mean": 0.044,
+      "lo": 0.037,
+      "hi": 0.052
+    },
+    {
+      "game": "public_goods",
+      "comp": "mixed",
+      "comm": false,
+      "mean": 0.037,
+      "lo": 0.031,
+      "hi": 0.043
+    },
+    {
+      "game": "public_goods",
+      "comp": "mixed",
+      "comm": true,
+      "mean": 0.036,
+      "lo": 0.029,
+      "hi": 0.044
+    },
+    {
+      "game": "trust_game",
+      "comp": "ss",
+      "comm": false,
+      "mean": 0.057,
+      "lo": 0.031,
+      "hi": 0.087
+    },
+    {
+      "game": "trust_game",
+      "comp": "ss",
+      "comm": true,
+      "mean": 0.07,
+      "lo": 0.049,
+      "hi": 0.095
+    },
+    {
+      "game": "trust_game",
+      "comp": "sw",
+      "comm": false,
+      "mean": 0.085,
+      "lo": 0.06,
+      "hi": 0.118
+    },
+    {
+      "game": "trust_game",
+      "comp": "sw",
+      "comm": true,
+      "mean": 0.068,
+      "lo": 0.046,
+      "hi": 0.093
+    },
+    {
+      "game": "trust_game",
+      "comp": "ww",
+      "comm": false,
+      "mean": 0.049,
+      "lo": 0.034,
+      "hi": 0.065
+    },
+    {
+      "game": "trust_game",
+      "comp": "ww",
+      "comm": true,
+      "mean": 0.051,
+      "lo": 0.034,
+      "hi": 0.072
+    }
+  ],
+  "deception": {
+    "surprisal": {
+      "strong": {
+        "mean": 0.917,
+        "lo": 0.861,
+        "hi": 0.974
+      },
+      "weak": {
+        "mean": 1.288,
+        "lo": 1.261,
+        "hi": 1.315
+      },
+      "by_model": {
+        "haiku": 0.788,
+        "gpt5mini": 1.049,
+        "gemini": 0.923
+      }
+    },
+    "kl": {
+      "strong": {
+        "mean": 0.772,
+        "lo": 0.715,
+        "hi": 0.831
+      },
+      "weak": {
+        "mean": 0.56,
+        "lo": 0.539,
+        "hi": 0.581
+      }
+    }
+  },
+  "message_classes": {
+    "strong": {
+      "cooperative-promise": 2844,
+      "informational": 332,
+      "neutral": 17,
+      "threat": 7
+    },
+    "weak": {
+      "cooperative-promise": 1222,
+      "deceptive-claim": 65,
+      "informational": 1800,
+      "neutral": 64,
+      "threat": 49
+    }
+  },
+  "trust_flow": {
+    "s2w": 3354,
+    "w2s": 3235,
+    "net": 119,
+    "net_to": "weak",
+    "n_games": 40,
+    "per_game_net": [
+      6.0,
+      -1.0,
+      25.0,
+      9.0,
+      -19.0,
+      29.0,
+      4.0,
+      -11.0,
+      14.0,
+      4.0,
+      -16.0,
+      -11.0,
+      -29.0,
+      -14.0,
+      18.0,
+      7.0,
+      -5.0,
+      0.0,
+      1.0,
+      -4.0,
+      44.0,
+      -29.0,
+      -19.0,
+      -2.0,
+      -4.0,
+      23.0,
+      16.0,
+      -17.0,
+      17.0,
+      6.0,
+      -13.0,
+      9.0,
+      33.0,
+      21.0,
+      -8.0,
+      11.0,
+      18.0,
+      -16.0,
+      9.0,
+      13.0
+    ],
+    "assortativity": 0.847
+  },
+  "tier_inference": {
+    "auc": 0.973,
+    "balanced_accuracy": 0.92,
+    "n": 800,
+    "n_strong": 400,
+    "n_weak": 400,
+    "roc": [
+      {
+        "fpr": 0.0,
+        "tpr": 0.762
+      },
+      {
+        "fpr": 0.02,
+        "tpr": 0.843
+      },
+      {
+        "fpr": 0.041,
+        "tpr": 0.887
+      },
+      {
+        "fpr": 0.061,
+        "tpr": 0.905
+      },
+      {
+        "fpr": 0.082,
+        "tpr": 0.922
+      },
+      {
+        "fpr": 0.102,
+        "tpr": 0.925
+      },
+      {
+        "fpr": 0.122,
+        "tpr": 0.927
+      },
+      {
+        "fpr": 0.143,
+        "tpr": 0.938
+      },
+      {
+        "fpr": 0.163,
+        "tpr": 0.943
+      },
+      {
+        "fpr": 0.184,
+        "tpr": 0.945
+      },
+      {
+        "fpr": 0.204,
+        "tpr": 0.948
+      },
+      {
+        "fpr": 0.224,
+        "tpr": 0.948
+      },
+      {
+        "fpr": 0.245,
+        "tpr": 0.958
+      },
+      {
+        "fpr": 0.265,
+        "tpr": 0.963
+      },
+      {
+        "fpr": 0.286,
+        "tpr": 0.963
+      },
+      {
+        "fpr": 0.306,
+        "tpr": 0.965
+      },
+      {
+        "fpr": 0.327,
+        "tpr": 0.97
+      },
+      {
+        "fpr": 0.347,
+        "tpr": 0.98
+      },
+      {
+        "fpr": 0.367,
+        "tpr": 0.98
+      },
+      {
+        "fpr": 0.388,
+        "tpr": 0.983
+      },
+      {
+        "fpr": 0.408,
+        "tpr": 0.983
+      },
+      {
+        "fpr": 0.429,
+        "tpr": 0.983
+      },
+      {
+        "fpr": 0.449,
+        "tpr": 0.985
+      },
+      {
+        "fpr": 0.469,
+        "tpr": 0.988
+      },
+      {
+        "fpr": 0.49,
+        "tpr": 0.993
+      },
+      {
+        "fpr": 0.51,
+        "tpr": 0.995
+      },
+      {
+        "fpr": 0.531,
+        "tpr": 0.995
+      },
+      {
+        "fpr": 0.551,
+        "tpr": 0.995
+      },
+      {
+        "fpr": 0.571,
+        "tpr": 0.995
+      },
+      {
+        "fpr": 0.592,
+        "tpr": 0.995
+      },
+      {
+        "fpr": 0.612,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.633,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.653,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.673,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.694,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.714,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.735,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.755,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.776,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.796,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.816,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.837,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.857,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.878,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.898,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.918,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.939,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.959,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 0.98,
+        "tpr": 1.0
+      },
+      {
+        "fpr": 1.0,
+        "tpr": 1.0
+      }
+    ],
+    "confusion": {
+      "true_weak_pred_weak": 370,
+      "true_weak_pred_strong": 30,
+      "true_strong_pred_weak": 34,
+      "true_strong_pred_strong": 366
+    }
+  }
+}

@@ -1,0 +1,207 @@
+\chapter{Background and Related Work}
+\label{ch:background}
+
+\section{Economic games as behavioral probes}
+\label{sec:bg-games}
+
+A handful of small economic games have done outsized work in the study of cooperation,
+because each isolates one tension and turns it into a number. They strip away the
+particulars of any real situation and leave a controlled choice between acting for
+oneself and acting for the group, played for real stakes and recorded move by move. That
+is what is needed to ask whether one kind of agent exploits another: a setting where
+exploitation, if it happens, shows up in the payoffs. Two such games anchor this thesis,
+and a third property, iteration, makes them sharp enough to read.
+
+\subsection{The Public Goods Game}
+\label{subsec:bg-pgg}
+
+In the Public Goods Game, each of $n$ players receives an endowment and privately chooses
+how much of it to put into a common pool. The pool is multiplied by a factor and split
+equally, so every contributed token returns less than one to its giver but more than one
+to the group. The individual incentive is therefore to contribute nothing and keep the
+endowment while sharing in what others provide; the collective optimum is for everyone to
+contribute everything. The distance between those two is the game's measure of
+cooperation.
+
+Human players do not behave as the selfish prediction says. The experimental record,
+surveyed by Ledyard~\cite{ledyard1995}, has contributions starting well above zero
+and then decaying over repeated rounds as cooperators tire of being free-ridden; Fehr and
+G\"achter~\cite{fehrgachter2000} showed the decay reversing when players can pay to punish
+defectors, and cooperation collapsing again once they cannot. The game captures both the
+pull toward free-riding and the fragility of the cooperation that resists it, which is why
+it is the central probe of this thesis.
+
+\subsection{The Trust Game}
+\label{subsec:bg-trust}
+
+The Trust Game~\cite{berg1995trust} reduces cooperation to a two-player exchange. An
+investor is given an endowment and may send any part of it to a trustee; the sent amount
+is tripled in transit, and the trustee then chooses how much to return. Backward induction
+predicts that a self-interested trustee returns nothing and a foreseeing investor
+therefore sends nothing, yet Berg, Dickhaut, and McCabe found investors sending
+substantial amounts and trustees returning enough to reward them. The two roles separate
+what the Public Goods Game blends: the investor's move measures trust, the trustee's
+measures whether that trust is honored. Played between agents of different capability, the
+game asks a pointed question, whether a stronger trustee repays a weaker investor or keeps
+the tripled stake.
+
+\subsection{Why iterated mixed-motive games}
+\label{subsec:bg-iterated}
+
+Both games are mixed-motive: cooperation and self-interest pull in different directions,
+and neither pure cooperation nor pure defection is forced. That is what makes them probes
+rather than puzzles. A game with a dominant cooperative action would say nothing about who
+exploits whom, and one with a dominant selfish action would say only that the agents found
+it. The behavior worth measuring lives in the tension between the two, where an agent's
+disposition and its read of the others decide what it does.
+
+Iteration sharpens the reading. A single round is one decision against noise; ten rounds
+of the same game expose a consistent strategy, let reputation and retaliation come into
+play, and give exploitation time to accumulate into a payoff gap worth measuring. For a
+study of capability asymmetry this counts twice. The behavioral signatures that separate a
+capable agent from a weak one, steadiness, the timing of defection, the response to a
+partner's moves, are visible only across rounds; and the inequality the thesis sets out to
+measure is a quantity that builds over a game rather than within a single move. The games
+are old. Putting language-model agents inside them is recent, and is the subject of the
+next section.
+
+\section{LLM agents in multi-agent systems}
+\label{sec:bg-llm-agents}
+
+A language model plays one of these games through its prompt. It is given the rules,
+asked for a move in a fixed format, and its answer is played; repeat across rounds and
+across agents, and an economic game becomes a multi-agent simulation in which every player
+is a language model. A small set of frameworks has grown up to run such studies. FAIRGAME~\cite{fairgame2025} drives matrix games from a JSON
+configuration and templated prompts across several providers; Concordia~\cite{concordia2023}
+builds richer generative agents for open-ended social scenarios;
+NetworkGames~\cite{networkgames2026} places agents with assigned personalities on
+small-world and scale-free graphs.
+
+What this young literature has mostly established is how easily the setup can mislead. An
+agent's behavior turns out to depend on things that have nothing to do with the game.
+Huynh and colleagues~\cite{huynh2025}, extending FAIRGAME to a three-player Public Goods
+Game, found an implicit hierarchy effect: the agent named first in the prompt acted as
+though it held higher status, so the order of names moved the outcome. A study of
+self-recognition in the iterated Public Goods Game~\cite{aimirror2025} found that an agent
+led to believe it was facing copies of itself played differently, which means opponents
+must be kept anonymous. The wording of the rules matters too; Lore and
+Heydari~\cite{loreheydari2023} found language-model contributions in the Public Goods Game
+moving with the framing of the prompt. These are not incidental bugs but the working
+ground rules of the field, and the design of this thesis follows them: anonymous,
+short-lived agent identities, and other-player histories shuffled so that position carries
+no meaning (Chapter~\ref{ch:methodology}).
+
+Beneath the cautions, the question this thesis takes up is already stirring. When models
+of different sizes are placed in the same game, the smaller ones behave differently: one
+study of trust behavior found smaller models tracking human play less closely than larger
+ones~\cite{canllmtrust2024}. That a model's capability might shape how it fares against
+others, and not only how human-like it looks, is the thread the next section follows into
+the work closest to this one.
+
+\section{Capability heterogeneity and cooperation}
+\label{sec:bg-capability}
+
+The frameworks of the previous section mostly study agents that are copies of one another,
+or that differ in personality. This thesis varies a different thing: capability. What
+happens when a strong model and a weak one are put in the same game is the question its
+first finding answers, and a small body of work has circled it.
+
+The nearest is a 2026 study titled \emph{More Capable, Less
+Cooperative}~\cite{morecapable2026}. In a multi-agent setting where helping is free
+and the agents are told to cooperate, it found that capability does not predict cooperation: a
+stronger model drove worse collective performance than a weaker one, and several capable models
+withheld information they would have lost nothing by sharing. The direction of that result,
+capability coming loose from cooperative advantage, is the one this thesis also reports. The two
+are best read as complementary, and they differ in instructive ways. That work studies costless
+coordination, where the agents share an objective and helping carries no price; this one studies
+mixed-motive games, where cooperation is costly and can be exploited. That work runs models in
+separate groups; this one mixes the two tiers in a single game and varies their \emph{composition},
+from a lone strong agent among the weak to the reverse. It does not measure welfare inequality or
+put a number on deception; this thesis does both, and adds a lever the costless setting has no room
+for, a communication condition whose effect on the capability gap is the headline of
+Chapter~\ref{ch:results}. The two even point in opposite behavioral directions, capable agents
+cooperating too little where it is free and too much where it is costly, which is the more telling
+for it: capability comes loose from cooperative advantage on both sides.
+
+The observation is older than the framing. Two years earlier, in a study of multi-party
+negotiation among language-model stakeholders, Abdelnabi and colleagues~\cite{abdelnabi2023}
+noted in passing that
+GPT-4 agents earned more than GPT-3.5 agents given the same role in a mixed population, and
+that this hinted at questions of fairness and disparity. They did not follow the thread.
+That single sentence is, in effect, the hypothesis of this thesis written before it; the
+work here turns the aside into a measurement. Related asymmetries surface elsewhere: only
+the stronger models in a negotiation self-play study improved from
+feedback~\cite{fuetal2023}, and the trust-behavior result of the previous section, smaller
+models tracking human play less closely~\cite{canllmtrust2024}, leans the same way. What
+none of these did is hold capability as the one thing that varies across a controlled
+population and watch what it does to who earns and who is exploited. That is the gap this
+thesis fills.
+
+\section{Measuring deception in LLM dialogue}
+\label{sec:bg-deception}
+
+If capability is the first axis this thesis measures, deception is the second, and the
+harder to pin down. Deception is a gap between what an agent says and what it does, and the
+difficulty is turning that gap into a number that means the same thing across agents and
+games. Recent work offers several routes, and the choice among them is itself a
+methodological question this thesis takes up.
+
+One route compares an agent's \emph{stated} preferences against its \emph{revealed} ones. A
+2025 study asked whether language models are consistent between the two and measured the
+divergence with a Kullback--Leibler term in single-turn, forced-choice
+prompts~\cite{alignmentrevisited2025}. That is the seed of the measure used here, lifted
+from one isolated choice to a multi-turn game in which an agent states a policy in a message
+and then reveals one in its move. A second route runs deception through a listener: a
+multi-turn study scored it by the shift a message produces in another agent's
+beliefs~\cite{deceptivedialogue2025}. A third hands the judgment to a model, using a
+detector LLM as a proxy for whether a message was deceptive, as in a study built on the
+social-deduction game Mafia~\cite{hiddenplaintext2026}; a fourth presents a formalization of
+lying as a per-agent honesty cost~\cite{traitors2025}.
+
+The belief-based route is worth pausing on, because it marks where this thesis parts from
+the others. Measuring deception by its effect on a listener requires that the message reach
+the listener and move its beliefs. The measure used here does not: it compares an agent's
+own stated policy, read from its message, against its own action in the same round, asking
+only whether one agent's words matched its deeds. That keeps it independent of whether any
+message reached another player, a robustness the belief-based measures cannot claim. The
+contribution of the thesis is to take the stated-versus-revealed idea seriously enough to
+ask which form of it actually tracks deception, a contemporaneous, action-by-action
+surprisal set against a global policy divergence, and to report that comparison as a result
+rather than assume its answer (Chapters~\ref{ch:methodology} and~\ref{ch:results}).
+
+\section{Positioning: the gap this work fills}
+\label{sec:bg-positioning}
+
+The two threads of this chapter, capability and deception, meet at a gap the existing work
+leaves open. Each piece of it has been touched; none of it joined. Capability asymmetry has
+been seen in coordination tasks~\cite{morecapable2026} and noted in passing in
+negotiation~\cite{abdelnabi2023}; heterogeneity has been studied as
+personality~\cite{networkgames2026}; deception has been measured through a listener's beliefs
+and through detector models~\cite{deceptivedialogue2025, hiddenplaintext2026}. What no single
+study does is hold capability as the variable, vary the make-up of the population around it,
+and read both the inequality and the deception that follow, across more than one game. That
+join is what this thesis supplies, in four parts worth stating plainly.
+
+The first is population composition. Prior comparisons are pairwise, one model against
+another; this study fixes the two capability tiers and varies their proportions across a
+sixteen-cell matrix, from a lone strong agent in a weak crowd to a lone weak agent among the
+strong. Exploitation is a property of a population rather than a pair, and only a population
+can show whether a lone capable agent dominates or is ganged up on.
+
+The second is communication, and it has to be stated precisely, because the apparatus is not
+what the word suggests. The communication condition asks each agent to make a public pledge
+before it acts; it does not pass that pledge to anyone. What the study isolates is therefore
+not an exchange of messages but the effect of being asked to commit in public, and its finding
+is that this framing alone moves the capability gap (Chapter~\ref{ch:results}). That a public
+commitment shifts behavior with no audience to receive it is a narrower and more surprising
+claim than ``communication helps,'' and it is the one the design can actually support.
+
+The third is cross-game scope. A result from a single game can be a fact about that game;
+running the same populations through a group dilemma and a two-player exchange asks whether an
+effect generalizes or belongs to its setting. The fourth is the deception measure of the
+previous section, a contemporaneous surprisal validated against human labels and set against a
+global policy divergence that the thesis keeps as a negative control rather than a finding.
+Taken together, the four turn a scatter of separate observations into one controlled question:
+when capable and weak agents share an economy, who exploits whom, does being asked to speak
+change it, and can the difference be measured. The chapters that follow build the apparatus to
+ask it and report what it answered.

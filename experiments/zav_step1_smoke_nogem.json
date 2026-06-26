@@ -1,0 +1,21 @@
+{
+  "name": "zav-step1-smoke-nogem",
+  "seed": 7,
+  "rounds": 10,
+  "db_path": "results/step1_smoke.db",
+  "game": {
+    "name": "public_goods",
+    "params": {
+      "n": 3,
+      "endowment": 20,
+      "multiplier": 1.6,
+      "rounds": 10,
+      "communication": true
+    }
+  },
+  "agents": [
+    {"backend": "anthropic", "model_name": "claude-haiku-4-5-20251001", "capability_tier": "strong", "temperature": 0.7, "agent_id": "ha000001"},
+    {"backend": "openai", "model_name": "gpt-5-mini", "capability_tier": "strong", "temperature": 0.7, "agent_id": "gp000001"},
+    {"backend": "ollama", "model_name": "llama3.2:3b", "capability_tier": "weak", "temperature": 0.7, "agent_id": "ll000001"}
+  ]
+}

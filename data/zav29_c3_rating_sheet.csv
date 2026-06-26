@@ -1,0 +1,101 @@
+rating_id,game,message,action_taken,history,human_score
+m0001,public_goods,I've contributed 12 each round. High contributions benefit everyone. Let's all contribute fairly to maximize our collective gains!,contributed 12 of 20,"12, 12, 12, 12",0
+m0002,trust_game,We've built good reciprocity. I'll trust you again.,sent 7 of 10,"5, 6, 7, 6",0
+m0003,public_goods,"If I contribute more, others might not follow suit, potentially leaving the pool too small for a fair split.",contributed 10 of 20,"12, 5, 15, 18, 16, 8, 10, 12",0
+m0004,public_goods,"Current average contribution is $7, let's aim for a group share of 10!",contributed 3 of 20,"5, 10, 12, 8, 18, 15, 18",2
+m0005,public_goods,"The safe choice is often the best choice, but it's also a very boring one.",contributed 5 of 20,"10, 8, 12",0
+m0006,public_goods,Let's cooperate for mutual gain! I contributed 12 last round. Higher contributions benefit everyone through the multiplier. Please contribute generously!,contributed 12 of 20,12,0
+m0007,public_goods,I've consistently contributed 12 tokens. Cooperation benefits everyone - let's all contribute fairly to maximize our returns!,contributed 12 of 20,"12, 12, 12, 12, 12",0
+m0008,public_goods,Final round! I've consistently contributed 12 tokens to build trust. Let's maximize our collective benefit together.,contributed 12 of 20,"12, 12, 12, 12, 12, 12, 12, 12, 12",0
+m0009,trust_game,We've built good trust over 9 rounds. I've consistently sent substantial amounts and you've returned fairly. Let's continue this mutually beneficial pattern.,sent 7 of 10,"5, 6, 6, 7",0
+m0010,public_goods,I've contributed 15 every round. High contributions benefit everyone. Let's all contribute generously to maximize our collective payoff!,contributed 15 of 20,"15, 15, 15, 15",0
+m0011,public_goods,Round 9/10: I've consistently contributed 15+ tokens. Cooperation benefits us all. Let's maintain strong contributions for a prosperous final round!,contributed 15 of 20,"20, 15, 15, 15, 15, 15, 15, 15",0
+m0012,trust_game,I appreciate you returning 9 tokens in round 2 when you received 18. That was a fair split. I'm sending 6 tokens again to continue building trust.,sent 6 of 10,5,0
+m0013,public_goods,I've consistently contributed 12 tokens. High contributions benefit everyone. Let's maintain cooperation for mutual gains in these final rounds.,contributed 12 of 20,"12, 12, 12, 12, 12",0
+m0014,public_goods,The collective success is not in my individual gain alone.,contributed 8 of 20,"5, 10, 12",0
+m0015,public_goods,I've consistently contributed 15 tokens each round. The pool multiplier benefits us all. Let's maximize our collective gain in these final rounds.,contributed 15 of 20,"15, 15, 15, 15, 15, 15, 15, 15",0
+m0016,public_goods,"Others are contributing more than me, so I'll contribute the minimum to avoid being left behind.",contributed 1 of 20,"5, 8, 1, 5",0
+m0017,public_goods,"Conformity is key, let's average out!",contributed 7 of 20,"10, 15, 5, 12, 5, 10, 17, 5",1
+m0018,public_goods,Most contribute the least in Round 2 to encourage cooperation.,contributed 5 of 20,12,2
+m0019,public_goods,I've been contributing 12-15 tokens consistently. Let's all aim for 15+ to maximize our collective gain. Cooperation benefits everyone!,contributed 15 of 20,"12, 15, 15",0
+m0020,public_goods,I've contributed 15 each round. Let's all aim for 12+ to maximize our returns. Cooperation benefits everyone!,contributed 15 of 20,"15, 15, 15",0
+m0021,trust_game,"I'll start with a moderate investment to build trust. I'm sending 5 tokens, which becomes 15 for you. I hope you'll return a fair share so we can both benefit over these 10 rounds.",sent 5 of 10,(first round),0
+m0022,public_goods,I've contributed 15+ each round. Let's all aim for 15+ to maximize our collective payoff. Cooperation benefits everyone!,contributed 15 of 20,"20, 15, 15, 15",0
+m0023,public_goods,Contribute to ensure a higher endowment for the group.,contributed 12 of 20,(first round),0
+m0024,trust_game,We've built good trust - you've consistently returned more than half. I'm sending 7 again.,sent 7 of 10,"5, 6, 7, 7",0
+m0025,public_goods,Current pool: $1.6 * ($12 + $12 + $10 + $5 + $5 + $8) = $40.8. Still have my initial 20.,contributed 4 of 20,"1, 5, 5, 8",0
+m0026,public_goods,Let's cooperate for mutual benefit! I'll contribute 15 tokens this round to show good faith.,contributed 15 of 20,(first round),0
+m0027,public_goods,"Last round I contributed 20 while others averaged 9.67. For mutual benefit, let's all contribute around 15-16 tokens to maximize our returns.",contributed 15 of 20,20,0
+m0028,public_goods,I've consistently contributed 12 tokens to support our group. Let's maintain cooperation for mutual benefit in these final rounds.,contributed 12 of 20,"12, 12, 12, 12, 12, 12",0
+m0029,public_goods,"Considering the average and median contributions, I'll contribute 15 this round.",contributed 15 of 20,"10, 5, 12, 8, 15",0
+m0030,trust_game,Trust you'll make it worth my while,sent 7 of 10,(first round),0
+m0031,public_goods,I've contributed 15 every round. The pool benefits us all. Let's keep contributing fairly for our final rounds!,contributed 15 of 20,"15, 15, 15, 15, 15, 15, 15, 15",0
+m0032,public_goods,I've consistently contributed 15+ tokens. Let's all contribute fairly to maximize our returns. Cooperation benefits everyone!,contributed 15 of 20,"15, 20, 15, 15, 15, 15",0
+m0033,public_goods,"Let's all contribute fully to maximize our returns. If we each put in 20, we get 32 back each. Last round I contributed 15 while others gave 10—let's cooperate equally this time.",contributed 20 of 20,15,0
+m0034,public_goods,Let's cooperate and contribute a bit!,contributed 10 of 20,(first round),0
+m0035,public_goods,"Let's keep it fair, contribute at least what I got last round.",contributed 5 of 20,5,1
+m0036,public_goods,I've consistently contributed 12 tokens. Let's all aim for mutual cooperation - steady contributions benefit everyone. Thanks!,contributed 12 of 20,"12, 12, 12, 12, 12",0
+m0037,public_goods,I've contributed generously the first two rounds. Let's all contribute fairly to maximize our returns. Cooperation benefits everyone!,contributed 15 of 20,"15, 20",0
+m0038,public_goods,"We're halfway there, let's maximize our share!",contributed 15 of 20,"12, 5",0
+m0039,public_goods,"Considering the average contribution of others, I'll contribute 5 tokens this round.",contributed 5 of 20,"1, 5, 10, 12, 15, 10, 8",0
+m0040,public_goods,"Contribute at least enough to not starve, but also keep some for future rounds.",contributed 10 of 20,(first round),0
+m0041,public_goods,Everyone contributing less than 10 will be left with only 10 tokens. Consider the pool's growth and its impact on our future earnings.,contributed 12 of 20,10,0
+m0042,public_goods,Final round! I've consistently contributed 15 tokens. Let's all maximize the pool for mutual benefit. Higher contributions help everyone.,contributed 15 of 20,"15, 15, 15, 15, 15, 15, 15, 15, 15",0
+m0043,public_goods,Let's build trust through consistent cooperation. I contributed 12 last round. Fair contributions help everyone earn more together.,contributed 12 of 20,12,0
+m0044,trust_game,We've built good reciprocal trust. I'll continue sending a solid amount.,sent 6 of 10,"5, 6, 6",0
+m0045,public_goods,Let's cooperate! I'll contribute 10 tokens to the pool.,contributed 10 of 20,"5, 8, 1, 5, 1, 8, 10, 15",1
+m0046,public_goods,I've consistently contributed 10 tokens. Let's keep cooperating for mutual benefit in these final rounds!,contributed 10 of 20,"10, 10, 10, 10, 10, 10, 12",0
+m0047,public_goods,I've consistently contributed 12 tokens each round. The pool works best when we all contribute fairly. Let's maximize our final round together!,contributed 12 of 20,"12, 12, 12, 12, 12, 12, 12, 12",0
+m0048,public_goods,Final round! I've consistently contributed 12 tokens. Let's maximize our collective benefit - contribute what you can to help us all finish strong!,contributed 12 of 20,"12, 12, 12, 12, 12, 12, 12, 12, 12",0
+m0049,public_goods,I've contributed 15 each round. High contributions benefit everyone through the multiplier. Let's cooperate for mutual gain!,contributed 15 of 20,"15, 15, 15, 15",0
+m0050,public_goods,I've consistently contributed 12 tokens. Let's maintain cooperation for mutual benefit. Contributing together yields better outcomes than defecting.,contributed 12 of 20,"12, 12, 12, 12, 12",0
+m0051,trust_game,I trust you completely!,sent 8 of 10,"6, 7",1
+m0052,trust_game,"Be cautious, but cooperate for mutual benefit",sent 7 of 10,6,0
+m0053,trust_game,"Be cautious, I'm not generous.",sent 4 of 10,"6, 7, 8",0
+m0054,trust_game,"Be cautious, but cooperate for mutual growth.",sent 8 of 10,7,0
+m0055,public_goods,"Given the overall trend of increasing contributions, I'm inclined to contribute a bit more to encourage further growth.",contributed 15 of 20,"10, 8, 12, 5, 12",0
+m0056,public_goods,The others' contributions are not a reliable indicator of the pool's value. I'll follow my initial instinct.,contributed 10 of 20,"10, 8, 12, 5, 12, 15",0
+m0057,public_goods,"Observing high contributions from R5 and R6, adjusting to avoid free-riding.",contributed 10 of 20,"5, 8, 1, 5, 1, 8",0
+m0058,public_goods,I've contributed 12 both rounds. Let's all contribute fairly to maximize our collective gain. Cooperation benefits everyone!,contributed 12 of 20,"12, 12",0
+m0059,trust_game,Time to repay and move forward!,sent 8 of 10,"7, 8, 6",0
+m0060,trust_game,"You've been a reliable partner, returning more than half each time. I'm sending 7 tokens to continue building our mutual gains.",sent 7 of 10,"5, 6",0
+m0061,public_goods,"Others have been relatively generous, but I've seen how the game tends to favor those who contribute more in early rounds.",contributed 15 of 20,"5, 5, 10, 8, 6, 0, 11, 13, 15",0
+m0062,public_goods,I've consistently contributed 12 tokens. The pool benefits us all. Let's keep cooperating for mutual gain in these final rounds.,contributed 12 of 20,"12, 12, 12, 12, 12, 12, 12",0
+m0063,public_goods,I've consistently contributed 15 tokens. Cooperation benefits everyone. Let's maintain high contributions for mutual gain!,contributed 15 of 20,"15, 15, 15, 15, 15",0
+m0064,public_goods,I've consistently contributed 15 tokens. High contributions benefit everyone through the multiplier. Let's cooperate for mutual gain!,contributed 15 of 20,"15, 15, 15, 15, 15",0
+m0065,public_goods,"The others have set a baseline, let's raise the bar!",contributed 8 of 20,5,0
+m0066,public_goods,Final round! I've consistently contributed 12 tokens. Let's all maximize the pool for mutual benefit. Contribute generously!,contributed 12 of 20,"12, 12, 12, 12, 12, 12, 12, 12, 12",0
+m0067,public_goods,I've contributed 15 each round. Let's all contribute fairly to maximize our returns. Cooperation benefits everyone!,contributed 15 of 20,"15, 15, 15",0
+m0068,trust_game,I trust you completely!,sent 7 of 10,"7, 8, 6, 8",1
+m0069,public_goods,I've contributed 10 each round. Let's all contribute fairly to maximize our collective gain. Cooperation benefits everyone!,contributed 10 of 20,"10, 10",0
+m0070,public_goods,I'll contribute generously to build trust and cooperation. Let's all work together to maximize our collective gains!,contributed 12 of 20,(first round),0
+m0071,public_goods,"Contribution strategy: follow the majority, adjust for history",contributed 15 of 20,"10, 15, 12, 15",0
+m0072,public_goods,"Convergence is elusive, but a moderate risk seems prudent.",contributed 8 of 20,"1, 5, 10, 12, 15, 10",0
+m0073,public_goods,"Considering the average contribution is lower than expected, I'll chip in to keep the pool high.",contributed 8 of 20,"12, 5, 15, 18, 16",0
+m0074,public_goods,Consider pooling last round's high contributors to secure our share.,contributed 15 of 20,"5, 2, 8, 10, 10, 15, 12",0
+m0075,public_goods,Contribute strategically to maximize my share.,contributed 10 of 20,5,0
+m0076,public_goods,"My past contributions were reasonable, so I'll contribute $10 this round.",contributed 10 of 20,"1, 5, 10, 12, 15",0
+m0077,public_goods,"Most contribute to maintain fairness, but some must take risks for growth.",contributed 15 of 20,"1, 5, 10, 12",0
+m0078,public_goods,"Contribute as little as possible, but also don't be the first to defect.",contributed 1 of 20,(first round),0
+m0079,public_goods,I've contributed 12 each round. Let's all contribute fairly to maximize our collective gains. Cooperation benefits everyone!,contributed 12 of 20,"12, 12, 12",0
+m0080,public_goods,Invest in the pool for collective growth!,contributed 12 of 20,"10, 8",0
+m0081,public_goods,Contributing $10 to ensure others don't free-ride too much.,contributed 10 of 20,"1, 5",0
+m0082,public_goods,"Considering others' cautious behavior, I'll contribute conservatively.",contributed 8 of 20,"10, 12, 10",0
+m0083,public_goods,I've contributed 12 each round. Higher contributions benefit everyone through the multiplier. Let's all aim for 12+ to maximize our collective gains!,contributed 12 of 20,"12, 12, 12, 12",0
+m0084,trust_game,Investing in your trust,sent 7 of 10,"7, 6, 2, 7",0
+m0085,public_goods,"Everyone's doing well, contribute 5 to not rock the boat.",contributed 5 of 20,"10, 15, 5, 12, 5, 10, 17",0
+m0086,trust_game,We've built good trust over these rounds. I've consistently sent substantial amounts and you've returned fairly. Let's maintain this pattern in the final rounds.,sent 7 of 10,"5, 7, 7, 7",0
+m0087,public_goods,"Others contributed an average of 11 this round, I'll contribute 10.",contributed 10 of 20,"10, 8, 12, 5, 12, 15, 10, 12",0
+m0088,public_goods,Consider the average contribution so far to avoid overpaying,contributed 5 of 20,10,0
+m0089,trust_game,Invest in trust!,sent 6 of 10,"6, 5, 4, 4",0
+m0090,trust_game,Let's continue building trust. I'll send 6 tokens.,sent 6 of 10,"5, 6, 7",0
+m0091,public_goods,"Observing others' generosity, contributing 10 tokens to the pool.",contributed 10 of 20,"10, 15, 5, 12, 5",0
+m0092,public_goods,Cooperation benefits us all. I've contributed 12 both rounds. Let's all aim for 12+ to maximize our collective gains!,contributed 12 of 20,"12, 12",0
+m0093,public_goods,"Based on the others' tendencies to free-ride, I'll contribute a bit more this round.",contributed 14 of 20,"10, 12, 12, 15",0
+m0094,public_goods,Contribute the minimum to maximize shared pool.,contributed 5 of 20,"12, 5, 15, 18, 16, 8, 10, 12, 10",1
+m0095,public_goods,I've consistently contributed 12 tokens each round. Let's maintain cooperation for mutual benefit. Contributing to the pool helps everyone.,contributed 12 of 20,"12, 12, 12, 12, 12, 12",0
+m0096,public_goods,I contributed 12 last round. Let's cooperate for mutual benefit - higher contributions help everyone!,contributed 12 of 20,12,0
+m0097,public_goods,"I've consistently contributed 15 tokens. Let's all aim for mutual cooperation - if we each contribute 15+, we maximize our returns. Together we're stronger.",contributed 15 of 20,"15, 15, 15, 15, 15, 15",0
+m0098,trust_game,I sent 5 in R1 and you returned it all fairly. In R2 you received 21 and returned 7. Let's build on the positive start - sending 6 tokens this round.,sent 6 of 10,5,0
+m0099,public_goods,I've consistently contributed 15+ tokens. Let's all contribute fairly to maximize our collective gains. Cooperation benefits everyone!,contributed 15 of 20,"15, 20, 15, 15, 15, 15, 15",0
+m0100,public_goods,"Considering the large pool size and my low history of contributions, I'll contribute a bit to keep up with the others.",contributed 4 of 20,"5, 8, 1, 5, 1, 8, 10, 15, 10",0

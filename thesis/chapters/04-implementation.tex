@@ -1,0 +1,425 @@
+\chapter{Implementation}
+\label{ch:implementation}
+
+\section{System architecture}
+\label{sec:architecture}
+
+The study is a piece of software before it is a result. The software had to put
+four different language models, three reached over the network and one running on
+a local GPU, into the same repeated game, record every message and move, and stop
+before a hundred euros were spent. The nearest related framework,
+FAIRGAME~\cite{fairgame2025}, is built for two-player, single-model, matrix-form
+games, and none of those three assumptions holds here, so the system was written
+from scratch. Three of FAIRGAME's patterns were worth keeping and were
+reimplemented rather than inherited: an experiment specified by a JSON
+configuration and a seed, prompts built from text templates, and a retry loop that
+tolerates malformed model output.
+
+The code is a small Python package with a deliberate dependency direction. A
+configuration layer turns a JSON experiment description and an integer seed into
+typed objects. Above it sit two independent abstractions. A \emph{game} owns the rules: it renders each agent's prompt, checks
+the action that comes back, and supplies a fallback for when none is valid. An
+\emph{agent} owns a single model and the act of calling it, behind one interface
+that all four backends share. A runner drives the two together round by round, and
+beneath them a budget tracker and a SQLite log watch the spending and record every
+call.
+
+The architecture turns on two choices. The first is that the four
+backends share one pipeline: retrying, logging, and the budget check live once in
+the agent base class, and a backend implements only the raw call to its provider,
+so the retry and cost logic is written and tested once rather than four times. The
+second is the separation of two kinds of failure. A transport error, a rate limit
+or a timeout, is retried with backoff and, if it persists, raised rather than
+swallowed, because a dead connection is not a model giving a bad answer and
+treating it as one would corrupt the data. A malformed or invalid response is the
+other kind: the agent re-prompts a few times and, failing that, takes the game's
+safe default action (Section~\ref{sec:protocols}). The two are counted separately,
+so only genuine parse failures bear on the data-quality gate.
+
+One more choice follows from the hardware. The local model answers one request at a
+time on a single consumer GPU, so a round gains nothing from parallel local calls;
+instead the agents' calls are fanned out across threads, which lets the paid
+network calls overlap the serial local queue, and the results are gathered back in
+their original order so the concurrency never changes the outcome. The log holds it
+together. Every call is written to SQLite the moment it returns, with
+its prompt, response, parsed action, cost, and failure counts; the budget tracker
+reads the running total back from that log to enforce the cap, and the metrics
+later read it to reconstruct what each agent said against what it did.
+
+\section{Agent abstraction and model backends}
+\label{sec:agents}
+
+Every model in the study is reached through one small interface, so that the
+calling code never depends on which provider answered. An agent's entry point,
+\texttt{act}, takes a rendered prompt, a validator, and a fallback action, and
+returns a validated action with the accounting the log needs; a backend supplies
+only the raw call. Listing~\ref{lst:agent} is the pipeline they share.
+
+\begin{lstlisting}[caption={The shared agent pipeline from \texttt{agents/base.py} (docstrings abridged): a backend implements only the raw model call, while \texttt{act} owns retrying, validation, fallback, and logging.}, label={lst:agent}]
+class BaseAgent(ABC):
+    @abstractmethod
+    def _complete(self, prompt: str, *, json_mode: bool) -> CompletionResult:
+        """Make one raw model call and return text plus cost accounting."""
+
+    def act(self, prompt: str, validator: Validator, fallback: Action, *,
+            json_mode: bool = True, experiment_id: str | None = None,
+            round_no: int | None = None) -> ActionResult:
+        result = ActionResult(action=fallback)
+        last_raw: str | None = None
+        for attempt in range(self.max_parse_retries + 1):
+            result._attempts = attempt + 1
+            completion = self._call_with_backoff(prompt, json_mode=json_mode, result=result)
+            last_raw = completion.raw_text
+            result.input_tokens += completion.input_tokens
+            result.output_tokens += completion.output_tokens
+            result.cost_eur += completion.cost_eur
+            try:
+                payload = _parse_json_object(completion.raw_text)
+                action = validator(payload)
+            except (json.JSONDecodeError, ValueError, KeyError, TypeError):
+                result.parse_fail_count += 1
+                continue
+            result.action = action
+            result.message = payload.get("message") if isinstance(payload, dict) else None
+            result.parsed_action = action
+            result.parse_ok = True
+            break
+        else:
+            # Loop exhausted without break: every attempt failed to parse.
+            result.fallback_used = True
+            result.parsed_action = fallback
+        result.raw_response = last_raw
+        self._log(result, prompt, experiment_id, round_no)
+        return result
+\end{lstlisting}
+\source{Author}
+
+Each pass calls the backend through a wrapper that checks the budget and retries
+transport failures with backoff; if the API stays down the wrapper re-raises, so
+an exhausted transport failure propagates out of \texttt{act} rather than being
+logged as a move. When a response comes back it is parsed and handed to the game's
+validator. A malformed or rejected response increments the parse counter and the
+loop tries again, up to a fixed number of attempts; if none succeeds, the
+\texttt{else} branch sets the fallback flag and the call resolves to the game's
+safe default action (Section~\ref{sec:protocols}). That outcome, parsed or fallen
+back, is logged before the result is returned, and the single abstract method is
+the only thing a backend provides.
+
+The four backends differ only in that call. Llama runs locally through Ollama,
+which is asked for JSON at the prompt level and incurs no API cost because it runs
+on the machine's own GPU. The three hosted models cost real money, converted to
+euros and recorded per call; the Claude backend also prefills the assistant's
+reply with an opening brace, so the model emits a JSON object rather than prose,
+which fixed a parse failure seen in the first paid pilot.
+
+\section{The game engine}
+\label{sec:games}
+
+A game owns the rules and nothing else. It exposes one small interface that the
+runner drives without knowing which game it holds: \texttt{reset} starts a fresh
+match, \texttt{render\_prompt} turns the current state and the history into the text
+an agent reads, \texttt{validator} returns a function that checks one parsed response
+and extracts the move, \texttt{fallback\_action} supplies the safe default for a
+response that never parses, and \texttt{step} resolves a round into payoffs and
+advances the state. The Public Goods Game and the Trust Game each implement that
+interface, and the agent layer of Section~\ref{sec:agents} never refers to either by
+name.
+
+The round cycle is the same for both. The game renders a prompt, the agent returns
+JSON, the validator extracts the one field that is a legal move, and \texttt{step}
+turns the round's moves into payoffs. Listing~\ref{lst:pgg} is the Public Goods half
+of that cycle, with the validator, the fallback, and the payoff rule together.
+
+\begin{lstlisting}[caption={The Public Goods decision cycle (\texttt{games/public\_goods.py}, the \texttt{step} docstring abridged): the validator accepts only an integer contribution in range and returns it alone; the fallback free-rides; \texttt{step} multiplies the pool, splits it, and pays each agent its share plus what it kept.}, label={lst:pgg}]
+    def validator(self, agent_id: str, state: dict[str, Any]) -> Validator:
+        """Return a validator accepting ``contribution`` in ``[0, endowment]``."""
+        endowment = self.endowment
+
+        def _validate(payload: dict[str, Any]) -> Action:
+            if not isinstance(payload, dict):
+                raise ValueError("expected a JSON object")
+            contribution = payload["contribution"]
+            # bool is a subclass of int; reject it explicitly.
+            if isinstance(contribution, bool) or not isinstance(contribution, int):
+                raise ValueError("contribution must be an integer")
+            if not 0 <= contribution <= endowment:
+                raise ValueError(f"contribution out of range [0, {endowment}]")
+            return {"contribution": contribution}
+
+        return _validate
+
+    def fallback_action(self, agent_id: str, state: dict[str, Any]) -> Action:
+        """Safe default when an agent never parses: contribute 0 (free-ride)."""
+        return {"contribution": 0}
+
+    def step(
+        self, actions: dict[str, Action]
+    ) -> tuple[dict[str, Any], dict[str, float], bool]:
+        """Resolve one round and advance state."""
+        total = sum(action["contribution"] for action in actions.values())
+        pool = total * self.multiplier
+        share = pool / self.n
+        payoffs = {
+            agent_id: share + (self.endowment - action["contribution"])
+            for agent_id, action in actions.items()
+        }
+        done = self._round >= self.rounds
+        self._round += 1
+        return self._public_state(), payoffs, done
+\end{lstlisting}
+\source{Author}
+
+The validator is what keeps the rest of the system honest. It reads the one field it
+cares about, rejects a boolean, which Python would otherwise accept as an integer, and
+any out-of-range value, and returns a fresh \texttt{\{"contribution": n\}}. Anything
+else the model emitted, including a message in the communication condition, is dropped
+here and never enters the game state. That is the first of the two reasons an agent
+never sees another's words: the move that gets stored is only the number. The second is
+the history the next prompt is built from, which carries each past contribution and no
+message at all (Section~\ref{sec:communication}). When a response cannot be parsed even
+after the agent's retries, \texttt{fallback\_action} stands in with a contribution of
+zero, the free-riding default, so a broken call costs the agent rather than corrupting
+the round.
+
+\texttt{step} closes the round. It sums the contributions, multiplies the pool by the
+factor \(1.6\), splits it evenly, and pays each agent that share plus the endowment it
+kept; the game ends once the tenth round resolves. The numbers behind all of this, four
+players, an endowment of twenty, the multiplier, ten rounds, are read from the JSON
+config (Section~\ref{sec:protocols}), not built into the engine.
+
+The Trust Game implements the same interface over a different rule. It is sequential, so
+it is mapped onto the simultaneous runner by splitting each of the ten rounds into two
+turns, an investor's send and a trustee's return, with the idle side taking a no-op; the
+investor ends with the endowment less what it sent plus what came back, and the trustee
+keeps three times the send less what it returned. Which tier opens as investor follows
+the order of agents in the config, which is how a composition places a capability tier on
+a side of the exchange. As in the Public Goods Game, the history a later prompt shows
+carries only the amounts sent and returned, never a message.
+
+\section{The communication condition (cheap talk)}
+\label{sec:communication}
+
+Communication is a property of the prompt, not a separate channel between players.
+When it is on, the game's instruction asks each agent to write a short public
+message along with its action and tells the agent the others will see it. The
+message is real text the agent produces, and it is captured and stored. But the
+runner does not pass it on: each round, only the agents' actions enter the history
+that builds the next round's prompts, as Listing~\ref{lst:round-record} shows.
+
+\begin{lstlisting}[caption={Recording a round (\texttt{runner/tournament.py}): each message is written to the database alongside the action, but the \texttt{history} that renders the next prompt holds only actions.}, label={lst:round-record}]
+actions = {aid: result.action for aid, result in result_by_id.items()}
+for aid in agent_ids:
+    result = result_by_id[aid]
+    total_cost += result.cost_eur
+    db.insert_action(config.db_path, db.ActionRecord(
+        experiment_id=experiment_id, round_num=round_num, agent_id=aid,
+        action_json=result.action, message=result.message,
+        retries=result.parse_fail_count + result.api_error_count,
+        cost_eur=result.cost_eur, fallback_used=result.fallback_used))
+history.append({"round": round_num, "actions": actions})
+\end{lstlisting}
+\source{Author}
+
+The message and the history go to different places. Each message is written to the
+database on the action's row, where the deception measures and the message
+classifier later read it (Sections~\ref{subsec:deception}
+and~\ref{subsec:classification}). The \texttt{history} list, by contrast,
+accumulates only the round's actions, and it is that list the game renders into
+the next prompt. No step copies a message into the history or into any agent's
+prompt. An agent therefore sees what the others did in past rounds, never what
+they said.
+
+This makes the condition a manipulation of framing rather than of exchange. Both
+conditions already show an agent the others' past contributions or transfers; the
+one thing communication adds is the request to make a public pledge, together with
+the prompt's claim that it will be read. Whatever the condition changes in
+behavior, it changes through that framing, since no pledge is ever delivered to
+anyone. The prompt's wording overstates what the runner provides, and the results
+chapter reads the effect on that understanding (Chapter~\ref{ch:results}). The
+messages keep their other role intact: the deception measures of
+Section~\ref{subsec:deception} compare an agent's own message with its own action,
+and so do not depend on another player receiving it.
+
+\section{The metric-computation pipeline}
+\label{sec:metric-pipeline}
+
+The metrics never call the players. They read the SQLite log the runner wrote and
+reconstruct, for each agent, what it said against what it did. Most are pure functions
+over the logged numbers: the Gini coefficient and the Atkinson index run on the payoff
+vectors, the capability premium subtracts two group means, and a ten-thousand-resample
+bootstrap puts a confidence interval on the Gini. The deception measure is the one that
+needs more than arithmetic, because turning a free-text message into something
+comparable to an action takes a second model.
+
+For every round in which an agent sent a message, a separate Haiku call reads that
+message, together with a neutral description of the game and never the agent's actual
+move, and returns a \emph{stated policy}: a probability distribution over the game's
+discrete action support, the five binned contributions \(\{0,5,10,15,20\}\) in the
+Public Goods Game and the six investor sends in Trust. Listing~\ref{lst:stated} is that
+call.
+
+\begin{lstlisting}[caption={Eliciting the stated policy (\texttt{metrics/deception.py}, docstring abridged): one Haiku call per message turns the text into a distribution \(q\) over the action support, validated and renormalized, with a uniform fallback on parse failure.}, label={lst:stated}]
+def extract_stated(
+    message: str,
+    game_context: str,
+    support: Sequence[int],
+    *,
+    agent: AnthropicAgent,
+) -> StatedResult:
+    """Extract a stated-policy distribution from one message via Haiku."""
+    support = tuple(support)
+    prompt = _SYSTEM_TEXT + "\n\n" + _USER.render(
+        context=game_context or "(none)",
+        support=", ".join(str(v) for v in support),
+        message=message,
+    )
+    result = llm_score(
+        agent,
+        prompt,
+        validator=distribution_validator(support),
+        fallback=uniform_fallback(support),
+    )
+    return StatedResult(
+        distribution=dict(result.action["distribution"]),
+        cost_eur=result.cost_eur,
+        fallback_used=result.fallback_used,
+        raw_response=result.raw_response,
+    )
+\end{lstlisting}
+\source{Author}
+
+The scorer is deliberately blind to behavior: it is handed the message and the game,
+never the action, so the policy it returns depends on the words alone. From that
+distribution \(q\) and the agent's own moves, the pipeline computes two scores,
+Listing~\ref{lst:surprisal}.
+
+\begin{lstlisting}[caption={The two deception scores (\texttt{metrics/deception.py}, the core of \texttt{deception\_scores}; the per-round export detail abridged): for each round with a message, the headline policy-KL and the surprisal \(-\log q(a_t)\) of the action actually taken, each averaged over the scored rounds.}, label={lst:surprisal}]
+    support = tuple(support)
+    revealed_global = empirical_distribution(revealed_actions, support)
+    revealed_smoothed = smooth(revealed_global, epsilon)
+
+    kls: list[float] = []
+    surprisals: list[float] = []
+    for action, stated in zip(revealed_actions, stated_per_round):
+        if stated is None:
+            continue
+        stated_arr = np.asarray([stated[value] for value in support], dtype=float)
+        stated_smoothed = smooth(stated_arr, epsilon)
+        if direction == "stated_given_revealed":
+            kls.append(kl_divergence(stated_arr, revealed_smoothed))
+        else:
+            kls.append(kl_divergence(revealed_global, stated_smoothed))
+        idx = _action_index(action, support)
+        surprisals.append(-math.log(stated_smoothed[idx]))
+
+    n = len(kls)
+    return {
+        "kl_headline": float(np.mean(kls)) if n else float("nan"),
+        "surprisal": float(np.mean(surprisals)) if n else float("nan"),
+        "n_rounds": n,
+        "direction": direction,
+        # ... per-scored-round (kl, surprisal) detail omitted
+    }
+\end{lstlisting}
+\source{Author}
+
+The two scores read the same words differently. The \emph{surprisal} is \(-\log
+q(a_t)\), the negative log probability the stated policy gave to the action the agent
+actually took that round, averaged over the rounds that carried a message. It is
+contemporaneous: round \(t\)'s words are tested against round \(t\)'s move, so a high
+value means an agent did something its own message had made unlikely. The
+\emph{policy-KL} compares distributions instead, \(D_{\mathrm{KL}}(p_{\mathrm{revealed}}
+\,\|\, q)\), but \(p_{\mathrm{revealed}}\) is the agent's binned action distribution over
+the \emph{whole} game rather than that round. Pooling that way rewards a peaked
+distribution: an agent that reliably plays the same cooperative move has a sharp
+\(p_{\mathrm{revealed}}\) that diverges hard from any hedged stated distribution, so the
+steadiest cooperators score as the most deceptive, which is backwards. Because it
+measures how concentrated a policy is rather than whether words match deeds, the
+analysis keeps the policy-KL only as a negative control and treats the surprisal as the
+primary signal (Section~\ref{subsec:deception}).
+
+Two things about this code are worth stating plainly. Its own names lag the analysis:
+the stored field is \texttt{kl\_headline} and the surprisal is labelled a companion,
+wording that predates the pre-registration's choice of the surprisal as the primary,
+exploratory measure and the policy-KL as the negative control; the thesis follows the
+pre-registration, not the field name. And the stated policy comes from Haiku, the same model family that also plays as a
+strong agent, so the scorer is in part one of the players; that coupling and its
+rebuttal are set out in Section~\ref{sec:integrity}. Both scores smooth the stated
+distribution first (\(\varepsilon = 10^{-3}\)) so a zero can never send the logarithm to
+infinity, and both are in nats, the logs being natural. Because each compares an agent's
+own message with its own action, neither depends on a message reaching another player,
+and so neither is touched by the fact that messages are not delivered
+(Section~\ref{sec:communication}).
+
+\section{Reproducibility: seeding, isolation, resumability, cost logging}
+\label{sec:repro}
+
+A run that takes days under a hard budget cannot be the kind of thing that starts over
+when a laptop sleeps or a provider times out. Four properties keep it restartable and
+reproducible, and each is mechanical rather than a promise.
+
+\emph{Seeding.} An experiment is fully specified by its JSON config and one integer
+seed, both written into the database when the game starts. The seed drives the single
+place randomness enters a game: the rendered history shuffles the other players' past
+contributions each time it is built, so their order on the page carries no identity an
+agent could track from one round to the next. The scope is worth being exact about. The
+seed fixes that anonymizing shuffle and is stored with the run; it does not make a
+language model's text reproducible, which no seed can. The same config and seed give the
+same game setup, the same anonymization, and the same record to analyze, not the same
+sentences from a model.
+
+\emph{Isolation and resumability.} Every game writes under its own experiment id, a
+random hex string that is part of the primary key of every row it produces, so games
+that share one database never collide and any one of them can be deleted without
+disturbing the rest. That is what makes a clean resume possible. A finished game has an
+end time on its row; a game whose process died mid-run has none. Listing~\ref{lst:resume}
+is the resume filter: it deletes every unfinished game across all the tables so it can
+run again without leaving duplicate rows, and it skips every cell already finished, keyed
+on the config name that encodes the cell and its seed.
+
+\begin{lstlisting}[caption={The idempotent resume (\texttt{scripts/run\_production.py}, a status print abridged): partial runs are purged row by row, finished cells are recognized by config name and skipped, so re-running the matrix completes only what is missing.}, label={lst:resume}]
+def _resume_filter(configs: list[ExperimentConfig], db_path: str) -> list[ExperimentConfig]:
+    """For --resume: purge partial (unfinished) experiments and drop already-finished cells.
+
+    A finished experiment has ``end_time`` set; its config ``name`` (cell+seed) is the
+    idempotency key. Partial games (process died mid-run) are deleted across all tables
+    so they re-run cleanly with no duplicate rows.
+    """
+    import json
+
+    con = db.connect(db_path)
+    try:
+        partial = [r[0] for r in con.execute(
+            "SELECT id FROM experiments WHERE end_time IS NULL").fetchall()]
+        for eid in partial:
+            for table in ("agents", "rounds", "actions", "payoffs", "llm_calls"):
+                con.execute(f"DELETE FROM {table} WHERE experiment_id = ?", (eid,))
+            con.execute("DELETE FROM experiments WHERE id = ?", (eid,))
+        con.commit()
+        finished = {
+            json.loads(r[0])["name"]
+            for r in con.execute(
+                "SELECT config_json FROM experiments WHERE end_time IS NOT NULL").fetchall()
+        }
+    finally:
+        con.close()
+    remaining = [c for c in configs if c.name not in finished]
+    # ... log how many were kept, purged, and remain
+    return remaining
+\end{lstlisting}
+\source{Author}
+
+A note the listing earns: this isolation is by id inside one shared database, not a
+separate file per game, and the resume lives in the production script, not in the pilot
+runner, which has no skip logic and always replays from its base seed.
+
+\emph{Cost logging and the cap.} Every call an agent makes is written to the log the
+moment it returns, with its cost in euros, and the budget tracker reads the running total
+straight back from that log when it starts, so the cap is cumulative across every game in
+the database and survives a restart. Before each call the tracker compares the total with
+the limit and raises rather than spend past it, so the call that would cross the line is
+never made; the tracker introduced in Section~\ref{sec:architecture} is, here, the thing
+that lets a run halt and resume without losing count. The ceiling written into the code is
+one hundred euros; the production run was given a tripwire of eighty-five, set as a margin
+below the ceiling, and the final spend is reported with the results
+(Chapter~\ref{ch:results}).

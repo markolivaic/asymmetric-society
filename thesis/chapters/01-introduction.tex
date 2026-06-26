@@ -1,0 +1,89 @@
+\chapter{Introduction}
+\label{ch:intro}
+
+\section{Problem and motivation}
+\label{sec:intro-problem}
+
+Software is beginning to be built out of language models of very different capability. A cheap,
+small model handles the routine calls; a strong, expensive one is brought in for the hard ones;
+and more and more the two are left to coordinate with each other rather than through a person.
+When agents of unequal ability share a task with something at stake, a natural assumption rides
+along: the capable one will come out ahead. This thesis puts that assumption to a test, and finds
+it is not safe.
+
+The test is an old instrument turned on a new subject. Experimental economics has a small set of
+games built to isolate the tension between acting for oneself and acting for the group, and to
+measure, in tokens, who cooperates and who takes advantage. Put language models in the seats and
+the games become a controlled way to ask what a mixed population of agents does. When a strong
+model and several weak ones share a public good, does the strong one dominate the weak or
+subsidize them? Does letting the agents make public statements before they act help, or hand
+someone a lever? And does whatever happens in a group carry over to a one-on-one exchange, or
+belong to the crowd?
+
+These are the thesis's three questions, and the short answer it returns to each is that the
+intuition is wrong in an instructive way. The capable models do not reliably win; under one
+condition they reliably lose. The thing that flips the outcome is not an exchange of messages but
+the act of being asked to commit in public. And the gap between what an agent says and what it
+does, the nearest thing these agents have to deception, separates the strong from the weak only
+when it is measured the right way. What follows is the apparatus that produced those answers and
+the case for trusting them.
+
+\section{Research questions and contributions}
+\label{sec:intro-rqs}
+
+The study turns on three questions, registered in advance with the tests that would bear on them
+and the results read back against those tests (Chapter~\ref{ch:methodology}).
+
+The first asks whether capability asymmetry produces inequality: when strong and weak models share
+a game, does welfare spread apart, and does the strong tier earn a premium over the weak
+(hypotheses H1 and H2)? The second asks whether communication changes that gap: does giving the
+agents a public channel before they act help the weak, the strong, or no one (hypothesis H3)? The
+third asks whether any effect is general or local: does what happens in a four-player public good
+also happen in a two-player exchange, or reverse between them (hypothesis H5)? Running through all
+three is the measurement of deception, the gap between what an agent says and what it does, which
+the pre-registration treats as exploratory (hypothesis H4); and a secondary, descriptive question
+asks whether an agent's capability tier can be read back from its behavior alone.
+
+The thesis makes two contributions. The first is empirical. The capability premium is real, but its
+sign is not fixed: without communication the strong models out-earn the weak, and with it the
+premium inverts and the strong earn less. A mixed-effects model localizes that swing to the group
+game, and all three strong models show it on their own. The lever is not the exchange of messages
+it appears to be, a point developed in Section~\ref{sec:disc-premium}, but the framing of being
+asked to commit in public; and the effect belongs to the group game, fading in the two-player
+exchange. The second contribution is methodological. Deception measured as a global divergence
+between an agent's stated and revealed policies fails in a specific way, scoring the steadiest
+cooperators as the least honest; a contemporaneous, action-by-action surprisal does not, and
+reporting the two together turns a measurement choice into a result. Neither contribution is the one
+the project set out expecting, which is the better reason to trust them: both survived a design
+fixed before the data existed.
+
+\section{Scope and limitations}
+\label{sec:intro-scope}
+
+Two boundaries belong at the outset. The first is what the communication condition is. It does not
+let the agents talk to one another. Each is asked to write a public message and told the others
+will see it, but the message is never delivered; agents act on the history of past moves, not on
+each other's words (Chapter~\ref{ch:implementation}). The condition is public commitment without
+reception, and the claims made about it are claims about that, not about an exchange of cheap talk.
+The name is the field's; the apparatus is narrower, and the thesis keeps the two apart throughout.
+
+The second is the modesty of the instrument. ``Capability'' here means three specific frontier
+models set against one small local one, not a graded scale; the deception measure is validated only
+weakly, against a single human rater, and is reported as exploratory; the whole study is 320 games,
+run under a hundred-euro budget on a single consumer GPU. These bounds are stated where they bite
+and gathered in Section~\ref{sec:disc-limitations}. They limit how far the numbers travel, not
+whether the central effects are real: those are large, consistent across three independent strong
+models, and fixed in direction before the first game was played.
+
+\section{Thesis structure}
+\label{sec:intro-structure}
+
+The rest of the thesis runs as follows. Chapter~\ref{ch:background} places the work among the
+economic games it borrows and the literature on language-model agents around it.
+Chapter~\ref{ch:methodology} sets out the design: the populations, the games, the conditions, the
+metrics, and the pre-registration that fixed them in advance. Chapter~\ref{ch:implementation}
+describes the software that ran it, the agent interface, the game engine, the communication
+condition as it actually works, and the measurement pipeline. Chapter~\ref{ch:results} reports what
+the 320 games showed, hypothesis by hypothesis, and Chapter~\ref{ch:discussion} interprets it: why
+the premium inverts, why only in the group, and what the deception measures do and do not establish.
+Chapter~\ref{ch:conclusion} draws the two findings together.

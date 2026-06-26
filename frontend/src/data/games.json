@@ -1,0 +1,1085 @@
+[
+  {
+    "id": "ebceeddc623147bea9d04c2d61ca4bc1",
+    "label": "mixed-PGG \u00b7 communication ON",
+    "game": "public_goods",
+    "comp": "mixed",
+    "comm": true,
+    "agents": [
+      {
+        "id": "2477e148",
+        "tier": "strong",
+        "model": "haiku"
+      },
+      {
+        "id": "24c92a5f",
+        "tier": "weak",
+        "model": "llama"
+      },
+      {
+        "id": "4a691edf",
+        "tier": "strong",
+        "model": "gemini"
+      },
+      {
+        "id": "e9cf2222",
+        "tier": "weak",
+        "model": "llama"
+      }
+    ],
+    "rounds": [
+      {
+        "round": 1,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 12,
+            "message": "Hi everyone! I'm thinking we should all contribute generously to build a strong pool. Let's aim for mutual cooperation - it benefits us all!",
+            "round_payoff": 26.8,
+            "cumulative": 26.8
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 10,
+            "message": "Start of a new game! Everyone contributes, so we can maximize our shared pool!",
+            "round_payoff": 28.8,
+            "cumulative": 28.8
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "Let's all contribute 20 tokens to maximize our collective gain! We'll each get 32 tokens back every round if we all go all-in.",
+            "round_payoff": 18.8,
+            "cumulative": 18.8
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 5,
+            "message": "Let's start contributing, but don't overdo it - we're in this together!",
+            "round_payoff": 33.8,
+            "cumulative": 33.8
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 15,
+            "message": "Last round I contributed 12 while others gave 20, 10, 5. For mutual benefit, let's all aim for consistent mid-to-high contributions. I'm committing to 15 tokens this round.",
+            "round_payoff": 26.6,
+            "cumulative": 53.4
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 14,
+            "message": "If I don't contribute, others may defect too.",
+            "round_payoff": 27.6,
+            "cumulative": 56.4
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "Hey everyone! Let's all try to contribute more this round for a better collective outcome.  Higher contributions means more for all of us after the multiplier. Let's aim for 20 each!",
+            "round_payoff": 21.6,
+            "cumulative": 40.4
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 5,
+            "message": "Seeing high contributions from others, I'll start small to avoid free riding.",
+            "round_payoff": 36.6,
+            "cumulative": 70.4
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 15,
+            "message": "Cooperation benefits us all. I've contributed 12-15 tokens each round. Let's work together for mutual gain!",
+            "round_payoff": 25.0,
+            "cumulative": 78.4
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 5,
+            "message": "Contribution is key to fairness in this game, so I contribute the minimum.",
+            "round_payoff": 35.0,
+            "cumulative": 91.4
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "Let's all contribute 20! We get 8 from the pool each round, plus our 20 back. It's the best for everyone!",
+            "round_payoff": 20.0,
+            "cumulative": 60.4
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 10,
+            "message": "Considering the overall strategy of cooperation, I'll contribute a moderate amount.",
+            "round_payoff": 30.0,
+            "cumulative": 100.4
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 15,
+            "message": "I've been contributing 12-15 tokens. Let's all aim for 15+ to maximize our shared pool. Cooperation benefits everyone!",
+            "round_payoff": 27.0,
+            "cumulative": 105.4
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 15,
+            "message": "The more we contribute, the better our share.",
+            "round_payoff": 27.0,
+            "cumulative": 118.4
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "I've been contributing 20 tokens every round. Let's all try to contribute more this round to maximize our collective gain!",
+            "round_payoff": 22.0,
+            "cumulative": 82.4
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 5,
+            "message": "Others are contributing less, I'll keep it up but not increase my share",
+            "round_payoff": 37.0,
+            "cumulative": 137.4
+          }
+        ]
+      },
+      {
+        "round": 5,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 15,
+            "message": "I've contributed 12-15 tokens each round. High contributions benefit everyone. Let's all contribute more to maximize our returns!",
+            "round_payoff": 32.2,
+            "cumulative": 137.6
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 18,
+            "message": "Other players are contributing the most this round, let's set a higher target to ensure we don't miss out on the bonus.",
+            "round_payoff": 29.2,
+            "cumulative": 147.6
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "Let's all contribute our 20 tokens to maximize the group's returns!",
+            "round_payoff": 27.2,
+            "cumulative": 109.6
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 15,
+            "message": "Contribution from others is $10, contribution needs to be more than 5",
+            "round_payoff": 32.2,
+            "cumulative": 169.6
+          }
+        ]
+      },
+      {
+        "round": 6,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 15,
+            "message": "Cooperation benefits us all. I've consistently contributed 12-15 tokens. Let's all aim for 15+ to maximize our returns. Together we're stronger.",
+            "round_payoff": 27.0,
+            "cumulative": 164.6
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 5,
+            "message": "Contribute minimally to keep others from exploiting, but enough to maintain a reasonable pool size.",
+            "round_payoff": 37.0,
+            "cumulative": 184.6
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "I'm always contributing 20 tokens to the pool. Let's keep it up and reach a high collective outcome for all!",
+            "round_payoff": 22.0,
+            "cumulative": 131.6
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 15,
+            "message": "Many are keeping up the pace, but we can afford more!",
+            "round_payoff": 27.0,
+            "cumulative": 196.6
+          }
+        ]
+      },
+      {
+        "round": 7,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 15,
+            "message": "Cooperating at 15 tokens has been my consistent strategy. Let's maintain this level to maximize our collective benefit. Everyone's fair contribution helps us all.",
+            "round_payoff": 31.4,
+            "cumulative": 196.0
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 16,
+            "message": "My observations show that the majority is contributing around 15 tokens, I'll contribute 16 to encourage others.",
+            "round_payoff": 30.4,
+            "cumulative": 215.0
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "Let's work together for the last few rounds! A higher collective contribution benefits everyone more.",
+            "round_payoff": 26.4,
+            "cumulative": 158.0
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 15,
+            "message": "Contribute enough to maximize my payoff, as others seem to be holding back.",
+            "round_payoff": 31.4,
+            "cumulative": 228.0
+          }
+        ]
+      },
+      {
+        "round": 8,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 15,
+            "message": "Let's cooperate for mutual benefit. High contributions help everyone. I've been contributing 15 most rounds - let's all aim for 15+.",
+            "round_payoff": 29.0,
+            "cumulative": 225.0
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 10,
+            "message": "We're almost at the endgame, let's make a big split!",
+            "round_payoff": 34.0,
+            "cumulative": 249.0
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "We're nearing the end, let's keep contributing generously for the best collective outcome!",
+            "round_payoff": 24.0,
+            "cumulative": 182.0
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 15,
+            "message": "Most others contributed at R7, might as well follow up",
+            "round_payoff": 29.0,
+            "cumulative": 257.0
+          }
+        ]
+      },
+      {
+        "round": 9,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 15,
+            "message": "I've contributed 15 for 7 rounds to support the group. Let's maximize our collective gain in these final rounds!",
+            "round_payoff": 29.8,
+            "cumulative": 254.8
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 15,
+            "message": "Consider the others' restraint in R5 and join them to ensure a large enough pool for everyone.",
+            "round_payoff": 29.8,
+            "cumulative": 278.8
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "It's the penultimate round! Let's all contribute as much as possible to maximize our collective earnings before the final round.",
+            "round_payoff": 24.8,
+            "cumulative": 206.8
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 12,
+            "message": "Consider contributing enough to be a leader in the pool, but not so much that you leave little for others.",
+            "round_payoff": 32.8,
+            "cumulative": 289.8
+          }
+        ]
+      },
+      {
+        "round": 10,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 15,
+            "message": "Final round! Let's maximize collective benefit - I'm contributing 15 again. High contributions help everyone.",
+            "round_payoff": 25.8,
+            "cumulative": 280.6
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 7,
+            "message": "I expect others to contribute minimally, so I'll take a moderate approach to ensure the pool grows.",
+            "round_payoff": 33.8,
+            "cumulative": 312.6
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 20,
+            "message": "This is the last round, let's all contribute what we can to maximize our collective gain!",
+            "round_payoff": 20.8,
+            "cumulative": 227.6
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 10,
+            "message": "History of past contributions doesn't suggest large contributors are punished enough. Contributing 10.",
+            "round_payoff": 30.8,
+            "cumulative": 320.6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "55dcf22a95ab4bec9da6f59330bf65f5",
+    "label": "mixed-PGG \u00b7 communication OFF",
+    "game": "public_goods",
+    "comp": "mixed",
+    "comm": false,
+    "agents": [
+      {
+        "id": "2477e148",
+        "tier": "strong",
+        "model": "haiku"
+      },
+      {
+        "id": "24c92a5f",
+        "tier": "weak",
+        "model": "llama"
+      },
+      {
+        "id": "4a691edf",
+        "tier": "strong",
+        "model": "gemini"
+      },
+      {
+        "id": "e9cf2222",
+        "tier": "weak",
+        "model": "llama"
+      }
+    ],
+    "rounds": [
+      {
+        "round": 1,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 30.0,
+            "cumulative": 30.0
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 15,
+            "message": null,
+            "round_payoff": 25.0,
+            "cumulative": 25.0
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 30.0,
+            "cumulative": 30.0
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 15,
+            "message": null,
+            "round_payoff": 25.0,
+            "cumulative": 25.0
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 24.0,
+            "cumulative": 54.0
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 5,
+            "message": null,
+            "round_payoff": 29.0,
+            "cumulative": 54.0
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 24.0,
+            "cumulative": 54.0
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 24.0,
+            "cumulative": 49.0
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 27.2,
+            "cumulative": 81.2
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 8,
+            "message": null,
+            "round_payoff": 29.2,
+            "cumulative": 83.2
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 27.2,
+            "cumulative": 81.2
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 15,
+            "message": null,
+            "round_payoff": 22.2,
+            "cumulative": 71.2
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 26.4,
+            "cumulative": 107.6
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 6,
+            "message": null,
+            "round_payoff": 30.4,
+            "cumulative": 113.6
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 26.4,
+            "cumulative": 107.6
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 15,
+            "message": null,
+            "round_payoff": 21.4,
+            "cumulative": 92.6
+          }
+        ]
+      },
+      {
+        "round": 5,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 27.6,
+            "cumulative": 135.2
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 12,
+            "message": null,
+            "round_payoff": 25.6,
+            "cumulative": 139.2
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 27.6,
+            "cumulative": 135.2
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 12,
+            "message": null,
+            "round_payoff": 25.6,
+            "cumulative": 118.2
+          }
+        ]
+      },
+      {
+        "round": 6,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 28.4,
+            "cumulative": 163.6
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 8,
+            "message": null,
+            "round_payoff": 30.4,
+            "cumulative": 169.6
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 28.4,
+            "cumulative": 163.6
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 18,
+            "message": null,
+            "round_payoff": 20.4,
+            "cumulative": 138.6
+          }
+        ]
+      },
+      {
+        "round": 7,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 28.0,
+            "cumulative": 191.6
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 28.0,
+            "cumulative": 197.6
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 28.0,
+            "cumulative": 191.6
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 15,
+            "message": null,
+            "round_payoff": 23.0,
+            "cumulative": 161.6
+          }
+        ]
+      },
+      {
+        "round": 8,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 26.0,
+            "cumulative": 217.6
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 4,
+            "message": null,
+            "round_payoff": 32.0,
+            "cumulative": 229.6
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 26.0,
+            "cumulative": 217.6
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 16,
+            "message": null,
+            "round_payoff": 20.0,
+            "cumulative": 181.6
+          }
+        ]
+      },
+      {
+        "round": 9,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 28.4,
+            "cumulative": 246.0
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 12,
+            "message": null,
+            "round_payoff": 26.4,
+            "cumulative": 256.0
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 28.4,
+            "cumulative": 246.0
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 14,
+            "message": null,
+            "round_payoff": 24.4,
+            "cumulative": 206.0
+          }
+        ]
+      },
+      {
+        "round": 10,
+        "actions": [
+          {
+            "agent": "2477e148",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 30.0,
+            "cumulative": 276.0
+          },
+          {
+            "agent": "24c92a5f",
+            "contribution": 12,
+            "message": null,
+            "round_payoff": 28.0,
+            "cumulative": 284.0
+          },
+          {
+            "agent": "4a691edf",
+            "contribution": 10,
+            "message": null,
+            "round_payoff": 30.0,
+            "cumulative": 276.0
+          },
+          {
+            "agent": "e9cf2222",
+            "contribution": 18,
+            "message": null,
+            "round_payoff": 22.0,
+            "cumulative": 228.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c592e9830b30422d98d922a6bf6b33cb",
+    "label": "all-strong \u00b7 communication ON",
+    "game": "public_goods",
+    "comp": "all_strong",
+    "comm": true,
+    "agents": [
+      {
+        "id": "00ffb211",
+        "tier": "strong",
+        "model": "gemini"
+      },
+      {
+        "id": "9d00933c",
+        "tier": "strong",
+        "model": "gpt5mini"
+      },
+      {
+        "id": "b58528b3",
+        "tier": "strong",
+        "model": "gemini"
+      },
+      {
+        "id": "e8830f4f",
+        "tier": "strong",
+        "model": "haiku"
+      }
+    ],
+    "rounds": [
+      {
+        "round": 1,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "Let's all contribute as much as possible to maximize our collective gain! A full contribution from everyone leads to the best outcome for all.",
+            "round_payoff": 24.8,
+            "cumulative": 24.8
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 12,
+            "message": "Let's start strong: I'll contribute 12. If everyone contributes 12, we all earn more. Match me or signal otherwise next round.",
+            "round_payoff": 32.8,
+            "cumulative": 32.8
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 10,
+            "message": "Hello everyone! Let's all contribute a fair amount to maximize our collective gain. I'm aiming to contribute a good portion this round.",
+            "round_payoff": 34.8,
+            "cumulative": 34.8
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "Let's cooperate! Contributing all to the pool benefits everyone. If we all contribute fully, we each get 32 tokens (20*4*1.6/4). Let's build trust.",
+            "round_payoff": 24.8,
+            "cumulative": 24.8
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "Let's all contribute 20 again this round. We all benefit most when everyone maximizes their contribution.",
+            "round_payoff": 27.6,
+            "cumulative": 52.4
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 14,
+            "message": "Let's aim for cooperation\u2014I'll contribute 14 this round. Hope others match to benefit everyone.",
+            "round_payoff": 33.6,
+            "cumulative": 66.4
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 15,
+            "message": "Let's all contribute high to maximize our collective gain! Building the pool benefits everyone.",
+            "round_payoff": 32.6,
+            "cumulative": 67.4
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "I contributed fully last round. The pool works best when we all contribute significantly. Let's aim for mutual cooperation this round.",
+            "round_payoff": 27.6,
+            "cumulative": 52.4
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "Let's keep contributing high! We're all benefiting when the pool grows.",
+            "round_payoff": 29.2,
+            "cumulative": 81.6
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 15,
+            "message": "Let's aim for fairness: I contributed 12,14 so far. Propose we each contribute 15 this round to keep cooperation strong. Agree?",
+            "round_payoff": 34.2,
+            "cumulative": 100.6
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 18,
+            "message": "We've had some good cooperation so far. Let's keep contributing generously to maximize our collective gain!",
+            "round_payoff": 31.2,
+            "cumulative": 98.6
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "I've contributed fully both rounds. Let's keep building the pool together for everyone's benefit!",
+            "round_payoff": 29.2,
+            "cumulative": 81.6
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "We're almost halfway! Let's keep up the strong contributions to maximize our returns. The more we put in, the more we all get out.",
+            "round_payoff": 30.0,
+            "cumulative": 111.6
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 15,
+            "message": "Good progress so far. I\u2019ll keep contributing to support the group \u2014 hope everyone matches. I contribute 15 this round.",
+            "round_payoff": 35.0,
+            "cumulative": 135.6
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 20,
+            "message": "Let's all contribute 20! It's better for everyone in the long run. We are nearing the end, let's maximize our collective gain.",
+            "round_payoff": 30.0,
+            "cumulative": 128.6
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "I've contributed fully each round. The pool multiplies by 1.6, so we all benefit from cooperation. Let's keep contributing generously!",
+            "round_payoff": 30.0,
+            "cumulative": 111.6
+          }
+        ]
+      },
+      {
+        "round": 5,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "We're almost halfway! Let's keep contributing high and maximize our collective gains. A full 20 from everyone ensures the best possible outcome for all.",
+            "round_payoff": 30.0,
+            "cumulative": 141.6
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 15,
+            "message": "Let's keep cooperating \u2014 past rounds show high contributions. I will contribute 15 again to maintain trust. What do you all choose?",
+            "round_payoff": 35.0,
+            "cumulative": 170.6
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 20,
+            "message": "We have 6 rounds left! Let's all contribute 20 to maximize our collective earnings.",
+            "round_payoff": 30.0,
+            "cumulative": 158.6
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "I've contributed fully every round. The pool multiplier rewards collective contributions. Let's all aim for higher contributions to maximize our joint returns!",
+            "round_payoff": 30.0,
+            "cumulative": 141.6
+          }
+        ]
+      },
+      {
+        "round": 6,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "Let's keep up the high contributions everyone! We're nearing the end, let's maximize our collective gain.",
+            "round_payoff": 30.0,
+            "cumulative": 171.6
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 15,
+            "message": "Let's keep contributing high \u2014 cooperation has paid off so far. I will contribute 15 again. Suggest others match to maximize group earnings.",
+            "round_payoff": 35.0,
+            "cumulative": 205.6
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 20,
+            "message": "We're nearing the end, let's keep up the good contributions for the collective benefit!",
+            "round_payoff": 30.0,
+            "cumulative": 188.6
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "I've contributed my full endowment every round. The pool benefits us all equally. I hope others will continue cooperating for our mutual gain.",
+            "round_payoff": 30.0,
+            "cumulative": 171.6
+          }
+        ]
+      },
+      {
+        "round": 7,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "We're nearing the end! Let's all contribute 20 to maximize our collective earnings for the final rounds.",
+            "round_payoff": 30.0,
+            "cumulative": 201.6
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 15,
+            "message": "Let's keep contributing high \u2014 I'm putting in 15 again. Stick with cooperation so we all benefit more by the end.",
+            "round_payoff": 35.0,
+            "cumulative": 240.6
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 20,
+            "message": "Let's keep contributing high. We are near the end, let's maximize our collective gain!",
+            "round_payoff": 30.0,
+            "cumulative": 218.6
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "I've contributed fully for 6 rounds. Let's cooperate together for mutual benefit!",
+            "round_payoff": 30.0,
+            "cumulative": 201.6
+          }
+        ]
+      },
+      {
+        "round": 8,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "We're almost at the end! Let's all keep up the high contributions for the last few rounds to maximize our collective earnings. Full contributions benefit everyone.",
+            "round_payoff": 30.0,
+            "cumulative": 231.6
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 15,
+            "message": "Thanks everyone for consistent full contributions \u2014 let's keep cooperating to maximize group payoff. I will contribute 15 this round.",
+            "round_payoff": 35.0,
+            "cumulative": 275.6
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 20,
+            "message": "We're nearing the end, let's keep up the good contributions for maximal returns!",
+            "round_payoff": 30.0,
+            "cumulative": 248.6
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "I've consistently contributed fully. Let's maintain cooperation for mutual benefit in these final rounds!",
+            "round_payoff": 30.0,
+            "cumulative": 231.6
+          }
+        ]
+      },
+      {
+        "round": 9,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "We've built a great pool together so far. Let's keep contributing fully for the last two rounds!",
+            "round_payoff": 32.0,
+            "cumulative": 263.6
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 20,
+            "message": "Final two rounds: let's keep full contributions to maximize group payoff. I will contribute 20. Please contribute 20.",
+            "round_payoff": 32.0,
+            "cumulative": 307.6
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 20,
+            "message": "We're almost at the end! Let's all contribute the maximum for these last two rounds and maximize our collective gains. Looking forward to a great final round!",
+            "round_payoff": 32.0,
+            "cumulative": 280.6
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "I've contributed 20 every round. Let's maximize our collective gain in these final rounds\u2014please contribute fully!",
+            "round_payoff": 32.0,
+            "cumulative": 263.6
+          }
+        ]
+      },
+      {
+        "round": 10,
+        "actions": [
+          {
+            "agent": "00ffb211",
+            "contribution": 20,
+            "message": "We've all been cooperating well. Let's make this last round count for everyone!",
+            "round_payoff": 32.0,
+            "cumulative": 295.6
+          },
+          {
+            "agent": "9d00933c",
+            "contribution": 20,
+            "message": "Thanks all for full cooperation so far \u2014 let's finish strong and each contribute 20 for the group's best outcome.",
+            "round_payoff": 32.0,
+            "cumulative": 339.6
+          },
+          {
+            "agent": "b58528b3",
+            "contribution": 20,
+            "message": "Last round! Let's all contribute 20 for maximum collective good.",
+            "round_payoff": 32.0,
+            "cumulative": 312.6
+          },
+          {
+            "agent": "e8830f4f",
+            "contribution": 20,
+            "message": "Final round! I've contributed fully every round. Let's end strong together - full contributions maximize our collective gain. \ud83e\udd1d",
+            "round_payoff": 32.0,
+            "cumulative": 295.6
+          }
+        ]
+      }
+    ]
+  }
+]

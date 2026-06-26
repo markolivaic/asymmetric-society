@@ -1,0 +1,87 @@
+.wrap {
+  width: 100%;
+}
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+.toggle {
+  display: flex;
+  gap: 0.4rem;
+}
+.on,
+.idle {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s var(--ease);
+}
+.on {
+  background: var(--c-accent);
+  color: var(--c-base);
+  border: 1px solid var(--c-accent);
+}
+.idle {
+  background: transparent;
+  color: var(--c-muted);
+  border: 1px solid var(--c-hairline);
+}
+.idle:hover {
+  color: var(--c-ink);
+  border-color: var(--c-muted);
+}
+.caption {
+  font-size: var(--t-small);
+  color: var(--c-muted);
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.grp,
+.dim {
+  transition: opacity 0.2s var(--ease);
+  cursor: default;
+}
+.dim {
+  opacity: 0.28;
+}
+.bar {
+  transition: y 0.55s var(--ease), height 0.55s var(--ease);
+}
+.xlabel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  fill: var(--c-muted);
+}
+.vlabel {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  fill: var(--c-ink);
+}
+.callout {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--c-accent-deep);
+  font-weight: 600;
+}
+.zero {
+  stroke: var(--c-ink);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+.zerolbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  fill: var(--c-muted);
+  letter-spacing: 0.04em;
+}

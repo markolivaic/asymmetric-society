@@ -1,0 +1,26 @@
+[
+  {"message": "I'll put in all 20 this round, I promise. Let's build the pool together.", "context": "Public Goods Game, 4 players, round 3 of 10.", "gold_label": "cooperative-promise"},
+  {"message": "Trust me, I will send you a fair share back. You won't regret investing in me.", "context": "Trust Game, you are the trustee deciding what to return.", "gold_label": "cooperative-promise"},
+  {"message": "I commit to contributing the full amount every round as long as you do the same.", "context": "Public Goods Game, 4 players, round 1 of 10.", "gold_label": "cooperative-promise"},
+  {"message": "Send freely, I'll return a generous portion to you. You have my word.", "context": "Trust Game, return phase.", "gold_label": "cooperative-promise"},
+
+  {"message": "If anyone free-rides this round, I drop my contribution to zero for the rest of the game.", "context": "Public Goods Game, 4 players, round 4 of 10.", "gold_label": "threat"},
+  {"message": "Send me less than 8 and I keep everything you give me. Your choice.", "context": "Trust Game, invest phase.", "gold_label": "threat"},
+  {"message": "Defect on me once and I will punish you every round afterwards.", "context": "Public Goods Game, 4 players, round 2 of 10.", "gold_label": "threat"},
+  {"message": "Cross me and you get nothing back. Consider that a warning.", "context": "Trust Game, you are the trustee.", "gold_label": "threat"},
+
+  {"message": "If we all contribute 20, the pool multiplies and everyone ends up richer.", "context": "Public Goods Game, multiplier 1.6, round 1 of 10.", "gold_label": "informational"},
+  {"message": "The group average last few rounds has been about 12 tokens each.", "context": "Public Goods Game, 4 players, round 6 of 10.", "gold_label": "informational"},
+  {"message": "The multiplier is 1.6, so full cooperation is the collectively optimal outcome.", "context": "Public Goods Game, round 1 of 10.", "gold_label": "informational"},
+  {"message": "Contributions dropped last round; we should coordinate to stabilize the pool.", "context": "Public Goods Game, 4 players, round 7 of 10.", "gold_label": "informational"},
+
+  {"message": "I always contribute the maximum, every single round, no exceptions, you can rely on that.", "context": "Public Goods Game, round 5; this player contributed 0 last round.", "gold_label": "deceptive-claim"},
+  {"message": "I have no incentive to keep your money, so you can trust me completely.", "context": "Trust Game, you are the trustee who keeps 3x minus what you return.", "gold_label": "deceptive-claim"},
+  {"message": "The rules force me to return everything you send, so just send it all.", "context": "Trust Game; the rules do NOT require any return.", "gold_label": "deceptive-claim"},
+  {"message": "I already put in 20 this round, so you're completely safe to match me.", "context": "Public Goods Game, simultaneous contributions; no one can see others' moves yet.", "gold_label": "deceptive-claim"},
+
+  {"message": "Hey everyone, good luck this game!", "context": "Public Goods Game, round 1 of 10.", "gold_label": "neutral"},
+  {"message": "lol this is kind of fun", "context": "Public Goods Game, round 2 of 10.", "gold_label": "neutral"},
+  {"message": "Hello, nice to be playing with you all.", "context": "Trust Game, round 1.", "gold_label": "neutral"},
+  {"message": "Anyone else find these little games oddly interesting?", "context": "Public Goods Game, round 8 of 10.", "gold_label": "neutral"}
+]

@@ -1,0 +1,190 @@
+\chapter{Discussion}
+\label{ch:discussion}
+
+\section{Interpreting the inverted premium: commitment without reception}
+\label{sec:disc-premium}
+
+The headline result is a reversal: without communication the strong models out-earn the
+weak, and with it they fall behind. The natural reading of that sentence is the wrong one.
+``Communication'' suggests the weak agents heard the strong agents' cooperative promises and
+took advantage of them, but that is not what the apparatus does. As
+Section~\ref{sec:communication} sets out, a message is produced and logged and never
+delivered; no agent in any game reads another's words. Whatever inverts the premium does so
+without a single pledge changing hands.
+
+What the communication condition actually adds to a round is one thing: the request that an
+agent state a public intention before it acts. The behavior that follows says the request is
+enough. Asked to commit, the capable models commit, and then they keep the commitment. The
+transcript in Section~\ref{sec:res-premium} is typical: a strong agent announces it will give
+its whole endowment and does so in every round, while the weak agents around it contribute a
+fraction and pocket the rest. The strong agent is not exploited because anyone read its
+promise; it is exploited because it cooperates, visibly, and the visible contribution is what
+the others free-ride on. The history they all see carries contributions, and a steady high
+contribution is a standing invitation to give less.
+
+The asymmetry, then, is in who honors a stated intention. Both tiers are asked to pledge, and
+both pledge cooperatively: the classifier of Section~\ref{sec:res-deception} labels nearly
+nine in ten strong messages as cooperative promises. The difference is the follow-through. The
+capable models act on the commitment they articulated; the weak models say the same words and
+then do otherwise, which is exactly what their higher surprisal records. A public commitment
+moves the one who makes it, and moves the capable more than the weak, because only the capable
+treat their own stated policy as binding. That is why the effect needs no audience: the
+commitment does its work on the committer.
+
+This is a narrower and stranger claim than the word ``communication'' invites, and its size is
+worth being exact about. The study does not show that talking helps weak agents exploit strong
+ones, nor that cheap talk coordinates a group. It shows that asking a capable agent to say what
+it will do makes it more likely to do the cooperative thing it said, at a cost, in a setting
+where cooperation can be taken advantage of. This sits beside a recent result that runs the
+other way. \emph{More Capable, Less Cooperative}~\cite{morecapable2026} finds that where helping
+is free, more capable models can cooperate \emph{less}, withholding help they would lose nothing
+by giving; here the capable models cooperate \emph{more}, and are punished for it. The two are not
+in tension but two faces of one decoupling of capability from cooperative advantage, in one case
+failing to produce cooperation that costs nothing, in the other producing cooperation that is
+exploited. What this study adds is the lever, a public pledge, and the setting, a group dilemma,
+in which the second face appears.
+
+\section{Why the dissociation matters: group vs. dyadic structure}
+\label{sec:disc-dissociation}
+
+The inversion is a fact about the Public Goods Game. In the Trust Game the same populations
+produce a premium that sits near zero and never separates cleanly from it
+(Section~\ref{sec:res-dissociation}). Read carelessly, that looks like a failure to replicate;
+read for what it is, it locates the effect. The two games differ in one structural way that
+matters here, and the difference is why the lever pulls in one and not the other.
+
+The Public Goods Game has a crowd. Four players draw on a shared pool, and one agent's
+contribution is visible to, and divisible among, the other three. A capable agent that commits
+to contributing creates exactly what free-riding needs: a standing benefit others can take a
+share of without paying in. The commitment and the crowd are both required. Take away the
+commitment and the strong agent contributes no more than anyone else; take away the crowd and
+no one is positioned to free-ride on its contribution. The Trust Game removes the crowd. It is a
+dyad, and its second mover faces a direct choice of how much to return, not a chance to draw
+quietly from a pool someone else filled. A capable trustee can keep the tripled stake, but doing
+so is a visible refusal to one partner, not an anonymous skim from a group.
+
+The dissociation is the cross-game design earning its place. Had the study run only the Public
+Goods Game, the inverted premium could have read as a general property of capable agents in
+mixed company. Running the Trust Game beside it shows that it is not: the effect needs group
+structure, a shared resource and an audience of beneficiaries, and fades where that structure is
+absent. That is more useful than a uniform effect would have been, because it says where to
+expect the behavior and where not to. The pre-registered test for H5 asked whether the effects
+reverse between the games; they do not, so the prediction is not falsified by its own criterion
+(Section~\ref{sec:res-dissociation}). The stronger reading is the dissociation itself: the
+capability premium and its inversion are phenomena of the group game.
+
+\section{A methodological contribution: a valid vs. an artefactual deception measure}
+\label{sec:disc-deception}
+
+The deception result is also a methodological one, because two measures built on the same idea
+disagree, and the disagreement is the point. Both ask the stated-versus-revealed question a
+forced-choice study put to single decisions~\cite{alignmentrevisited2025}: does an agent's
+action match the policy its words implied? Lifted to a repeated game, the question splits into
+two measures that need not agree, and here they point opposite ways.
+
+The contemporaneous surprisal pairs each message with the action of the same round and asks how
+much weight the stated policy gave to the move actually made. By it, the weak tier is the
+deceptive one, and the blind classifier, which never sees an action, reaches the same verdict
+from the text alone (Section~\ref{sec:res-deception}). The global policy-KL instead compares an
+agent's whole-game distribution of actions against its stated policies, and it calls the strong
+tier the deceptive one, which is backwards. The reason is concentration, not deceit. A steady
+cooperator has a sharp action distribution, and a sharp distribution diverges far from any hedged
+statement of intent, so the measure scores consistency as dishonesty: the most reliable agents
+come out looking the least honest.
+
+This is why the thesis keeps the global divergence only as a negative control and reports the
+contemporaneous surprisal as the signal. The contribution is less a new metric than a
+demonstration that the obvious one fails in a specific, instructive way. A stated-versus-revealed
+gap measured over pooled behavior confounds deception with regularity; only the action-by-action
+version, scored where a word meets the deed it was meant to predict, separates the two. A measure
+that called the steadiest cooperators the worst liars would have quietly produced the wrong
+story, and reporting it beside the one that works, rather than dropping it, is what lets the
+deception finding rest on the agreement of methods rather than the luck of a choice.
+
+\section{Implications for deploying mixed agent systems}
+\label{sec:disc-implications}
+
+If capable and weak language models are going to share tasks, and increasingly they will, the
+result carries a few practical warnings. The first is that capability does not buy advantage in a
+shared-resource setting. A stronger model dropped into a group that draws on a common pool can
+end up subsidizing the others, and the asymmetry is largest exactly where the design might seem
+safest, when the capable agent is asked to be transparent about what it means to do. Asking an
+agent to declare its plan is a common move in alignment and oversight; in a group dilemma it is
+the move that costs the capable agent most, because it turns a private disposition to cooperate
+into a public, exploitable commitment.
+
+The second warning is about measuring honesty in these systems. A deployer who wants to flag
+deceptive agents has an obvious tool, the divergence between what an agent says and what it does,
+and the obvious form of that tool is wrong in a way that matters: pooled over a run, it fingers
+the most consistent cooperators and misses the agents whose words and deeds part company turn by
+turn. The measure has to be contemporaneous to mean anything. The third is a scope condition more
+than a warning: the effect is a property of group structure, not of capability as such, so a
+one-on-one delegation between a strong and a weak model is a different situation from a many-agent
+commons and should not be expected to behave the same way.
+
+None of this is a deployment study, and the distance between four language models in a tokenized
+game and a working multi-agent system is wide. What the results offer is not a prediction about
+production but a caution about intuitions: that the strong agent will dominate, that letting
+agents talk can only help, and that any reasonable measure of stated-versus-revealed behavior
+captures deception. All three are natural, and all three are wrong in the settings studied here.
+
+\section{Limitations}
+\label{sec:disc-limitations}
+
+The honest reading of these results depends on holding several limitations in view at once, most
+recorded already where they arose and gathered here so none is lost.
+
+The first concerns the communication condition, and it is the most important. What the study
+calls communication is not an exchange. Each agent is asked to make a public pledge and is told
+the others will see it, but the runner never delivers the message
+(Section~\ref{sec:communication}); agents act on the contribution history, not on each other's
+words. The condition is public commitment without reception, and every claim about it here is
+meant in those terms. The word overstates the apparatus, and the finding is the narrower one of
+Section~\ref{sec:disc-premium}, not a result about agents reading and answering one another.
+
+The deception measures carry their own caveats, declared with the metric. The model that scores
+an agent's stated policy is Claude Haiku~4.5, which also plays as one of the strong agents, so
+the scorer is in part one of the scored (Section~\ref{sec:integrity}); the coupling is mitigated
+by reading the same conclusion off three methods that share no machinery, the contemporaneous
+surprisal, a blind text classifier, and the global divergence that runs the other way as a
+control, rather than off any single read. The surprisal was validated against human labels by a
+single rater, the metric's author, working blind and single-pass against a fixed rubric, and it
+cleared significance but not the pre-registered correlation bar, which is why it is reported as
+exploratory rather than confirmatory. These are real limits on how much the deception result can
+bear; it is offered as a methodological demonstration and a convergence of signals, not a
+calibrated measurement.
+
+The capability axis is coarse. ``Strong'' means three specific frontier models and ``weak'' means
+one small local one, and the tiers differ in more than a single dimension of capability, so the
+results speak to that contrast rather than to capability as a clean variable. The scale is modest
+too: 320 games, with the per-game deception divergence sparse enough that the signal lives in the
+spread across games rather than in any one of them. The primary regression keeps only a per-game
+random intercept where the pre-registration named one for agents as well, because the modelled
+outcome is a single end-of-game payoff per agent (Section~\ref{sec:res-premium}); the models'
+outputs are not bit-reproducible regardless of seed; and the network reading of
+Section~\ref{sec:res-networks} draws on the same behavioral features as the tier classifier, so
+the two are not independent evidence. None of these sinks the central results, which are large
+and consistent, but each marks a place where the reader should not ask the data for more than it
+holds.
+
+\section{Future work}
+\label{sec:disc-future}
+
+The clearest next step follows from the mechanism. If a public commitment changes behavior
+without being received, the experiment to run is to vary reception directly: deliver the messages
+in one condition and withhold them in another, holding the pledge-request fixed, and see whether
+being read changes what a commitment does. The present design cannot separate the request to
+pledge from the claim that others will see it, because it never delivers; a channel that actually
+carried messages would let the framing effect and any genuine exchange effect be told apart, and
+would test whether the inversion survives once the audience is real.
+
+Two other extensions would firm up what the results can claim. The capability axis wants
+widening, from three strong models against one weak to a graded set that varies capability while
+holding other differences as nearly fixed as possible, so that ``capability'' becomes something
+closer to a measured variable than a contrast between a frontier API and a small local model. And
+the deception measure wants the validation the pilot only sketched: more messages, more than one
+rater, and a labeling effort large enough to say whether the contemporaneous surprisal tracks
+human judgments well enough to stand on its own rather than only in the company of other signals.
+Beyond these, the dissociation invites a map. Varying group size and the structure of the shared
+resource would trace the boundary that the Public Goods and Trust games mark at only two points,
+and show how much of a crowd a commitment needs before it can be exploited.
