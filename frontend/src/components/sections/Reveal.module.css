@@ -51,6 +51,13 @@
   color: var(--c-accent);
   margin-bottom: 0.7rem;
 }
+.figTitle {
+  font-size: 1.45rem;
+  line-height: 1.2;
+  color: var(--c-ink);
+  margin-bottom: 0.9rem;
+  max-width: 34ch;
+}
 .figLine {
   font-size: 1.05rem;
   color: var(--c-ink);
@@ -107,7 +114,7 @@
 .fpList {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }
 .fpList li {

@@ -46,6 +46,8 @@ export function Theater() {
         <p className={`lead ${s.lead}`}>
           The same four players, the same ten rounds. Flip communication on or off
           and scrub through - watch the strong pledge cooperation, and the weak cash in.
+          One thing to know: the pledges you&rsquo;ll read were never delivered - each
+          agent saw only the others&rsquo; actions.
         </p>
       </R>
 
@@ -120,6 +122,7 @@ export function Theater() {
           </div>
           <p className={`mono ${s.caveat}`}>
             One matched game shown - the population-level flip is the chart under “The findings”.
+            Messages are visible to you, not to the players: logged by the runner, never passed on.
           </p>
         </div>
       </R>

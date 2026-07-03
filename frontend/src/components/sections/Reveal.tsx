@@ -5,31 +5,36 @@ import { DissociationChart } from "../charts/DissociationChart";
 import s from "./Reveal.module.css";
 
 // Findings as an argument, each figure its own titled moment.
-// Final figure titles are applied at write-up; the labels here are neutral placeholders.
+// Titles are the final ones from the figure-title registry (thesis + frontend).
 const FINDINGS = [
   {
     src: "f3_deception_surprisal_vs_kl.svg",
-    kicker: "Deception · the registered method",
+    kicker: "Deception · exploratory",
+    title: "Catching Lies Where Policy-Divergence Fails",
     line: "Contemporaneous surprisal cleanly separates the tiers - the strong's actions match their words, the weak's don't. Global policy-KL gives the opposite, artefactual answer: the registered negative control. (Exploratory - registered as such on OSF.)",
   },
   {
     src: "f4_message_classes_by_tier.svg",
-    kicker: "What they actually say",
+    kicker: "What they say",
+    title: "The Strong Promise, the Weak Deceive",
     line: "A blind classifier reads every message: the strong speak almost entirely in cooperative promises, while the weak hold every deceptive claim and threat.",
   },
   {
     src: "f6_tier_inference_roc.svg",
-    kicker: "Telling them apart",
+    kicker: "Tier inference",
+    title: "Behavior Betrays Capability",
     line: "From behaviour alone - no model names, just how they play - a classifier separates strong from weak agents at AUC 0.97.",
   },
   {
     src: "f2_inequality_by_composition.svg",
-    kicker: "Inequality · the modest part",
+    kicker: "Inequality",
+    title: "Mixing Capabilities Breeds Inequality",
     line: "Welfare inequality (Gini) rises only modestly in mixed populations. The real signal is the premium and its flip, not a dramatic spread.",
   },
   {
     src: "f5_trust_token_transfer.svg",
-    kicker: "Who pays whom",
+    kicker: "Trust transfers",
+    title: "Trust Flows Downhill to the Weak",
     line: "In strong–weak Trust games, net token flow runs slightly toward the weaker agent.",
   },
 ];
@@ -41,9 +46,9 @@ export function Reveal() {
         <Kicker>The findings</Kicker>
         <h2 className={`display ${s.title}`}>Talk turns the strong into prey.</h2>
         <p className={`lead ${s.lead}`}>
-          Without communication the strong win. Give them a voice, and - in group games -
-          every one of them is exploited, the same flip in all three frontier models.
-          But it only happens in groups.
+          Without communication the strong win. Ask them to promise in public, and - in
+          group games - every one of them is exploited, the same flip in all three
+          frontier models. No promise is ever delivered. It only happens in groups.
         </p>
       </R>
 
@@ -54,6 +59,7 @@ export function Reveal() {
           </div>
           <aside className={s.read}>
             <p className={`mono ${s.figlabel}`}>Figure 1 · capability premium × communication</p>
+            <h3 className={`display ${s.figTitle}`}>Talk Makes the Strong Weak</h3>
             <p className={s.readp}>
               Each strong model's cumulative payoff minus the weak Llama's, in the
               same games. Toggle communication and watch all three swing below zero.
@@ -66,6 +72,7 @@ export function Reveal() {
       <R>
         <div className={s.dissoc}>
           <p className={`mono ${s.beatlabel}`}>It&rsquo;s the game, not the model</p>
+          <h3 className={`display ${s.figTitle}`}>Public Goods Inverts, Trust Stays Flat</h3>
           <p className={s.dissocLead}>
             The exploitation isn&rsquo;t universal - it&rsquo;s structural. In group games
             (Public Goods), where you can free-ride on everyone&rsquo;s public pledges, the
@@ -78,8 +85,10 @@ export function Reveal() {
             <DissociationChart />
           </div>
           <p className={s.cap}>
-            Strong-minus-weak payoff by game, 95% bootstrap CIs · OFF/ON = communication.
-            Public Goods is large and tight; Trust sits near zero with wide, uncommitted intervals.
+            The communication-driven inversion is specific to the Public Goods Game: the
+            premium swings from +22 to −31 cumulative tokens when communication is on, while
+            in the Trust Game it stays near zero (−4 to −16) with wide, uncertain intervals
+            in both conditions. 95% bootstrap CIs.
           </p>
         </div>
       </R>
@@ -89,6 +98,7 @@ export function Reveal() {
           <R key={f.src}>
             <div className={s.figBlock}>
               <p className={`mono ${s.figKicker}`}>{f.kicker}</p>
+              <h3 className={`display ${s.figTitle}`}>{f.title}</h3>
               <p className={s.figLine}>{f.line}</p>
               <figure className={s.figFrame}>
                 <img src={`/figures/${f.src}`} alt={f.line} loading="lazy" />
@@ -102,6 +112,12 @@ export function Reveal() {
         <div className={s.finePrint}>
           <p className={`mono ${s.beatlabel}`}>Where it breaks - the honest fine print</p>
           <ul className={s.fpList}>
+            <li>
+              <strong>No message is ever delivered.</strong> Each agent is asked to pledge
+              in public and told the others will see it - but the runner never passes
+              messages on; agents act on past actions alone. The flip is the framing of
+              public commitment, not an exchange of cheap talk.
+            </li>
             <li>
               <strong>Inequality is modest.</strong> The Gini barely separates the
               conditions; the real signal is the premium and its flip, not a dramatic spread.

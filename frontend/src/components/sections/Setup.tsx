@@ -17,7 +17,7 @@ const BEATS = [
   {
     k: "03",
     t: "The twist",
-    d: "Half the games allow a public message before each round. That one switch - communication on or off - changes everything.",
+    d: "Half the games ask each agent to make a public pledge before it acts - a message written in the belief the others will read it. They never do: the pledge is logged, never delivered. What flips the economy is being asked to commit - not being heard.",
   },
 ];
 

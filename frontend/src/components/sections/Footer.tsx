@@ -27,7 +27,10 @@ export function Footer() {
               <a href="https://osf.io/rnqgs/">OSF pre-registration ↗</a>
             </p>
             <p className={s.val}>
-              <a href="#">Source on GitHub ↗</a>
+              <a href="https://github.com/markolivaic/asymmetric-society">Source on GitHub ↗</a>
+            </p>
+            <p className={s.val}>
+              <a href="/Asymmetric_Society.pdf" target="_blank" rel="noopener">Thesis (PDF) ↗</a>
             </p>
           </div>
           <div className={s.col}>
@@ -35,7 +38,7 @@ export function Footer() {
             <p className={s.val}>
               Francesco Marko Livaić
               <br />
-              Mentor: prof. Aleksandar Stojanović
+              Mentor: dr. sc. Aleksandar Stojanović
               <br />
               TVZ Zagreb · 2026
             </p>
