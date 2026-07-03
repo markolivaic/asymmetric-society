@@ -1,4 +1,4 @@
-"""ZAV-4 / Step 3: production experiment harness (the ~320-game matrix).
+"""Step 3: production experiment harness (the ~320-game matrix).
 
 Builds the full experimental matrix in code and runs it into ONE
 ``results/production.db`` so the EUR 100 cap is global:
@@ -209,7 +209,7 @@ def _resume_filter(configs: list[ExperimentConfig], db_path: str) -> list[Experi
 
 def main() -> int:
     """Build the matrix and run the chosen mode."""
-    parser = argparse.ArgumentParser(description="ZAV-4 production experiment harness")
+    parser = argparse.ArgumentParser(description="production experiment harness")
     parser.add_argument("--print-plan", action="store_true")
     parser.add_argument("--all-weak", action="store_true", help="swap strong->Llama (EUR 0 smoke)")
     parser.add_argument("--dry-run", action="store_true", help="run only the expensive cells")

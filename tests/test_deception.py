@@ -1,4 +1,4 @@
-"""KL deception metric (ZAV-22): validator, pure math, and end-to-end scoring.
+"""KL deception metric: validator, pure math, and end-to-end scoring.
 
 All offline. A scripted backend returns a distribution JSON so the LLM seam is
 exercised without network; the KL/surprisal math is tested directly on synthetic

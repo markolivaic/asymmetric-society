@@ -1,4 +1,4 @@
-"""Network metrics (ZAV-27): interaction/behaviour graphs + centrality + Louvain.
+"""Network metrics: interaction/behaviour graphs + centrality + Louvain.
 
 Two deliberately distinct graph mappings (a game maps to a graph two ways, and
 conflating them would be a thesis error):
@@ -7,17 +7,18 @@ conflating them would be a thesis error):
   gives literal A→B transfers (investor sends, trustee returns), so edges and
   weights are genuine interaction. *But* our Trust games are n=2 pairs, so a
   single game is a 2-node graph: centrality is degenerate and Louvain meaningless
-  until ZAV-29 scale. The honest signal now is transfer asymmetry, not centrality.
+  until the human-rating pilot reaches scale. The honest signal now is transfer
+  asymmetry, not centrality.
 * :func:`pgg_cocontribution_graph` - a **behavioural-similarity graph, NOT an
   interaction graph**. PGG has no A→B transfers (shared pool), so per the ticket's
   "co-contribution patterns" we connect agents by similarity of contribution
-  behaviour (the ZAV-26 features), sparsified to a kNN graph. "Central" =
+  behaviour (the tier-inference behavioural features), sparsified to a kNN graph. "Central" =
   behaviourally typical; "community" = behavioural cluster.
 
 Caveats the thesis must carry (see Decision Log):
 
-* The PGG similarity graph is built *from the ZAV-26 features*, so a high
-  Louvain-vs-tier ARI is the **same information as ZAV-26 balanced accuracy with a
+* The PGG similarity graph is built *from the tier-inference behavioural features*, so a high
+  Louvain-vs-tier ARI is the **same information as the tier classifier's balanced accuracy with a
   different tool - NOT independent confirmation**. Only the Trust transfer graph is
   independent interaction structure.
 * The kNN ``k`` (and RBF gamma) are a hidden threshold-confound: dense enough
@@ -109,7 +110,7 @@ def pgg_cocontribution_graph(
     """Behavioural-similarity graph over PGG agents (NOT an interaction graph).
 
     Nodes are ``(experiment_id, agent_id)`` agent-instances pooled across games;
-    edge weight is the RBF similarity of their standardized ZAV-26 behaviour
+    edge weight is the RBF similarity of their standardized tier-inference behaviour
     vectors, sparsified to each node's ``k`` nearest neighbours. Nodes carry a
     ``tier`` attribute.
 
@@ -319,8 +320,8 @@ def _run_pgg(db_path: str, seed: int) -> None:
         align = community_tier_alignment(part, {n: g.nodes[n]["tier"] for n in g.nodes()})
         print(f"    k={k:<2}  communities={align['n_communities']}  "
               f"modularity={modularity(g, part):.3f}  ARI_vs_tier={align['ari']:+.3f}")
-    print("\n  NOTE: this graph is derived from the ZAV-26 features, so ARI-vs-tier is the SAME")
-    print("  information as ZAV-26 balanced accuracy, not independent confirmation. Only the Trust")
+    print("\n  NOTE: this graph is derived from the tier-inference features, so ARI-vs-tier is the SAME")
+    print("  information as the tier classifier's balanced accuracy, not independent confirmation. Only the Trust")
     print("  transfer graph is independent interaction structure. Pilot = Haiku-vs-Llama, not general.")
 
 
@@ -337,12 +338,12 @@ def _run_trust(db_path: str, seed: int) -> None:
         ta, tb = g.nodes[a]["tier"], g.nodes[b]["tier"]
         print(f"    {a} ({ta}) -> {b} ({tb})  transferred {data['weight']:.0f}")
     print("\n  NOTE: n=2 pair -> centrality/Louvain are degenerate here. This is an EXTRACTION")
-    print("  PROOF only, not a result; a real transfer network needs ZAV-29 scale.")
+    print("  PROOF only, not a result; a real transfer network needs larger scale.")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     """CLI: build a graph from a results DB and print structural metrics (€0)."""
-    parser = argparse.ArgumentParser(description="Network metrics (ZAV-27).")
+    parser = argparse.ArgumentParser(description="Network metrics.")
     parser.add_argument("--db", required=True, help="Results database.")
     parser.add_argument("--game", choices=("trust", "pgg"), default="pgg")
     parser.add_argument("--seed", type=int, default=0)

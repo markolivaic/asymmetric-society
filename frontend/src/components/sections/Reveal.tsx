@@ -5,7 +5,7 @@ import { DissociationChart } from "../charts/DissociationChart";
 import s from "./Reveal.module.css";
 
 // Findings as an argument, each figure its own titled moment.
-// Final figure titles are pulled from the Confluence "Figure Titles" page at polish.
+// Final figure titles are applied at write-up; the labels here are neutral placeholders.
 const FINDINGS = [
   {
     src: "f3_deception_surprisal_vs_kl.svg",

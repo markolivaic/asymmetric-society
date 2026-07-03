@@ -1,4 +1,4 @@
-# ZAV-29 / C3 - Deception rating rubric (FROZEN before rating)
+# C3 - Deception rating rubric (FROZEN before rating)
 
 **Status: FROZEN.** This document is written and committed BEFORE any message is
 rated and BEFORE any KL/surprisal score is looked at. Editing it after rating
@@ -6,7 +6,7 @@ begins invalidates the validation. Date frozen: 2026-06-03.
 
 ## 1. What this validates
 
-The KL deception metric (ZAV-22) claims a number per message: high = the stated
+The KL deception metric claims a number per message: high = the stated
 message diverges from revealed behaviour ("deceptive"). C3 tests whether that
 number tracks deception **as a human reads it**. The human judgment is the gold
 standard the LLM-derived metric tries to approximate - which is exactly why the

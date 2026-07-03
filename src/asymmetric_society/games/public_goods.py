@@ -1,4 +1,4 @@
-"""Iterated Public Goods Game (ZAV-18).
+"""Iterated Public Goods Game.
 
 Standard n-player public-goods social dilemma. Each round every agent is endowed
 ``endowment`` tokens and contributes ``c_i in [0, endowment]`` to a common pool.

@@ -1,4 +1,4 @@
-"""ZAV-29 / C3 analysis: correlate blind human ratings with KL and surprisal.
+"""C3 analysis: correlate blind human ratings with KL and surprisal.
 
 Run AFTER the human has filled ``human_score`` (0-3) in the rating sheet. Joins
 the sheet to the KL key by ``rating_id`` and reports, for BOTH the per-round KL
@@ -63,7 +63,7 @@ def _report(name: str, res: dict) -> None:
 
 def main() -> int:
     """Load ratings, join to the KL key, and report the C3 validation."""
-    parser = argparse.ArgumentParser(description="ZAV-29 C3 correlation analysis")
+    parser = argparse.ArgumentParser(description="C3 correlation analysis")
     parser.add_argument("--sheet", default="results/zav29_c3_rating_sheet.csv")
     parser.add_argument("--key", default="results/zav29_c3_key.csv")
     parser.add_argument("--seed", type=int, default=0)
@@ -72,7 +72,7 @@ def main() -> int:
     human, kl, surp, n_unrated = _load(args.sheet, args.key)
 
     print("=" * 64)
-    print("ZAV-29 C3 -- KL deception validation vs BLIND human ratings")
+    print("C3 -- KL deception validation vs BLIND human ratings")
     print("=" * 64)
     print(f"rated messages: {len(human)}  (unrated/skipped: {n_unrated})")
     if not human:

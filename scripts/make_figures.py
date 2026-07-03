@@ -1,14 +1,14 @@
-"""ZAV-34: final result figures from the scored production DB (results/production.db).
+"""Final result figures from the scored production DB (results/production.db).
 
 Turns the Phase-4 analysis numbers (already in the DB) into publication-quality
 figures for the thesis Results chapter and the React frontend. EUR 0 (read-only):
 reads ``payoffs`` / ``deception_scores`` / ``message_classifications`` / ``actions``
 and reuses the metric modules, never calls an LLM.
 
-Design rules (per ZAV-34 review):
-  * NO descriptive/marketing titles baked into the figures. Final titles live on
-    the Confluence page "Figure Titles (thesis + frontend)" and are added at
-    write-up / frontend time. Here we ship only neutral technical axis labels,
+Design rules:
+  * NO descriptive/marketing titles baked into the figures. The labels here are
+    neutral placeholders; final figure titles are applied at write-up /
+    frontend time. Here we ship only neutral technical axis labels,
     units, legends, and CIs.
   * Colours are FIXED across every figure (tier + per-model + message-class) so
     the thesis and the frontend bind to one palette.
@@ -486,7 +486,7 @@ def fig7_dissociation(df: pd.DataFrame) -> None:
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="ZAV-34 final result figures (EUR 0, read-only)")
+    p = argparse.ArgumentParser(description="Final result figures (EUR 0, read-only)")
     p.add_argument("--db", default="results/production.db")
     p.add_argument("--only", default=None, help="f1..f7 to render a single figure")
     args = p.parse_args()

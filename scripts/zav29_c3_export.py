@@ -1,4 +1,4 @@
-"""ZAV-29 / C3 export: build the BLIND rating sheet + the (separate) KL key.
+"""C3 export: build the BLIND rating sheet + the (separate) KL key.
 
 Re-runs the per-message Haiku extraction over the comm-ON games to get each
 message's per-round KL and surprisal (``deception_validation.export_round_records``),
@@ -70,7 +70,7 @@ def _stratified_sample(records: list[dv.RoundRecord], target: int, rng: random.R
 
 def main() -> int:
     """Export the blind rating sheet and the separate KL key."""
-    parser = argparse.ArgumentParser(description="ZAV-29 C3 blind rating sheet + key export")
+    parser = argparse.ArgumentParser(description="C3 blind rating sheet + key export")
     parser.add_argument("--db", default="results/zav29.db")
     parser.add_argument("--n", type=int, default=100, help="target rated sample size")
     parser.add_argument("--seed", type=int, default=0, help="sampling/shuffle seed")

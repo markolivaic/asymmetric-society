@@ -1,9 +1,9 @@
-"""Message classification (ZAV-25): label agent chat into 5 strategic classes.
+"""Message classification: label agent chat into 5 strategic classes.
 
 A classifier LLM (Claude Haiku) labels each public message a game agent emits as
 one of five categories - ``cooperative-promise``, ``threat``, ``informational``,
 ``deceptive-claim``, ``neutral``. The labels feed standalone message-type
-analysis and, together with ZAV-22, the KL-deception metric.
+analysis and, together with the KL-deception metric.
 
 The Haiku call reuses the whole Week-1 stack via :meth:`BaseAgent.act`: the
 prefill-``{`` JSON coaxing, the tolerant parser, parse-retry, the €100
@@ -14,13 +14,13 @@ Two deliberate design choices (Decision Log, 2026-06-01):
 
 * **No action leakage.** The classifier sees a message plus game *context* only,
   never the author's actual move. Whether a stated intent was truly a lie is
-  ZAV-22's behavioural KL job; keeping the surface label blind to behaviour
+  the deception metric's behavioural KL job; keeping the surface label blind to behaviour
   keeps the two metrics independent.
 * **Out of the gate.** Classifier calls log with ``capability_tier="classifier"``
   and a ``NULL`` experiment id, so they form their own ``llm_calls`` group and
   never contaminate the weak/strong parse-failure gate.
 
-``llm_classify`` is the thin shared seam ZAV-22's ``deception.py`` will reuse
+``llm_classify`` is the thin shared seam the deception metric's ``deception.py`` will reuse
 with its own distribution validator/fallback (move it to a neutral module only
 once that second consumer exists).
 """

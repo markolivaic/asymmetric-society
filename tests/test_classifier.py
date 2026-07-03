@@ -1,4 +1,4 @@
-"""Message classifier (ZAV-25) tested with a scripted backend - no API calls.
+"""Message classifier tested with a scripted backend - no API calls.
 
 The classifier drives the real :meth:`BaseAgent.act` pipeline (prefill/parse/
 retry/budget/log); only ``_complete`` is mocked, so the validator, fallback,

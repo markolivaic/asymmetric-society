@@ -1,4 +1,4 @@
-"""Run a config for N games sequentially (ZAV-20 pilot driver).
+"""Run a config for N games sequentially (pilot driver).
 
 Ollama serves one model instance and serializes concurrent requests, so there is
 nothing to gain from running games in parallel - they run one after another. Each

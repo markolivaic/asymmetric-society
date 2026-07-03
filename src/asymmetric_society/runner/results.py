@@ -1,7 +1,7 @@
 """Read-side queries over the results database (stdlib ``sqlite3``).
 
 The write helpers live in :mod:`asymmetric_society.runner.db`; this module is the
-read counterpart used by the ZAV-20 pilot report and later analysis. It computes
+read counterpart used by the pilot runner's report and later analysis. It computes
 the parse-failure gate, pulls a full game transcript for eyeball verification that
 the model actually plays (not just emits valid JSON), surfaces raw failure samples
 for diagnosis, and reads final payoffs for the inequality metrics.

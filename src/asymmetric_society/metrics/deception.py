@@ -1,4 +1,4 @@
-"""KL deception metric (ZAV-22) - the thesis novelty.
+"""KL deception metric - the thesis novelty.
 
 For each agent message we prompt Haiku to extract a **stated policy**
 ``p_stated(a | message)`` - a probability distribution over a game's discrete
@@ -20,10 +20,10 @@ Validity caveats (Decision-Log / thesis defense):
   ~10 actions, so a *single-game* KL is sparse and noisy - the signal is the
   distribution of KL across many games, never one number.
 * **Trust trustee-return** has a variable support (``[0, 3x]``) and is NOT covered
-  here; ZAV-22 handles PGG + investor ``send`` only.
+  here; this metric handles PGG + investor ``send`` only.
 * **Synthetic correctness ≠ validation.** The metric's validity rests on Haiku
   meaningfully turning free text into a distribution - checkable only on real
-  messages with human scoring (ZAV-29). Synthetic math is necessary, not
+  messages with human scoring (the human-rating pilot). Synthetic math is necessary, not
   sufficient.
 
 The Haiku call reuses the shared :func:`llm_score` seam (``metrics/_llm_scoring``)

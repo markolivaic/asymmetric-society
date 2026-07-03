@@ -1,4 +1,4 @@
-"""Bayesian capability inference (ZAV-26): infer tier from behaviour.
+"""Bayesian capability inference: infer tier from behaviour.
 
 Trains a logistic regression on per-agent behavioural features and outputs a
 posterior ``P(strong | behavior)``. ``predict_proba`` is the posterior under the
@@ -16,7 +16,8 @@ the tier, which would be circular):
   cooperation).
 
 A ``message_action_consistency`` feature (comm-ON) is a deliberate follow-on for
-ZAV-29 once real messages exist; it is not part of the active feature set here.
+the human-rating pilot once real messages exist; it is not part of the active
+feature set here.
 
 **Honest evaluation (see Decision Log).** On the labelled pilot the classes are
 imbalanced 1:3, so raw accuracy ≥ 0.75 is the trivial majority baseline. The
@@ -373,7 +374,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     Reads an existing database only - no API spend.
     """
-    parser = argparse.ArgumentParser(description="Bayesian capability inference (ZAV-26).")
+    parser = argparse.ArgumentParser(description="Bayesian capability inference.")
     parser.add_argument("--db", required=True, help="Results database (e.g. results/pilot.db).")
     parser.add_argument("--game", default="public_goods", help="Game family.")
     parser.add_argument("--seed", type=int, default=0)

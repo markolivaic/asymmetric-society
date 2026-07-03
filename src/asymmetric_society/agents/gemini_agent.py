@@ -1,4 +1,4 @@
-"""Gemini Flash backend (google-genai SDK; ZAV-24 migration).
+"""Gemini Flash backend (google-genai SDK migration).
 
 Migrated off the deprecated ``google-generativeai`` package to ``google-genai``
 (the ``google.genai`` client). Two things matter for this project:

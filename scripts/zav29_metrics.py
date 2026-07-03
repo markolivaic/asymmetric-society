@@ -1,4 +1,4 @@
-"""ZAV-29 checkpoint-C metrics driver: KL + classifier + tier-inference + premium.
+"""Checkpoint-C metrics driver: KL + classifier + tier-inference + premium.
 
 Runs the EXISTING metric passes over ``results/zav29.db`` (the pilot produced by
 ``scripts/run_zav29.py``) and prints the checkpoint-C report:
@@ -106,7 +106,7 @@ def _print_transcript(db_path: str, experiment_id: str, label: str, max_rounds: 
 
 def main() -> int:
     """Run the checkpoint-C metric passes and print the report."""
-    parser = argparse.ArgumentParser(description="ZAV-29 checkpoint-C metrics")
+    parser = argparse.ArgumentParser(description="checkpoint-C metrics")
     parser.add_argument("--db", default="results/zav29.db")
     parser.add_argument("--budget", type=float, default=5.0, help="EUR tripwire (shared per-DB)")
     args = parser.parse_args()
@@ -128,7 +128,7 @@ def main() -> int:
     comm_on = {g: ids for (g, c), ids in groups.items() if c}
 
     print("=" * 70)
-    print("ZAV-29 CHECKPOINT C -- metrics on real comm-ON data")
+    print("CHECKPOINT C -- metrics on real comm-ON data")
     print("=" * 70)
     for (g, c), ids in sorted(groups.items()):
         print(f"  {g:<13} comm={'ON ' if c else 'OFF'}  games={len(ids)}")

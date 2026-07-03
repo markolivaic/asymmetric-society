@@ -1,4 +1,4 @@
-"""ZAV-35 Phase 2: export the scored production DB to static JSON for the frontend.
+"""Phase 2: export the scored production DB to static JSON for the frontend.
 
 EUR 0, read-only. Writes two files the React site imports directly:
   frontend/src/data/aggregates.json  - every chart's numbers (premium, Gini,

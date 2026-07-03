@@ -1,4 +1,4 @@
-/* ZAV-35 design tokens - locked in the Frontend Build Spec (Confluence 16220162).
+/* Design tokens - locked in the frontend build spec.
    Site chrome vs data palette are kept separate: data colours appear ONLY in charts. */
 :root {
   /* --- chrome (light) --- */

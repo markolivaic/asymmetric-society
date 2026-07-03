@@ -1,13 +1,14 @@
-"""Shared Haiku message-scoring seam (ZAV-25 classifier + ZAV-22 deception).
+"""Shared Haiku message-scoring seam (the message classifier + the deception metric).
 
-Both message metrics ask Haiku to read a message and emit structured JSON: ZAV-25
-a category label, ZAV-22 a probability distribution over an action support. They
+Both message metrics ask Haiku to read a message and emit structured JSON: the
+classifier a category label, the deception metric a probability distribution over
+an action support. They
 share one tested call path - :func:`llm_score` over :meth:`BaseAgent.act` - so the
 prefill-``{``, tolerant parser, parse-retry, €100 budget check, and ``llm_calls``
 logging are written and tested once. Only the prompt, validator, and fallback
 differ per task.
 
-Extracted from ``classifier.py`` once ZAV-22 became the second consumer (the
+Extracted from ``classifier.py`` once the deception metric became the second consumer (the
 "refactor when a real second user exists" rule); ``classifier.py`` re-exports the
 names for back-compatibility.
 

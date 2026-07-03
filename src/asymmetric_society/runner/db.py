@@ -2,16 +2,16 @@
 
 Every agent call is logged with its full prompt, raw response, parsed action,
 token counts, cost, and the two failure counters. This table is the source of
-truth for the KL-deception metric, the ZAV-20 parse-failure gate, budget
+truth for the KL-deception metric, the parse-failure gate, budget
 reconciliation, and debugging.
 
 Failure accounting is split deliberately:
   * ``api_error_count`` - transient transport failures (rate limit, timeout,
     5xx) that were retried with backoff. NOT model mistakes.
   * ``parse_fail_count`` - the model returned text but the JSON was invalid or
-    failed validation. These are the real model errors the ZAV-20 gate measures.
+    failed validation. These are the real model errors the parse-failure gate measures.
 
-Later tickets (ZAV-19) add experiments/agents/rounds/actions/payoffs tables
+The experiment DB tables (experiments/agents/rounds/actions/payoffs) sit
 alongside ``llm_calls``; ``init_db`` is the single place to extend.
 """
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS payoffs (
     PRIMARY KEY (experiment_id, round_num, agent_id)
 );
 
--- ZAV-25 message classification. One row per classified agent message; the
+-- Message classification. One row per classified agent message; the
 -- (experiment_id, round_num, agent_id) triple matches the source row in
 -- ``actions`` 1:1, so re-classifying a database is idempotent (INSERT OR
 -- REPLACE on the UNIQUE key). The raw classifier LLM call is logged separately
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS message_classifications (
     UNIQUE (experiment_id, round_num, agent_id)
 );
 
--- ZAV-22 KL deception scores. One row per agent per game per KL direction; the
+-- KL deception scores. One row per agent per game per KL direction; the
 -- UNIQUE key makes re-scoring a database idempotent (INSERT OR REPLACE).
 CREATE TABLE IF NOT EXISTS deception_scores (
     id             INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -228,7 +228,7 @@ def log_call(db_path: str | Path, record: CallRecord) -> int:
 
 
 # ---------------------------------------------------------------------------
-# ZAV-19 experiment tables (experiments / agents / rounds / actions / payoffs).
+# Experiment tables (experiments / agents / rounds / actions / payoffs).
 # These record the game-level run alongside the per-call ``llm_calls`` log.
 # ---------------------------------------------------------------------------
 
@@ -391,7 +391,7 @@ def insert_payoff(db_path: str | Path, record: PayoffRecord) -> None:
 
 
 # ---------------------------------------------------------------------------
-# ZAV-25 message classification (one row per classified agent message).
+# Message classification (one row per classified agent message).
 # ---------------------------------------------------------------------------
 
 
@@ -443,7 +443,7 @@ def insert_classification(db_path: str | Path, record: ClassificationRecord) -> 
 
 
 # ---------------------------------------------------------------------------
-# ZAV-22 KL deception scores (one row per agent per game per KL direction).
+# KL deception scores (one row per agent per game per KL direction).
 # ---------------------------------------------------------------------------
 
 

@@ -1,4 +1,4 @@
-"""ZAV-19 experiment tables: existence and insert/round-trip (pure SQLite)."""
+"""Experiment tables: existence and insert/round-trip (pure SQLite)."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ def _tables(db_path: str) -> set[str]:
 
 
 def test_init_db_creates_experiment_tables(db_path: str) -> None:
-    # llm_calls plus the five ZAV-19 tables all live in one init_db.
+    # llm_calls plus the five experiment tables all live in one init_db.
     assert NEW_TABLES.issubset(_tables(db_path))
     assert "llm_calls" in _tables(db_path)
 

@@ -1,4 +1,4 @@
-"""Bayesian capability inference (ZAV-26): feature math, extraction, and the model.
+"""Bayesian capability inference: feature math, extraction, and the model.
 
 All offline. The synthetic generator drives the model tests with known-separable
 (and known-overlapping) classes, so the honest gate (balanced accuracy / AUC) is

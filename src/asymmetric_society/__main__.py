@@ -5,8 +5,9 @@ Usage:
 
 Runs the config ``--games`` times (sequentially), then prints the per-tier
 parse-failure table with the gate verdict (attempt_fail_rate < 0.15), one full
-game transcript, and any raw parse-failure samples. Intended for the ZAV-20
-pilot; the all_weak config runs entirely on local Ollama at zero cost.
+game transcript, and any raw parse-failure samples. Intended for the
+parse-failure gate pilot; the all_weak config runs entirely on local Ollama at
+zero cost.
 """
 
 from __future__ import annotations

@@ -1,6 +1,6 @@
 """Shared scoring primitive (metrics/_llm_scoring) + classifier back-compat.
 
-Verifies the seam ZAV-25 and ZAV-22 both ride: a scripted backend goes through
+Verifies the seam the message classifier and the deception metric both ride: a scripted backend goes through
 the real ``act`` pipeline, calls log out of the parse gate, and the classifier's
 old names still resolve to the moved primitive.
 """

@@ -1,4 +1,4 @@
-"""Network metrics (ZAV-27): synthetic structure recovery + DB builders.
+"""Network metrics: synthetic structure recovery + DB builders.
 
 Offline. Synthetic graphs with a planted structure verify that Louvain recovers
 known communities and centrality flags the obvious hub; builder tests confirm the

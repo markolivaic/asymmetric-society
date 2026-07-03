@@ -1,8 +1,8 @@
-"""C3 validation of the KL deception metric against blind human ratings (ZAV-29).
+"""C3 validation of the KL deception metric against blind human ratings.
 
 The KL metric (``metrics/deception.py``) is built and synthetically checked, but
 its *validity* - does a high KL actually correspond to deception a human sees? -
-can only be tested on real messages with human scoring (the ZAV-22 "C3" caveat).
+can only be tested on real messages with human scoring (the KL deception metric's "C3" caveat).
 This module provides the two pieces that test needs:
 
   * :func:`export_round_records` - re-runs the per-message Haiku extraction over a

@@ -1,4 +1,4 @@
-"""ZAV-5 / Phase 4: production analysis -> H1-H5 results on results/production.db.
+"""Phase 4: production analysis -> H1-H5 results on results/production.db.
 
 Reads the 320-game production DB and produces the per-hypothesis report. The paid
 scoring (KL/surprisal in ``deception_scores``, labels in ``message_classifications``)

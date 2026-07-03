@@ -1,4 +1,4 @@
-"""ZAV-29 pilot sweep: PGG + Trust x communication ON/OFF into one shared DB.
+"""C3 human-rating pilot sweep: PGG + Trust x communication ON/OFF into one shared DB.
 
 ``run_batch`` runs a single config N times; it does NOT sweep conditions. This
 wrapper invokes the CLI once per condition (4 configs) with a SHARED results DB
@@ -32,7 +32,7 @@ CONDITIONS: list[tuple[str, str]] = [
 
 def main() -> int:
     """Run each condition through the CLI with a shared DB and budget tripwire."""
-    parser = argparse.ArgumentParser(description="ZAV-29 multi-condition pilot sweep")
+    parser = argparse.ArgumentParser(description="C3 human-rating multi-condition pilot sweep")
     parser.add_argument("--games", type=int, default=7,
                         help="games per condition (default 7 -> 28 total)")
     parser.add_argument("--seed", type=int, default=1000,
@@ -43,7 +43,7 @@ def main() -> int:
     args = parser.parse_args()
 
     print("=" * 64)
-    print(f"ZAV-29 PILOT SWEEP  games/cond={args.games}  seed={args.seed}")
+    print(f"C3 HUMAN-RATING PILOT SWEEP  games/cond={args.games}  seed={args.seed}")
     print(f"db={args.db}  budget=EUR {args.budget:.2f}  total games={len(CONDITIONS) * args.games}")
     print("=" * 64)
 

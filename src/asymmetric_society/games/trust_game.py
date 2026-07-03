@@ -1,4 +1,4 @@
-"""Iterated Trust Game (Berg, Dickhaut & McCabe 1995) - ZAV-23.
+"""Iterated Trust Game (Berg, Dickhaut & McCabe 1995).
 
 Two players, asymmetric sequential roles. Each Berg round: the INVESTOR is given
 ``endowment`` tokens and sends ``x in [0, endowment]`` to the TRUSTEE; the sent

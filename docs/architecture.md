@@ -1,7 +1,7 @@
 # Architecture
 
 Design notes for the Asymmetric Society simulation framework. This documents the
-ZAV-16 scaffold and the ZAV-17 agent abstraction layer.
+core scaffold and the agent abstraction layer.
 
 ## Why build from scratch (not fork FAIRGAME)
 
@@ -36,9 +36,9 @@ to `act(prompt, validator, fallback, ...)`. Rationale: the **game** owns prompt
 rendering and the action schema; the **agent** stays game-agnostic and owns the
 LLM call, retry, and logging. Clean separation of concerns.
 
-### Two failure classes (critical for the ZAV-20 gate)
+### Two failure classes (critical for the parse-failure gate)
 
-The retry loop separates two kinds of failure, because the ZAV-20 gate
+The retry loop separates two kinds of failure, because the parse-failure gate
 (parse-failure rate < 15%) must measure *model* mistakes, not network weather:
 
 | Failure | Trigger | Handling | Counter |
@@ -49,7 +49,7 @@ The retry loop separates two kinds of failure, because the ZAV-20 gate
 A persistent transport failure **re-raises** rather than silently falling back -
 a dead API is not a model giving a bad answer, and a silent fallback would
 corrupt the behavioral data. Both counters are logged on every `llm_calls` row;
-ZAV-20 derives its rate from `parse_fail_count` only.
+the parse-failure gate derives its rate from `parse_fail_count` only.
 
 ### Budget cap
 
@@ -69,8 +69,8 @@ over-charges nor hides the caching savings we rely on to stay under budget.
 `runner/db.py` uses stdlib `sqlite3` (not SQLAlchemy - per project constraints).
 Every call logs prompt, raw response, parsed action, token counts, cost, the two
 failure counters, and `parse_ok` / `fallback_used`. This table feeds the
-KL-deception metric, the ZAV-20 gate, budget reconciliation, and debugging.
-ZAV-19 adds experiments/agents/rounds/actions/payoffs tables alongside it.
+KL-deception metric, the parse-failure gate, budget reconciliation, and debugging.
+The experiment DB tables add experiments/agents/rounds/actions/payoffs tables alongside it.
 
 ## Reproducibility - read before writing the thesis
 
@@ -84,7 +84,7 @@ bit-identical model text, or a defense examiner can rightly challenge it.
 ## Concurrency
 
 `act()` is synchronous (matches the ticket; simplest to test). Ollama serves one
-model instance and serializes concurrent requests, so the runner (ZAV-19) will
+model instance and serializes concurrent requests, so the orchestration runner will
 overlap paid API calls with the serial local calls via
 `asyncio.to_thread(agent.act, ...)` + `asyncio.gather`, rather than making the
 backends natively async.

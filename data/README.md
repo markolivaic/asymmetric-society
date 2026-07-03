@@ -1,7 +1,7 @@
-# C3 deception-validation dataset (ZAV-29)
+# C3 deception-validation dataset
 
 The single most important validation artifact in the thesis: the **blind human
-deception ratings** that the KL deception metric (ZAV-22) was tested against, plus
+deception ratings** that the KL deception metric was tested against, plus
 the metric key. Tracked here (not in gitignored `results/`) because it is thesis
 appendix material and the evidence that C3 was actually carried out.
 

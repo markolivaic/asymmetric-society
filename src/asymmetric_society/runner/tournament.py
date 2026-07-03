@@ -1,4 +1,4 @@
-"""Experiment orchestration: run one game end-to-end and log it to SQLite (ZAV-19).
+"""Experiment orchestration: run one game end-to-end and log it to SQLite.
 
 ``run_experiment`` wires a :class:`~asymmetric_society.config.ExperimentConfig`
 into a game and its agents, then drives the

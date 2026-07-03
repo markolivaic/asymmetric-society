@@ -1,4 +1,4 @@
-"""Welfare-inequality metrics (ZAV-21): Gini, Atkinson, capability premium.
+"""Welfare-inequality metrics: Gini, Atkinson, capability premium.
 
 Inequality of realized payoffs is the thesis headline metric (Decision Log,
 2026-05-15): almost no LLM-agent paper foregrounds it. These functions operate on
